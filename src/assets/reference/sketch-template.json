@@ -1,0 +1,44 @@
+{
+  "userID": "000000",
+  "userName": "user name",
+  "scenes": [
+    {
+      "sceneName": "scene name",
+      "spindle": {
+        "position": {"x": 0, "y": 0, "z": 0},
+        "roation": {"x": 0, "y": 0, "z": 0}
+      },
+      "threads": [
+        {
+          "color": "white",
+          "points": [
+            [0, 0, 0],
+            [300, 300, 0]
+          ]
+        },
+        {
+          "color": "orange",
+          "points": [
+          ]
+        }
+      ]
+    },
+    {
+      "sceneName": "scene name",
+      "threads": [
+        {
+          "color": "white",
+          "points": [
+            [0, 0, 0],
+            [300, 300, 0]
+          ]
+        },
+        {
+          "color": "orange",
+          "points": [
+          ]
+        }
+      ]
+    }
+  ]
+}
