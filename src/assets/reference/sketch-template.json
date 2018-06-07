@@ -3,38 +3,71 @@
   "userName": "user name",
   "scenes": [
     {
-      "sceneName": "scene name",
+      "name": "My First Scene",
+      "id": "000001",
+      "author": "Eric Schirtzinger",
       "spindle": {
+        "isVisible": true,
         "position": {"x": 0, "y": 0, "z": 0},
-        "roation": {"x": 0, "y": 0, "z": 0}
+        "roationSpeed": {"x": 0, "y": 0, "z": 0},
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+      },
+      "grid": {
+        "isVisible": false
       },
       "threads": [
         {
-          "color": "white",
+          "position": [0,0,0],
+          "rotationSpeed": {"x": 1, "y": 1, "z": 1},
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "color": "green",
           "points": [
-            [0, 0, 0],
-            [300, 300, 0]
+            [-10, -10, 0],
+            [-10, 10, 0],
+            [10, 10, 0],
+            [10, -10, 0],
+            [-10, -10, 0]
           ]
         },
         {
+          "position": [0,0,0],
+          "rotationSpeed": {"x": 1, "y": 2, "z": 0},
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
           "color": "orange",
-          "points": [
-          ]
+          "points": []
         }
       ]
     },
     {
-      "sceneName": "scene name",
+      "name": "My Second Scene",
+      "id": "000002",
+      "author": "Mina Stumpfoll",
+      "spindle": {
+        "isVisible": true,
+        "position": {"x": 0, "y": 0, "z": 0},
+        "roationSpeed": {"x": 0, "y": 0, "z": 0},
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+      },
+      "grid": {
+        "isVisible": false
+      },
       "threads": [
         {
-          "color": "white",
+          "position": [0,0,0],
+          "rotationSpeed": {"x": 0, "y": 0, "z": 0},
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "color": "lightblue",
           "points": [
             [0, 0, 0],
-            [300, 300, 0]
+            [40, 150, 0],
+            [300, 100, 0]
           ]
         },
         {
-          "color": "orange",
+          "position": [0,0,0],
+          "rotationSpeed": {"x": 0, "y": 0, "z": 0},
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "color": "white",
           "points": [
           ]
         }
