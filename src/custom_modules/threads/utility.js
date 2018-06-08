@@ -5,9 +5,15 @@
  * @author Eric Schirtzinger
  */
 
-// 4x4 matrix math functions
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
-var m4 = twgl.m4
+export {
+  renderGrid,
+  renderSpindle,
+  renderThread,
+  moveToTx,
+  lineToTx
+}
+const m4 = twgl.m4
 
 /**
  * moveToTx() move the path to the 2d point on the
@@ -36,7 +42,7 @@ function lineToTx (loc, Tx, context) {
 }
 
 /**
- * drawSpindle() draws an axis to
+ * renderSpindle() draws an axis to
  * the canvas, transforming it via the transformation
  * matrix specified by the user.
  * @param Tx // the 4x4 transformation matrix
@@ -44,7 +50,7 @@ function lineToTx (loc, Tx, context) {
  * @param context // html convas canvas
  * @param color // OPTIONAL, string specified color
  */
-function drawSpindle (Tx, size, context, color) {
+function renderSpindle (Tx, size, context, color) {
   context.strokeStyle = color || 'white'
   context.beginPath()
   moveToTx([-size, 0, 0], Tx, context)
@@ -59,13 +65,13 @@ function drawSpindle (Tx, size, context, color) {
 }
 
 /**
-  * drawGrid() draws a grid to
+  * renderGrid() draws a grid to
   * the canvas with specified transform
   * @param Tx 4x4 transformation matrix
   * @param spacing distance between lines
   * @param divs number of grid divisions (rounds to odd value)
   */
-function drawGrid (Tx, spacing, divs, context, color) {
+function renderGrid (Tx, spacing, divs, context, color) {
   context.strokeStyle = color || 'rgba(255,255,255,.15)'
   context.beginPath()
   divs = divs % 2 === 0 ? divs + 1 : divs
@@ -94,9 +100,23 @@ function drawGrid (Tx, spacing, divs, context, color) {
   context.stroke()
 }
 
-export {
-  drawGrid,
-  drawSpindle,
-  moveToTx,
-  lineToTx
+/**
+ * draws a thread (series of coordinate triples)
+ * to the screen, conecting each point
+ * @param  {[type]} thread [description]
+ * @param  {[type]} ctx    [description]
+ * @param  {[type]} Tmvp   [description]
+ * @return {[type]}        [description]
+ */
+function renderThread (Tmvp, thread, context) {
+  context.beginPath()
+  context.strokeStyle = thread.color
+  let points = thread.points
+  if (points.length > 0) {
+    moveToTx(points[0], Tmvp, context)
+  }
+  for (let i = 1; i < points.length; i++) {
+    lineToTx(points[i], Tmvp, context)
+  }
+  context.stroke()
 }

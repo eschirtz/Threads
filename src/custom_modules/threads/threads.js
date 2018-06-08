@@ -1,6 +1,12 @@
 import * as Util from './utility.js'
 import * as Transform from './transforms.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
+export {
+  render,
+  update,
+  initialize,
+  addPoint
+}
 const m4 = twgl.m4
 
 /**
@@ -31,36 +37,27 @@ function render (scene, canvas) {
   let width = canvas.width
   let height = canvas.height
   let ctx = canvas.getContext('2d')
+  let camera = scene.camera
+  let grid = scene.grid
   // Clear canvas for drawing
   ctx.clearRect(0, 0, width, height)
   // Calculate camera transform
   let TScreenPosition = m4.translation([width / 2, height / 2, 0])
   let TScreenOrientation = m4.scaling([1, -1, 1])
-  let Tcamera = Transform.combine([TScreenPosition, TScreenOrientation])
+  let txTemp = Transform.computeCameraTx(camera)
+  let Tcamera = Transform.combine([TScreenPosition, TScreenOrientation, txTemp])
   // Draw all threads to screne
   scene.threads.forEach(function (thread) {
     // Calculate transform
     let Tmvp = Transform.combine([Tcamera, thread.tx])
-    ctx.beginPath()
-    ctx.strokeStyle = thread.color
-    let points = thread.points
-    if (points.length > 0) {
-      Util.moveToTx(points[0], Tmvp, ctx)
-    }
-    for (let i = 1; i < points.length; i++) {
-      Util.lineToTx(points[i], Tmvp, ctx)
-    }
-    ctx.stroke()
+    Util.renderThread(Tmvp, thread, ctx)
   })
   // Draw rest of environement
   if (scene.spindle.isVisible) {
-    // TODO: get T matrix from json
-    // multiply with view matrix
-    // render
-    // ** every object (thread, spindle, groundplane, etc) has it's own transform
-    // and position... maybe, maybe the position is wrapped up in the transform,
-    // think on that
-    Util.drawSpindle(scene.spindle.tx, 10, ctx, 'orange')
+    Util.renderSpindle(scene.spindle.tx, 10, ctx, 'orange')
+  }
+  if (grid.isVisible) {
+    Util.renderGrid(Tcamera, grid.spacing, grid.divisions, ctx, grid.color)
   }
 }
 
@@ -102,5 +99,3 @@ function initialize (canvas, savedScene) {
   render(scene, canvas)
   return scene
 }
-
-export {render, update, initialize, addPoint}

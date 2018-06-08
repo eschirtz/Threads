@@ -6,18 +6,27 @@
       "name": "My First Scene",
       "id": "000001",
       "author": "Eric Schirtzinger",
+      "camera": {
+        "position": [0, 30, 100],
+        "target": [0, 0, 0],
+        "up": [0, 1, 0]
+      },
       "spindle": {
         "isVisible": true,
-        "position": {"x": 0, "y": 0, "z": 0},
+        "position": [0, 0, 0],
         "roationSpeed": {"x": 0, "y": 0, "z": 0},
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
       "grid": {
-        "isVisible": false
+        "isVisible": true,
+        "position": [0, 0, 0],
+        "divisions": 10,
+        "spacing": 10,
+        "color": "rgba(255, 255, 255, 0.25)"
       },
       "threads": [
         {
-          "position": [0,0,0],
+          "position": [0, 0, 0],
           "rotationSpeed": {"x": 1, "y": 1, "z": 1},
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
           "color": "green",
@@ -44,7 +53,7 @@
       "author": "Mina Stumpfoll",
       "spindle": {
         "isVisible": true,
-        "position": {"x": 0, "y": 0, "z": 0},
+        "position": [0, 0, 0],
         "roationSpeed": {"x": 0, "y": 0, "z": 0},
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
@@ -53,7 +62,7 @@
       },
       "threads": [
         {
-          "position": [0,0,0],
+          "position": [0, 0, 0],
           "rotationSpeed": {"x": 0, "y": 0, "z": 0},
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
           "color": "lightblue",
@@ -64,7 +73,7 @@
           ]
         },
         {
-          "position": [0,0,0],
+          "position": [0, 0, 0],
           "rotationSpeed": {"x": 0, "y": 0, "z": 0},
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
           "color": "white",
