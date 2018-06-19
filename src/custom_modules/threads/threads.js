@@ -19,10 +19,10 @@ const m4 = twgl.m4
  * @param {[type]} y     [description]
  */
 function addPoint (scene, x, y) {
-  let currentThread = scene.threads[scene.threads.length - 1] // TODO: chose thread
+  let currentThread = scene.threads[scene.activeThread]
   let tx = Transform.combine([scene.camera.tx, currentThread.tx])
   let invTx = m4.inverse(tx)
-  let point = m4.transformPoint(invTx, [x, y, 0])
+  let point = m4.transformPoint(invTx, [x, y, -scene.camera.position[2]])
   currentThread.points.push(point)
 }
 /**
@@ -76,15 +76,19 @@ function update (scene) {
   camera.tx = Transform.combine([TScreenPosition, TScreenOrientation, txTemp])
   // Update each thread
   scene.threads.forEach(function (thread) {
-    let dx = 1 / 60 // difference in time since last call
-    let Tx = thread.tx // get the transform to be updated
+    let dt = 1 / 60 // difference in time since last call
+    thread.rotation[0] += thread.rotationSpeed[0] * dt
+    thread.rotation[1] += thread.rotationSpeed[1] * dt
+    thread.rotation[2] += thread.rotationSpeed[2] * dt
+    thread.tx = m4.identity()
+    thread.tx = m4.translation(thread.tx, thread.position)
     // Rotations
-    Tx = m4.axisRotate(Tx, [1, 0, 0], thread.rotationSpeed.x * dx)
-    Tx = m4.axisRotate(Tx, [0, 1, 0], thread.rotationSpeed.y * dx)
-    Tx = m4.axisRotate(Tx, [0, 0, 1], thread.rotationSpeed.z * dx)
-    // update the threads transform
-    thread.tx = Tx
+    thread.tx = m4.rotateX(thread.tx, thread.rotation[0])
+    thread.tx = m4.rotateY(thread.tx, thread.rotation[1])
+    thread.tx = m4.rotateZ(thread.tx, thread.rotation[2])
   })
+  // update spindle position to match active thread
+  scene.spindle.tx = scene.threads[scene.activeThread].tx
 }
 
 /**
