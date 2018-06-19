@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       scene: userData.scenes[0], // load first scene for now TODO
-      frameID: 0,
+      frameID: undefined,
       mouse: {
         down: false,
         position: {
@@ -38,20 +38,19 @@ export default {
     },
     canvasClick (event) {
       Threads.addPoint(this.scene, event.clientX, event.clientY)
-      // this.frame()
     },
     // Make canvas fill screen
     setCanvasSize () {
       this.$refs.canvas.width = window.innerWidth
       this.$refs.canvas.height = window.innerHeight
+      this.scene.width = this.$refs.canvas.width // update the scene dimensions
+      this.scene.height = this.$refs.canvas.height
       Threads.render(this.scene, this.$refs.canvas) // re-render
     },
     // get current position of the mouse
     getMousePosition (event) {
       let eventDoc, doc, body
-
       event = event || window.event // IE-ism
-
       // If pageX/Y aren't available and clientX/Y are,
       // calculate pageX/Y - logic taken from jQuery.
       // (This is to support old IE)

@@ -20,7 +20,10 @@ const m4 = twgl.m4
  */
 function addPoint (scene, x, y) {
   let currentThread = scene.threads[scene.threads.length - 1] // TODO: chose thread
-  currentThread.points.push([x, y, 0])
+  let tx = Transform.combine([scene.camera.tx, currentThread.tx])
+  let invTx = m4.inverse(tx)
+  let point = m4.transformPoint(invTx, [x, y, 0])
+  currentThread.points.push(point)
 }
 /**
  * Render is responsible for drawing the
@@ -31,33 +34,28 @@ function addPoint (scene, x, y) {
  */
 function render (scene, canvas) {
   if (canvas === undefined) {
-    console.error('Failed to render: "' + scene.name + '"')
+    console.error('HTML canvas is required to render scene "' + scene.name + '"')
     return false // indicate fail to render
   }
-  let width = canvas.width
-  let height = canvas.height
   let ctx = canvas.getContext('2d')
-  let camera = scene.camera
+  let camera = scene.camera // camera contains projection data
   let grid = scene.grid
   // Clear canvas for drawing
-  ctx.clearRect(0, 0, width, height)
-  // Calculate camera transform
-  let TScreenPosition = m4.translation([width / 2, height / 2, 0])
-  let TScreenOrientation = m4.scaling([1, -1, 1])
-  let txTemp = Transform.computeCameraTx(camera)
-  let Tcamera = Transform.combine([TScreenPosition, TScreenOrientation, txTemp])
+  ctx.clearRect(0, 0, scene.width, scene.height)
   // Draw all threads to screne
   scene.threads.forEach(function (thread) {
-    // Calculate transform
-    let Tmvp = Transform.combine([Tcamera, thread.tx])
-    Util.renderThread(Tmvp, thread, ctx)
+    // Calculate the projection transform
+    let tx = Transform.combine([camera.tx, thread.tx])
+    Util.renderThread(tx, thread, ctx)
   })
-  // Draw rest of environement
+  // Draw the rest of the environement
   if (scene.spindle.isVisible) {
-    Util.renderSpindle(scene.spindle.tx, 10, ctx, 'orange')
+    let tx = Transform.combine([camera.tx, scene.spindle.tx])
+    Util.renderSpindle(tx, 10, ctx, 'orange')
   }
   if (grid.isVisible) {
-    Util.renderGrid(Tcamera, grid.spacing, grid.divisions, ctx, grid.color)
+    let tx = Transform.combine([camera.tx, scene.grid.tx])
+    Util.renderGrid(tx, grid.spacing, grid.divisions, ctx, grid.color)
   }
 }
 
@@ -69,6 +67,14 @@ function render (scene, canvas) {
  * @return {[type]} [description]
  */
 function update (scene) {
+  // Update camera
+  let camera = scene.camera
+  // Calculate camera transform
+  let TScreenPosition = m4.translation([scene.width / 2, scene.height / 2, 0])
+  let TScreenOrientation = m4.scaling([1, -1, 1])
+  let txTemp = Transform.computeCameraTx(camera)
+  camera.tx = Transform.combine([TScreenPosition, TScreenOrientation, txTemp])
+  // Update each thread
   scene.threads.forEach(function (thread) {
     let dx = 1 / 60 // difference in time since last call
     let Tx = thread.tx // get the transform to be updated

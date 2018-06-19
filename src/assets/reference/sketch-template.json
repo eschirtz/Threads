@@ -6,10 +6,13 @@
       "name": "My First Scene",
       "id": "000001",
       "author": "Eric Schirtzinger",
+      "width": 0,
+      "height": 0,
       "camera": {
         "position": [0, 30, 100],
         "target": [0, 0, 0],
-        "up": [0, 1, 0]
+        "up": [0, 1, 0],
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
       "spindle": {
         "isVisible": true,
@@ -22,13 +25,13 @@
         "position": [0, 0, 0],
         "divisions": 10,
         "spacing": 10,
-        "color": "rgba(255, 255, 255, 0.25)"
+        "color": "rgba(255, 255, 255, 0.25)",
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
       "threads": [
         {
           "position": [0, 0, 0],
-          "rotationSpeed": {"x": 1, "y": 1, "z": 1},
-          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "rotationSpeed": {"x": 0, "y": 0, "z": 0},
           "color": "green",
           "points": [
             [-10, -10, 0],
@@ -36,14 +39,15 @@
             [10, 10, 0],
             [10, -10, 0],
             [-10, -10, 0]
-          ]
+          ],
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
         },
         {
           "position": [0,0,0],
-          "rotationSpeed": {"x": 1, "y": 2, "z": 0},
-          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "rotationSpeed": {"x": 0, "y": 1, "z": 0},
           "color": "orange",
-          "points": []
+          "points": [],
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
         }
       ]
     },
@@ -57,8 +61,19 @@
         "roationSpeed": {"x": 0, "y": 0, "z": 0},
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
+      "camera": {
+        "position": [0, 30, 100],
+        "target": [0, 0, 0],
+        "up": [0, 1, 0],
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+      },
       "grid": {
-        "isVisible": false
+        "isVisible": true,
+        "position": [0, 0, 0],
+        "divisions": 10,
+        "spacing": 10,
+        "color": "rgba(255, 255, 255, 0.25)",
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
       "threads": [
         {
