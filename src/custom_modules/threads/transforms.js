@@ -29,11 +29,10 @@ function combine (Txs) {
 }
 /**
  * Computes a camera transform given a
- * regularly formatted camera object
- * @param  {[type]} camera has feilds position, target and eye
+ * regularly formatted scene object
+ * @param  {[type]} scene the entire scene
  * @return {[type]} Tcamera, the camera transform
  */
-function computeCameraTx (camera) {
-  let TlookAt = m4.lookAt(camera.position, camera.target, camera.up)
-  return m4.inverse(TlookAt)
+function computeCameraTx (scene) {
+  return null
 }

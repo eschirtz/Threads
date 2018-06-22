@@ -40,21 +40,27 @@ function render (scene, canvas) {
   let ctx = canvas.getContext('2d')
   let camera = scene.camera // camera contains projection data
   let grid = scene.grid
+  let spindle = scene.spindle
+  // Camera Projection Viewport transform
+  let Tcamera = camera.tx
+  let Tprojection = m4.perspective(Math.PI / 1.2, scene.width / scene.height, 5, 400)
+  let Tviewport = m4.multiply(m4.scaling([scene.width, -scene.height, 10]), m4.translation([scene.width / 2, -scene.height / 2, 0]))
+  let Tcpv = m4.multiply(m4.multiply(Tcamera, Tprojection), Tviewport)
   // Clear canvas for drawing
   ctx.clearRect(0, 0, scene.width, scene.height)
   // Draw all threads to screne
   scene.threads.forEach(function (thread) {
     // Calculate the projection transform
-    let tx = Transform.combine([camera.tx, thread.tx])
+    let tx = m4.multiply(thread.tx, Tcpv)
     Util.renderThread(tx, thread, ctx)
   })
   // Draw the rest of the environement
-  if (scene.spindle.isVisible) {
-    let tx = Transform.combine([camera.tx, scene.spindle.tx])
-    Util.renderSpindle(tx, 10, ctx, 'orange')
+  if (spindle.isVisible) {
+    let tx = m4.multiply(spindle.tx, Tcpv)
+    Util.renderSpindle(tx, 10, ctx, spindle.color)
   }
   if (grid.isVisible) {
-    let tx = Transform.combine([camera.tx, scene.grid.tx])
+    let tx = m4.multiply(grid.tx, Tcpv)
     Util.renderGrid(tx, grid.spacing, grid.divisions, ctx, grid.color)
   }
 }
@@ -69,23 +75,20 @@ function render (scene, canvas) {
 function update (scene) {
   // Update camera
   let camera = scene.camera
-  // Calculate camera transform
-  let TScreenPosition = m4.translation([scene.width / 2, scene.height / 2, 0])
-  let TScreenOrientation = m4.scaling([1, -1, 1])
-  let txTemp = Transform.computeCameraTx(camera)
-  camera.tx = Transform.combine([TScreenPosition, TScreenOrientation, txTemp])
+  // Update camera transform
+  camera.tx = m4.lookAt(camera.position, camera.target, camera.up)
   // Update each thread
   scene.threads.forEach(function (thread) {
     let dt = 1 / 60 // difference in time since last call
     thread.rotation[0] += thread.rotationSpeed[0] * dt
     thread.rotation[1] += thread.rotationSpeed[1] * dt
     thread.rotation[2] += thread.rotationSpeed[2] * dt
-    thread.tx = m4.identity()
-    thread.tx = m4.translation(thread.tx, thread.position)
-    // Rotations
-    thread.tx = m4.rotateX(thread.tx, thread.rotation[0])
-    thread.tx = m4.rotateY(thread.tx, thread.rotation[1])
-    thread.tx = m4.rotateZ(thread.tx, thread.rotation[2])
+    let Txtrans = m4.translation(thread.position)
+    let Txrot = m4.rotationX(thread.rotation[0])
+    let Tyrot = m4.rotationY(thread.rotation[1])
+    let Tzrot = m4.rotationZ(thread.rotation[2])
+    let Trotation = Transform.combine([Txrot, Tyrot, Tzrot])
+    thread.tx = m4.multiply(Txtrans, Trotation)
   })
   // update spindle position to match active thread
   scene.spindle.tx = scene.threads[scene.activeThread].tx
