@@ -19,11 +19,25 @@ const m4 = twgl.m4
  * @param {[type]} y     [description]
  */
 function addPoint (scene, x, y) {
+  let camera = scene.camera
   let currentThread = scene.threads[scene.activeThread]
-  let tx = Transform.combine([scene.camera.tx, currentThread.tx])
-  let invTx = m4.inverse(tx)
-  let point = m4.transformPoint(invTx, [x, y, -scene.camera.position[2]])
+  let iTtranslate = m4.inverse(m4.translation([scene.width / 2, scene.height / 2, 0]))
+  // let iTscale = m4.inverse(m4.scaling([scene.width / 2, -scene.height / 2, 1]))
+  let iTscale = m4.inverse(m4.scaling([1, -1, 1]))
+  let iTprojection = m4.inverse(m4.perspective(
+    camera.fieldOfView,
+    scene.width / scene.height,
+    camera.zNear,
+    camera.zFar))
+  let iTcamera = m4.inverse(m4.lookAt(
+    camera.position,
+    camera.target,
+    camera.up))
+  let iTmodel = m4.inverse(currentThread.tx)
+  let iTx = Transform.combine([iTmodel, iTcamera, iTscale, iTtranslate])
+  let point = m4.transformPoint(iTx, [x, y, 0.0]) // TODO change back to x and y
   currentThread.points.push(point)
+  console.log(point)
 }
 /**
  * Render is responsible for drawing the
@@ -38,29 +52,41 @@ function render (scene, canvas) {
     return false // indicate fail to render
   }
   let ctx = canvas.getContext('2d')
-  let camera = scene.camera // camera contains projection data
   let grid = scene.grid
   let spindle = scene.spindle
-  // Camera Projection Viewport transform
-  let Tcamera = camera.tx
-  let Tprojection = m4.perspective(Math.PI / 1.2, scene.width / scene.height, 5, 400)
-  let Tviewport = m4.multiply(m4.scaling([scene.width, -scene.height, 10]), m4.translation([scene.width / 2, -scene.height / 2, 0]))
-  let Tcpv = m4.multiply(m4.multiply(Tcamera, Tprojection), Tviewport)
+  let camera = scene.camera
+  // Compute the camera projection viewport transform
+  let Tcamera = Transform.cameraTx(
+    camera.position,
+    camera.target,
+    camera.up)
+  let Tprojection = m4.perspective(
+    camera.fieldOfView,
+    scene.width / scene.height,
+    camera.zNear,
+    camera.zFar)
+  let Tviewport = Transform.viewportTx(
+    scene.width,
+    scene.height,
+    false
+  )
+  // View + Projection Matrix
+  let Tcpv = Transform.combine([Tviewport, Tcamera])
   // Clear canvas for drawing
   ctx.clearRect(0, 0, scene.width, scene.height)
-  // Draw all threads to screne
+  // Draw all threads to scene
   scene.threads.forEach(function (thread) {
-    // Calculate the projection transform
-    let tx = m4.multiply(thread.tx, Tcpv)
+    let tx = Transform.combine([Tcpv, thread.tx])
     Util.renderThread(tx, thread, ctx)
   })
-  // Draw the rest of the environement
+  // Draw the spindle
   if (spindle.isVisible) {
-    let tx = m4.multiply(spindle.tx, Tcpv)
-    Util.renderSpindle(tx, 10, ctx, spindle.color)
+    let tx = Transform.combine([Tcpv, spindle.tx])
+    Util.renderSpindle(tx, spindle.size, ctx, spindle.color)
   }
+  // Draw the grid
   if (grid.isVisible) {
-    let tx = m4.multiply(grid.tx, Tcpv)
+    let tx = Transform.combine([Tcpv, grid.tx])
     Util.renderGrid(tx, grid.spacing, grid.divisions, ctx, grid.color)
   }
 }
@@ -75,23 +101,31 @@ function render (scene, canvas) {
 function update (scene) {
   // Update camera
   let camera = scene.camera
-  // Update camera transform
-  camera.tx = m4.lookAt(camera.position, camera.target, camera.up)
+  let orbitalCamera = false
+  if (orbitalCamera) {
+    camera.position[0] = camera.radius * Math.sin(camera.phi) * Math.cos(camera.theta)
+    camera.position[2] = camera.radius * Math.sin(camera.phi) * Math.sin(camera.theta)
+    camera.position[1] = camera.radius * Math.cos(camera.phi)
+  }
+  camera.target = scene.spindle.position
   // Update each thread
   scene.threads.forEach(function (thread) {
-    let dt = 1 / 60 // difference in time since last call
+    let dt = 1 / 60 // difference in time since last call TODO
     thread.rotation[0] += thread.rotationSpeed[0] * dt
     thread.rotation[1] += thread.rotationSpeed[1] * dt
     thread.rotation[2] += thread.rotationSpeed[2] * dt
-    let Txtrans = m4.translation(thread.position)
-    let Txrot = m4.rotationX(thread.rotation[0])
-    let Tyrot = m4.rotationY(thread.rotation[1])
-    let Tzrot = m4.rotationZ(thread.rotation[2])
-    let Trotation = Transform.combine([Txrot, Tyrot, Tzrot])
-    thread.tx = m4.multiply(Txtrans, Trotation)
+    // update each model transform
+    let Trotation = Transform.combine([
+      m4.rotationX(thread.rotation[0]),
+      m4.rotationY(thread.rotation[1]),
+      m4.rotationZ(thread.rotation[2])
+    ])
+    let Tposition = m4.translation(thread.position)
+    thread.tx = Transform.combine([Tposition, Trotation])
   })
   // update spindle position to match active thread
   scene.spindle.tx = scene.threads[scene.activeThread].tx
+  scene.spindle.position = scene.threads[scene.activeThread].position
 }
 
 /**

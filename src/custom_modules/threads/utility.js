@@ -16,6 +16,27 @@ export {
 const m4 = twgl.m4
 
 /**
+ * draws a thread (series of coordinate triples)
+ * to the screen, conecting each point
+ * @param  {[type]} thread [description]
+ * @param  {[type]} ctx    [description]
+ * @param  {[type]} Tmvp   [description]
+ * @return {[type]}        [description]
+ */
+function renderThread (Tmvp, thread, context) {
+  context.beginPath()
+  context.strokeStyle = thread.color
+  let points = thread.points
+  if (points.length > 0) {
+    moveToTx(points[0], Tmvp, context)
+  }
+  for (let i = 1; i < points.length; i++) {
+    lineToTx(points[i], Tmvp, context)
+  }
+  context.stroke()
+}
+
+/**
  * moveToTx() move the path to the 2d point on the
  * canvas specified by 3d coordinate and transform.
  * @param loc // the 3d coordinate triple
@@ -39,6 +60,9 @@ function moveToTx (loc, Tx, context) {
 function lineToTx (loc, Tx, context) {
   var locTx = m4.transformPoint(Tx, loc)
   context.lineTo(locTx[0], locTx[1])
+  if (locTx[2] > 1 || locTx[2] < 0) {
+    // console.warn('Clipping occuring')
+  } // TODO z-buffer
 }
 
 /**
@@ -96,27 +120,6 @@ function renderGrid (Tx, spacing, divs, context, color) {
     moveToTx([-i * spacing, 0, negLength], Tx, context); lineToTx([-i * spacing, 0, posLength], Tx, context)
     // z=i*spacing
     moveToTx([negLength, 0, -i * spacing], Tx, context); lineToTx([posLength, 0, -i * spacing], Tx, context)
-  }
-  context.stroke()
-}
-
-/**
- * draws a thread (series of coordinate triples)
- * to the screen, conecting each point
- * @param  {[type]} thread [description]
- * @param  {[type]} ctx    [description]
- * @param  {[type]} Tmvp   [description]
- * @return {[type]}        [description]
- */
-function renderThread (Tmvp, thread, context) {
-  context.beginPath()
-  context.strokeStyle = thread.color
-  let points = thread.points
-  if (points.length > 0) {
-    moveToTx(points[0], Tmvp, context)
-  }
-  for (let i = 1; i < points.length; i++) {
-    lineToTx(points[i], Tmvp, context)
   }
   context.stroke()
 }
