@@ -7,7 +7,8 @@
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
 export {
   combine,
-  computeCameraTx
+  cameraTx,
+  viewportTx
 }
 const m4 = twgl.m4
 
@@ -27,13 +28,25 @@ function combine (Txs) {
   }
   return Tx
 }
+
+function cameraTx (eye, target, up) {
+  return m4.inverse(m4.lookAt(
+    eye,
+    target,
+    up
+  ))
+}
+
 /**
- * Computes a camera transform given a
- * regularly formatted camera object
- * @param  {[type]} camera has feilds position, target and eye
- * @return {[type]} Tcamera, the camera transform
+ * Computes a viewport transform
+ * @param  {[type]}  width        width of the viewport
+ * @param  {[type]}  height       height of the viewport
+ * @param  {Boolean} isNormalized true if coordinates are -1 to 1
  */
-function computeCameraTx (camera) {
-  let TlookAt = m4.lookAt(camera.position, camera.target, camera.up)
-  return m4.inverse(TlookAt)
+function viewportTx (width, height, isNormalized) {
+  let Txtrans = m4.translation([width / 2, height / 2, 0])
+  let Txscaling = isNormalized
+    ? m4.scaling([width / 2, -height / 2, 1])
+    : m4.scaling([1, -1, 1])
+  return combine([Txtrans, Txscaling])
 }
