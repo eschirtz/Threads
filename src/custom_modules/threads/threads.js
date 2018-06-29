@@ -39,12 +39,16 @@ function addPoint (scene, x, y) {
   )
   let Tmodel = currentThread.tx
   let distanceToSpindle = v3.distance(camera.position, scene.spindle.position)
-  let frustrumDepth = camera.zFar - camera.zNear
-  let nDepth = (distanceToSpindle - camera.zNear) / frustrumDepth
+  let frustrumDepth = Math.abs(camera.zFar - camera.zNear)
+  // let nDepth = (frustrumDepth - distanceToSpindle + camera.zNear) / frustrumDepth // 2.8 ish, magic number
+  let nDepth = 2 * ((Math.abs(distanceToSpindle - camera.zNear)) / frustrumDepth) - 1
+  console.log('nDepth: ' + nDepth)
   let Tx = Transform.combine([Tviewport, Tprojection, Tcamera, Tmodel])
   let iTx = m4.inverse(Tx)
   let point = m4.transformPoint(iTx, [x, y, nDepth])
-  console.log(point)
+  console.log('Distance to spindle: ' + distanceToSpindle.toFixed(2))
+  console.log('Frustrum Depth: ' + frustrumDepth.toFixed(2))
+  console.log('Point: ' + point[0].toFixed(2) + ', ' + point[1].toFixed(2) + ', ' + point[2].toFixed(2))
   currentThread.points.push(point)
 }
 /**

@@ -10,7 +10,7 @@
       "height": 0,
       "activeThread": 1,
       "camera": {
-        "position": [0, 10, 50],
+        "position": [0, 0, 50],
         "radius": 250,
         "theta": 0,
         "phi": 0.3,
@@ -19,7 +19,7 @@
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
         "fieldOfView": 1.57079,
         "zNear": 10,
-        "zFar": 200
+        "zFar": 1000
       },
       "spindle": {
         "isVisible": true,
