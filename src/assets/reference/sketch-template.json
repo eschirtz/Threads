@@ -10,7 +10,7 @@
       "height": 0,
       "activeThread": 1,
       "camera": {
-        "position": [0, 50, 100],
+        "position": [0, 10, 50],
         "radius": 250,
         "theta": 0,
         "phi": 0.3,
@@ -18,8 +18,8 @@
         "up": [0, 1, 0],
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
         "fieldOfView": 1.57079,
-        "zNear": 1,
-        "zFar": 1000
+        "zNear": 10,
+        "zFar": 200
       },
       "spindle": {
         "isVisible": true,
@@ -55,7 +55,7 @@
         {
           "position": [0,0,0],
           "rotation": [0, 0, 0],
-          "rotationSpeed": [0, 0, 2],
+          "rotationSpeed": [0, 0, 1],
           "color": "yellow",
           "points": [],
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]

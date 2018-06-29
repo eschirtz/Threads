@@ -8,6 +8,7 @@ export {
   addPoint
 }
 const m4 = twgl.m4
+const v3 = twgl.v3
 
 /**
  * Adds a single point into the scene
@@ -21,23 +22,30 @@ const m4 = twgl.m4
 function addPoint (scene, x, y) {
   let camera = scene.camera
   let currentThread = scene.threads[scene.activeThread]
-  let iTtranslate = m4.inverse(m4.translation([scene.width / 2, scene.height / 2, 0]))
-  // let iTscale = m4.inverse(m4.scaling([scene.width / 2, -scene.height / 2, 1]))
-  let iTscale = m4.inverse(m4.scaling([1, -1, 1]))
-  let iTprojection = m4.inverse(m4.perspective(
+  // Compute the camera projection viewport transform
+  let Tcamera = Transform.cameraTx(
+    camera.position,
+    camera.target,
+    camera.up)
+  let Tprojection = m4.perspective(
     camera.fieldOfView,
     scene.width / scene.height,
     camera.zNear,
-    camera.zFar))
-  let iTcamera = m4.inverse(m4.lookAt(
-    camera.position,
-    camera.target,
-    camera.up))
-  let iTmodel = m4.inverse(currentThread.tx)
-  let iTx = Transform.combine([iTmodel, iTcamera, iTscale, iTtranslate])
-  let point = m4.transformPoint(iTx, [x, y, 0.0]) // TODO change back to x and y
-  currentThread.points.push(point)
+    camera.zFar)
+  let Tviewport = Transform.viewportTx(
+    scene.width,
+    scene.height,
+    true
+  )
+  let Tmodel = currentThread.tx
+  let distanceToSpindle = v3.distance(camera.position, scene.spindle.position)
+  let frustrumDepth = camera.zFar - camera.zNear
+  let nDepth = (distanceToSpindle - camera.zNear) / frustrumDepth
+  let Tx = Transform.combine([Tviewport, Tprojection, Tcamera, Tmodel])
+  let iTx = m4.inverse(Tx)
+  let point = m4.transformPoint(iTx, [x, y, nDepth])
   console.log(point)
+  currentThread.points.push(point)
 }
 /**
  * Render is responsible for drawing the
@@ -68,10 +76,10 @@ function render (scene, canvas) {
   let Tviewport = Transform.viewportTx(
     scene.width,
     scene.height,
-    false
+    true
   )
   // View + Projection Matrix
-  let Tcpv = Transform.combine([Tviewport, Tcamera])
+  let Tcpv = Transform.combine([Tviewport, Tprojection, Tcamera])
   // Clear canvas for drawing
   ctx.clearRect(0, 0, scene.width, scene.height)
   // Draw all threads to scene
