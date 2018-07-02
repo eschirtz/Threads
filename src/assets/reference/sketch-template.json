@@ -19,7 +19,7 @@
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
         "fieldOfView": 1.57079,
         "zNear": 10,
-        "zFar": 1000
+        "zFar": 90
       },
       "spindle": {
         "isVisible": true,
