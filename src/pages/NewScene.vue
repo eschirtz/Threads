@@ -3,9 +3,8 @@
     <canvas
       id="main-canvas"
       ref="canvas"
-      @click="canvasClick"
-      @mousedown="mouse.down=true"
-      @mouseup="mouse.down=false"
+      @mousedown.left="mouse.down=true"
+      @mouseup.left="mouse.down=false"
     ></canvas>
   </v-container>
 </template>
@@ -36,9 +35,6 @@ export default {
       Threads.render(this.scene, this.$refs.canvas)
       this.frameID = window.requestAnimationFrame(this.frame)
     },
-    canvasClick (event) {
-      Threads.addPoint(this.scene, event.clientX, event.clientY)
-    },
     // Make canvas fill screen
     setCanvasSize () {
       this.$refs.canvas.width = window.innerWidth
@@ -49,6 +45,7 @@ export default {
     },
     // get current position of the mouse
     getMousePosition (event) {
+      event.preventDefault()
       let eventDoc, doc, body
       event = event || window.event // IE-ism
       // If pageX/Y aren't available and clientX/Y are,
