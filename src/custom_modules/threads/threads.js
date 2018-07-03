@@ -43,13 +43,14 @@ function addPoint (scene, x, y) {
   let zNear = camera.zNear
   let zFar = camera.zFar
   let d = v3.distance(camera.position, currentThread.position)
-  let clippedDepth = 2 * ((zFar + zNear) / (2 * (zFar - zNear)) - zNear * zFar / (d * (zFar - zNear)) + 0.5) - 1
+  // For some insight into how the "clippedDepth" value is calculated
+  // https://www.jwwalker.com/pages/depth_resolution.html
+  let clippedDepth = 2 * ((zFar + zNear) / (2 * (zFar - zNear)) -
+    zNear * zFar / (d * (zFar - zNear)) + 0.5) - 1
   let Tx = Transform.combine([Tviewport, Tprojection, Tcamera, Tmodel])
   let iTx = m4.inverse(Tx)
   let point = m4.transformPoint(iTx, [x, y, clippedDepth])
   currentThread.points.push(point)
-  console.log('nDepth: ' + clippedDepth)
-  console.log('Point: ' + point[0].toFixed(2) + ', ' + point[1].toFixed(2) + ', ' + point[2].toFixed(2))
 }
 /**
  * Render is responsible for drawing the

@@ -10,7 +10,7 @@
       "height": 0,
       "activeThread": 1,
       "camera": {
-        "position": [0, 0, 50],
+        "position": [0, 25, 100],
         "radius": 250,
         "theta": 0,
         "phi": 0.3,
@@ -18,8 +18,8 @@
         "up": [0, 1, 0],
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
         "fieldOfView": 1.57079,
-        "zNear": 10,
-        "zFar": 90
+        "zNear": 50,
+        "zFar": 150
       },
       "spindle": {
         "isVisible": true,
@@ -34,7 +34,7 @@
         "position": [0, 0, 0],
         "divisions": 10,
         "spacing": 10,
-        "color": "orange",
+        "color": "rgba(200, 150, 60, .25)",
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
       "threads": [
@@ -55,7 +55,7 @@
         {
           "position": [0,0,0],
           "rotation": [0, 0, 0],
-          "rotationSpeed": [0, 0, 0],
+          "rotationSpeed": [-2.25, -2, -2.5],
           "color": "yellow",
           "points": [],
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]

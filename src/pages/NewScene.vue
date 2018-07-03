@@ -35,15 +35,14 @@ export default {
       Threads.render(this.scene, this.$refs.canvas)
       this.frameID = window.requestAnimationFrame(this.frame)
     },
-    // Make canvas fill screen
     setCanvasSize () {
+      // Fill screen with canvas
       this.$refs.canvas.width = window.innerWidth
       this.$refs.canvas.height = window.innerHeight
       this.scene.width = this.$refs.canvas.width // update the scene dimensions
       this.scene.height = this.$refs.canvas.height
       Threads.render(this.scene, this.$refs.canvas) // re-render
     },
-    // get current position of the mouse
     getMousePosition (event) {
       event.preventDefault()
       let eventDoc, doc, body
@@ -56,7 +55,6 @@ export default {
         eventDoc = (event.target && event.target.ownerDocument) || document
         doc = eventDoc.documentElement
         body = eventDoc.body
-
         event.pageX = event.clientX +
             (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
             (doc && doc.clientLeft || body && body.clientLeft || 0)
@@ -73,7 +71,7 @@ export default {
     this.$nextTick(function () {
       // initialize scene (must happen first)
       this.scene = Threads.initialize(this.$refs.canvas, this.scene)
-      // Set up DOM
+      // Add event listeners
       window.addEventListener('mousemove', this.getMousePosition)
       window.addEventListener('resize', this.setCanvasSize)
       this.setCanvasSize()
