@@ -5,7 +5,9 @@ export {
   render,
   update,
   initialize,
-  addPoint
+  addPoint,
+  Util,
+  Transform
 }
 const m4 = twgl.m4
 const v3 = twgl.v3
@@ -41,7 +43,7 @@ function addPoint (scene, x, y) {
   let zNear = camera.zNear
   let zFar = camera.zFar
   let d = v3.distance(camera.position, currentThread.position)
-  let clippedDepth = (zFar + zNear) / (2 * (zFar - zNear)) - zNear * zFar / (d * (zFar - zNear)) + 0.5
+  let clippedDepth = 2 * ((zFar + zNear) / (2 * (zFar - zNear)) - zNear * zFar / (d * (zFar - zNear)) + 0.5) - 1
   let Tx = Transform.combine([Tviewport, Tprojection, Tcamera, Tmodel])
   let iTx = m4.inverse(Tx)
   let point = m4.transformPoint(iTx, [x, y, clippedDepth])
