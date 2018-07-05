@@ -28,9 +28,10 @@ export default {
   },
   methods: {
     frame () {
-      if (this.mouse.down) {
-        Threads.addPoint(this.scene, this.mouse.position.x, this.mouse.position.y)
-      }
+      // if (this.mouse.down) {
+      //   // Threads.addPoint(this.scene, this.mouse.position.x, this.mouse.position.y)
+      // }
+      Threads.Controller.executeTimerBasedControls()
       Threads.update(this.scene)
       Threads.render(this.scene, this.$refs.canvas)
       this.frameID = window.requestAnimationFrame(this.frame)

@@ -1,13 +1,18 @@
+/**
+ * Top level application code, relies
+ * on the following custom modules
+ * @type {[type]}
+ */
 import * as Util from './utility.js'
 import * as Transform from './transforms.js'
+import * as Controller from './controller.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
 export {
   render,
   update,
   initialize,
   addPoint,
-  Util,
-  Transform
+  Controller
 }
 const m4 = twgl.m4
 const v3 = twgl.v3
@@ -156,6 +161,7 @@ function initialize (canvas, savedScene) {
     scene = savedScene // load the scene
   }
   scene.lastLoaded = new Date()
+  Controller.initialize(scene, canvas)
   render(scene, canvas)
   return scene
 }
