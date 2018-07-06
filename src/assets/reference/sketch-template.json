@@ -8,7 +8,67 @@
       "author": "Eric Schirtzinger",
       "width": 0,
       "height": 0,
-      "activeThread": 1,
+      "settings": {
+        "stepSize": 0.1
+      },
+      "activeThread": 0,
+      "camera": {
+        "position": [0, 25, 100],
+        "radius": 250,
+        "theta": 0,
+        "phi": 0.3,
+        "target": [0, 0, 0],
+        "up": [0, 1, 0],
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+        "fieldOfView": 1.57079,
+        "zNear": 50,
+        "zFar": 150
+      },
+      "spindle": {
+        "isVisible": true,
+        "position": [0, 0, 0],
+        "color": "white",
+        "size": 10,
+        "roationSpeed": {"x": 0, "y": 0, "z": 0},
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+      },
+      "grid": {
+        "isVisible": true,
+        "position": [0, 0, 0],
+        "divisions": 10,
+        "spacing": 10,
+        "color": "rgba(200, 150, 60, .25)",
+        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+      },
+      "threads": [
+        {
+          "position": [50, 10, 0],
+          "rotation": [0, 0, 0],
+          "rotationSpeed": [0, 0, 0],
+          "color": "green",
+          "points": [],
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        {
+          "position": [0,0,0],
+          "rotation": [0, 0, 0],
+          "rotationSpeed": [0, 0, 0],
+          "color": "yellow",
+          "points": [],
+          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        }
+      ]
+    },
+    {
+      "name": "My Second Scene",
+      "id": "000002",
+      "author": "Ian Schirtzinger",
+      "width": 0,
+      "height": 0,
+      "settings": {
+        "stepSize": 0.1
+      },
+      "activeThread": 0,
       "camera": {
         "position": [0, 25, 100],
         "radius": 250,
@@ -59,58 +119,6 @@
           "color": "yellow",
           "points": [],
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-        }
-      ]
-    },
-    {
-      "name": "My Second Scene",
-      "id": "000002",
-      "author": "Mina Stumpfoll",
-      "width": 0,
-      "height": 0,
-      "activeThread": 1,
-      "spindle": {
-        "isVisible": true,
-        "position": [0, 0, 0],
-        "rotation": [0, 0, 0],
-        "rotationSpeed": [0, 0, 0],
-        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-      },
-      "camera": {
-        "position": [0, 30, 100],
-        "target": [0, 0, 0],
-        "up": [0, 1, 0],
-        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-      },
-      "grid": {
-        "isVisible": true,
-        "position": [0, 0, 0],
-        "divisions": 10,
-        "spacing": 10,
-        "color": "rgba(255, 255, 255, 0.25)",
-        "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-      },
-      "threads": [
-        {
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "rotationSpeed": [0, 0, 0],
-          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-          "color": "lightblue",
-          "points": [
-            [0, 0, 0],
-            [40, 150, 0],
-            [300, 100, 0]
-          ]
-        },
-        {
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
-          "rotationSpeed": [0, 0, 0],
-          "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-          "color": "white",
-          "points": [
-          ]
         }
       ]
     }

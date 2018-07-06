@@ -1,11 +1,40 @@
 import * as Transform from './transforms.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
 export {
-  addPoint
+  addPoint,
+  nextThread,
+  prevThread,
+  updateThreadSpeed
 }
 const m4 = twgl.m4
 const v3 = twgl.v3
 
+function updateThreadSpeed (scene, options) {
+  options = options || {}
+  let stepSize = options.stepSize || 1
+  let direction = options.direction || [0, 0, 0]
+  let activeThread = scene.activeThread
+  let rotationSpeed = scene.threads[activeThread].rotationSpeed
+  for (let i = 0; i < direction.length; i++) {
+    rotationSpeed[i] += direction[i] * stepSize
+  }
+  console.log(rotationSpeed)
+}
+function nextThread (scene) {
+  let length = scene.threads.length
+  let current = scene.activeThread
+  current = current + 1 < length
+    ? current + 1
+    : current
+  scene.activeThread = current
+}
+function prevThread (scene) {
+  let current = scene.activeThread
+  current = current - 1 >= 0
+    ? current - 1
+    : current
+  scene.activeThread = current
+}
 /**
  * Adds a single point into the scene
  * specified by the input parameters

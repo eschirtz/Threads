@@ -2,9 +2,19 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12 sm5>
-        <v-container class="pa-0">
-          <h2>About</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <v-container class="pa-1">
+          <h2>Keyboard Controls</h2><br>
+          <p>
+            <b>Controls For The Active Thread</b><br>
+            Increase y-rotation speed: "Right Arrow"<br>
+            Decrease y-rotation speed: "Left Arrow"<br>
+            Increase x-rotation speed: "Up Arrow"<br>
+            Decrease x-rotation speed: "Down Arrow"<br>
+            <br><b>Scene Controls</b><br>
+            Next Thread: "Shift + Right Arrow"<br>
+            Previous Thread: "Shift + Right Arrow"<br>
+            Toggle Build Mode: "Esc"<br>
+          </p>
         </v-container>
       </v-flex>
       <v-flex xs12 sm7>

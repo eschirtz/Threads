@@ -28,9 +28,6 @@ export default {
   },
   methods: {
     frame () {
-      // if (this.mouse.down) {
-      //   // Threads.addPoint(this.scene, this.mouse.position.x, this.mouse.position.y)
-      // }
       Threads.Controller.executeTimerBasedControls()
       Threads.update(this.scene)
       Threads.render(this.scene, this.$refs.canvas)
@@ -43,37 +40,12 @@ export default {
       this.scene.width = this.$refs.canvas.width // update the scene dimensions
       this.scene.height = this.$refs.canvas.height
       Threads.render(this.scene, this.$refs.canvas) // re-render
-    },
-    getMousePosition (event) {
-      event.preventDefault()
-      let eventDoc, doc, body
-      event = event || window.event // IE-ism
-      // If pageX/Y aren't available and clientX/Y are,
-      // calculate pageX/Y - logic taken from jQuery.
-      // (This is to support old IE)
-      /* eslint-disable no-mixed-operators */
-      if (event.pageX == null && event.clientX != null) {
-        eventDoc = (event.target && event.target.ownerDocument) || document
-        doc = eventDoc.documentElement
-        body = eventDoc.body
-        event.pageX = event.clientX +
-            (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-            (doc && doc.clientLeft || body && body.clientLeft || 0)
-        event.pageY = event.clientY +
-            (doc && doc.scrollTop || body && body.scrollTop || 0) -
-            (doc && doc.clientTop || body && body.clientTop || 0)
-      }
-      /* eslint-enable no-mixed-operators */
-      this.mouse.position.x = event.pageX
-      this.mouse.position.y = event.pageY
     }
   },
   mounted () {
     this.$nextTick(function () {
       // initialize scene (must happen first)
       this.scene = Threads.initialize(this.$refs.canvas, this.scene)
-      // Add event listeners
-      window.addEventListener('mousemove', this.getMousePosition)
       window.addEventListener('resize', this.setCanvasSize)
       this.setCanvasSize()
       // Start
@@ -82,7 +54,6 @@ export default {
   },
   beforeDestroy () {
     window.cancelAnimationFrame(this.frameID)
-    window.removeEventListener('onmousemove', this.getMousePosition)
     window.removeEventListener('resize', this.setCanvasSize)
   }
 }

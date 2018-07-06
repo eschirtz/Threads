@@ -1,2 +1,0 @@
-"Threads" - the name of the base module for the thread spinner application
-"Scene" - A 

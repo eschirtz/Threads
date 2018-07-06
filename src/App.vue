@@ -55,7 +55,7 @@ export default {
       sideNav: false,
       menuItems: [
         {title: 'New Scene', link: '/newscene', icon: 'add_circle'},
-        {title: 'About', link: '/about', icon: 'info'},
+        {title: 'Info', link: '/Info', icon: 'info'},
         {title: 'Account', link: '/account', icon: 'person'}
       ]
     }

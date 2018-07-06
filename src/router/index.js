@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/Home'
-import About from '@/pages/About'
+import Info from '@/pages/Info'
 import NewScene from '@/pages/NewScene'
 
 Vue.use(Router)
@@ -14,9 +14,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
+      path: '/info',
+      name: 'Info',
+      component: Info
     },
     {
       path: '/NewScene',

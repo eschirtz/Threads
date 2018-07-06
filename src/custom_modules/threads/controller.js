@@ -7,32 +7,162 @@ export {
   initialize,
   executeTimerBasedControls
 }
-let settings = {
-  bindings: {
-    addPoint: ['mousedown.left']
-  }
-}
-let scene
+// Globals
+let scene // hold a global reference to the current scene
 const mouse = {
   down: false,
-  position: {
-    x: 0,
-    y: 0
+  position: { x: 0, y: 0 }
+}
+const touch = {
+  down: false,
+  position: { x: 0, y: 0 }
+}
+
+/**
+ * Keyboard controlls
+ * this regularly formatted object contains
+ * all the info required to map keboard controls
+ * to game actions
+ */
+let keyboardActions = [
+  {
+    name: 'Increase y-rotation speed',
+    bindings: [
+      ['39'] // 'right arrow'
+    ],
+    action: ModScene.updateThreadSpeed,
+    options: {direction: [0, 1, 0]}
+  },
+  {
+    name: 'Decrease y-rotation speed',
+    bindings: [
+      ['37'] // 'left arrow'
+    ],
+    action: ModScene.updateThreadSpeed,
+    options: {direction: [0, -1, 0]}
+  },
+  {
+    name: 'Increase x-rotation speed',
+    bindings: [
+      ['38'] // 'up arrow'
+    ],
+    action: ModScene.updateThreadSpeed,
+    options: {direction: [1, 0, 0]}
+  },
+  {
+    name: 'Decrease x-rotation speed',
+    bindings: [
+      ['40'] // 'down arrow'
+    ],
+    action: ModScene.updateThreadSpeed,
+    options: {direction: [-1, 0, 0]}
+  },
+  {
+    name: 'Next Thread',
+    bindings: [
+      ['16', '39'] // 'shift + right arrow'
+    ],
+    action: ModScene.nextThread
+  },
+  {
+    name: 'Previous Thread',
+    bindings: [
+      ['16', '37'] // 'shift + left arrow'
+    ],
+    action: ModScene.prevThread
+  }
+]
+
+let keyMap = {}
+onkeydown = onkeyup = function (e) {
+  e = e || event // to deal with IE
+  keyMap[e.keyCode] = e.type === 'keydown'
+  // handle current key event on keyup
+  if (e.type === 'keydown') {
+    keyboardActions.forEach((actionObject, i) => {
+      let takeAction = false
+      actionObject.bindings.forEach((binding, i) => {
+        let bindingMatch = true
+        binding.forEach(keyCode => {
+          if (keyMap[keyCode] === false ||
+            keyMap[keyCode] === undefined) {
+            bindingMatch = false
+          }
+        })
+        if (bindingMatch) {
+          takeAction = true
+        }
+      })
+      if (takeAction) {
+        let options = actionObject.options
+        actionObject.action(scene, options)
+        console.log(actionObject.name)
+      }
+    })
   }
 }
 
+/**
+ * Setup the controller
+ * @param  {[type]} loadedScene scene data
+ * @param  {[type]} canvas      canvas for canvas specific events
+ * @return {[type]}             [description]
+ */
 function initialize (loadedScene, canvas) {
-  console.log('Initializing controller')
   scene = loadedScene
-  addEventListeners(settings, canvas)
+  addEventListeners(canvas)
+  // update keybindings TODO make less janky
+  let stepSize = scene.settings.stepSize
+  keyboardActions.forEach((actionObject) => {
+    actionObject.options = actionObject.options || {}
+    actionObject.options.stepSize = stepSize
+  })
 }
 
-function addEventListeners (settings, canvas) {
-  window.addEventListener('mousemove', getMousePosition)
+/**
+ * Attatches listeners
+ * @param canvas
+ */
+function addEventListeners (canvas) {
+  // Mouse & Touch Events
+  canvas.addEventListener('touchstart', touchStartHandler)
+  canvas.addEventListener('touchmove', touchMoveHandler)
+  canvas.addEventListener('touchend', touchEndHandler)
+  canvas.addEventListener('touchcancel', touchEndHandler)
   canvas.addEventListener('mousedown', mouseDownHandler)
+  window.addEventListener('mousemove', getMousePosition)
   window.addEventListener('mouseup', mouseUpHandler)
+  // Keyboard Controlls
+  window.addEventListener('onkeydown', onkeydown)
+  window.addEventListener('onkeyup', onkeyup)
 }
 
+/**
+ * Light weight event handlers
+ * Mouse and Touch
+ */
+function mouseDownHandler (event) {
+  event.preventDefault()
+  mouse.button = event.button
+  mouse.down = true
+}
+function mouseUpHandler (event) {
+  mouse.down = false
+}
+function touchStartHandler (event) {
+  event.preventDefault()
+  touch.down = true
+  touch.position.x = event.touches[0].clientX
+  touch.position.y = event.touches[0].clientY
+}
+function touchMoveHandler (event) {
+  event.preventDefault()
+  touch.position.x = event.touches[0].clientX
+  touch.position.y = event.touches[0].clientY
+}
+function touchEndHandler (event) {
+  touch.down = false
+}
 /**
  * The main application calls this function
  * every frame, can use to execute execute
@@ -41,19 +171,14 @@ function addEventListeners (settings, canvas) {
 function executeTimerBasedControls () {
   if (mouse.down) {
     ModScene.addPoint(scene, mouse.position.x, mouse.position.y)
+  } else if (touch.down) {
+    ModScene.addPoint(scene, touch.position.x, touch.position.y)
   }
 }
-
-function mouseDownHandler (event) {
-  event.preventDefault()
-  mouse.button = event.button
-  mouse.down = true
-}
-
-function mouseUpHandler (event) {
-  mouse.down = false
-}
-
+/**
+ * Tracks the current position of the mouse
+ * for use in click in drag drawing
+ */
 function getMousePosition (event) {
   event.preventDefault()
   let eventDoc, doc, body

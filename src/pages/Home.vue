@@ -35,6 +35,9 @@ export default {
   methods: {
     canvasClick (event) {
       console.log('Clicked: ' + event.srcElement.id)
+      this.scenes.forEach(function (scene) {
+        console.log(scene)
+      })
     }
   },
   mounted () {
