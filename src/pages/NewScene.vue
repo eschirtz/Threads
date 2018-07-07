@@ -3,27 +3,73 @@
     <canvas
       id="main-canvas"
       ref="canvas"
-      @mousedown.left="mouse.down=true"
-      @mouseup.left="mouse.down=false"
     ></canvas>
+    <v-speed-dial
+      v-model="fab"
+      fixed
+      bottom
+      left
+      direction="top"
+      transition="slide-x-transition"
+    >
+      <v-btn
+        slot="activator"
+        v-model="fab"
+        fab
+        color="error"
+      >
+        <v-icon>edit</v-icon>
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="info"
+        class="mb-3"
+      >
+        <v-icon>swap_horiz</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="info"
+      >
+        <v-icon>cached</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="info"
+      >
+        <v-icon>undo</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="info"
+      >
+        <v-icon>more_horiz</v-icon>
+      </v-btn>
+    </v-speed-dial>
   </v-container>
 </template>
 
 <script>
 import * as Threads from '@/custom_modules/threads/threads.js'
-// TODO Import user data via firebase
 let userData = require('@/assets/reference/sketch-template.json')
 export default {
   data () {
     return {
+      // View data
+      fab: false,
+      transition: 'slide-y-reverse-transition',
+      // Thread Spinner Data
       scene: userData.scenes[0], // load first scene for now TODO
-      frameID: undefined,
-      mouse: {
-        down: false,
-        position: {
-          x: 0, y: 0
-        }
-      }
+      frameID: undefined // to be able to cancel animation
     }
   },
   methods: {

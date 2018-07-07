@@ -30,6 +30,9 @@ let keyboardActions = [
     bindings: [
       ['39'] // 'right arrow'
     ],
+    badBindings: [
+      ['16', '39'] // 'shift + right arrow'
+    ],
     action: ModScene.updateThreadSpeed,
     options: {direction: [0, 1, 0]}
   },
@@ -37,6 +40,9 @@ let keyboardActions = [
     name: 'Decrease y-rotation speed',
     bindings: [
       ['37'] // 'left arrow'
+    ],
+    badBindings: [
+      ['16', '37'] // 'shift + left arrow'
     ],
     action: ModScene.updateThreadSpeed,
     options: {direction: [0, -1, 0]}
@@ -47,7 +53,7 @@ let keyboardActions = [
       ['38'] // 'up arrow'
     ],
     action: ModScene.updateThreadSpeed,
-    options: {direction: [1, 0, 0]}
+    options: {direction: [-1, 0, 0]}
   },
   {
     name: 'Decrease x-rotation speed',
@@ -55,7 +61,7 @@ let keyboardActions = [
       ['40'] // 'down arrow'
     ],
     action: ModScene.updateThreadSpeed,
-    options: {direction: [-1, 0, 0]}
+    options: {direction: [1, 0, 0]}
   },
   {
     name: 'Next Thread',
@@ -70,6 +76,13 @@ let keyboardActions = [
       ['16', '37'] // 'shift + left arrow'
     ],
     action: ModScene.prevThread
+  },
+  {
+    name: 'Toggle Build Mode',
+    bindings: [
+      ['72'] // 'h'
+    ],
+    action: ModScene.toggleBuildMode
   }
 ]
 
@@ -79,24 +92,27 @@ onkeydown = onkeyup = function (e) {
   keyMap[e.keyCode] = e.type === 'keydown'
   // handle current key event on keyup
   if (e.type === 'keydown') {
-    keyboardActions.forEach((actionObject, i) => {
+    keyboardActions.forEach((actionObject) => {
       let takeAction = false
-      actionObject.bindings.forEach((binding, i) => {
+      // Check if there is a match with the key binding
+      actionObject.bindings.forEach((binding) => {
         let bindingMatch = true
-        binding.forEach(keyCode => {
+        for (let i = 0; i < binding.length; i++) {
+          let keyCode = binding[i]
           if (keyMap[keyCode] === false ||
             keyMap[keyCode] === undefined) {
             bindingMatch = false
+            break
           }
-        })
+        }
         if (bindingMatch) {
           takeAction = true
         }
       })
       if (takeAction) {
+        // execute action
         let options = actionObject.options
         actionObject.action(scene, options)
-        console.log(actionObject.name)
       }
     })
   }
@@ -169,7 +185,8 @@ function touchEndHandler (event) {
  * based controls
  */
 function executeTimerBasedControls () {
-  if (mouse.down) {
+  let leftMouseButton = 0
+  if (mouse.down && mouse.button === leftMouseButton) {
     ModScene.addPoint(scene, mouse.position.x, mouse.position.y)
   } else if (touch.down) {
     ModScene.addPoint(scene, touch.position.x, touch.position.y)

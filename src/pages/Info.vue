@@ -13,7 +13,7 @@
             <br><b>Scene Controls</b><br>
             Next Thread: "Shift + Right Arrow"<br>
             Previous Thread: "Shift + Right Arrow"<br>
-            Toggle Build Mode: "Esc"<br>
+            Hide grid/spindle: "h"<br>
           </p>
         </v-container>
       </v-flex>

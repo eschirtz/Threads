@@ -4,7 +4,8 @@ export {
   addPoint,
   nextThread,
   prevThread,
-  updateThreadSpeed
+  updateThreadSpeed,
+  toggleBuildMode
 }
 const m4 = twgl.m4
 const v3 = twgl.v3
@@ -18,7 +19,6 @@ function updateThreadSpeed (scene, options) {
   for (let i = 0; i < direction.length; i++) {
     rotationSpeed[i] += direction[i] * stepSize
   }
-  console.log(rotationSpeed)
 }
 function nextThread (scene) {
   let length = scene.threads.length
@@ -34,6 +34,10 @@ function prevThread (scene) {
     ? current - 1
     : current
   scene.activeThread = current
+}
+function toggleBuildMode (scene) {
+  scene.grid.isVisible = !scene.grid.isVisible
+  scene.spindle.isVisible = !scene.spindle.isVisible
 }
 /**
  * Adds a single point into the scene
