@@ -77,7 +77,7 @@ function render (scene, canvas) {
 function update (scene) {
   // Update camera
   let camera = scene.camera
-  let orbitalCamera = false
+  let orbitalCamera = true
   if (orbitalCamera) {
     camera.position[0] = camera.radius * Math.sin(camera.phi) * Math.cos(camera.theta)
     camera.position[2] = camera.radius * Math.sin(camera.phi) * Math.sin(camera.theta)

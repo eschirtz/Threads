@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "learn-firebase-v1"
+    "default": "thread-spinner",
+    "production": "thread-spinner"
   }
 }

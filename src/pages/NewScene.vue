@@ -10,7 +10,7 @@
       bottom
       left
       direction="top"
-      transition="slide-x-transition"
+      transition="slide-y-reverse-transition"
     >
       <v-btn
         slot="activator"
@@ -28,7 +28,7 @@
         color="info"
         class="mb-3"
       >
-        <v-icon>swap_horiz</v-icon>
+        <v-icon>stop</v-icon>
       </v-btn>
       <v-btn
         fab
@@ -43,18 +43,40 @@
         dark
         small
         color="info"
-      >
-        <v-icon>undo</v-icon>
-      </v-btn>
-      <v-btn
-        fab
-        dark
-        small
-        color="info"
+        @click="dialog=true"
       >
         <v-icon>more_horiz</v-icon>
       </v-btn>
     </v-speed-dial>
+    <!-- TODO create a custom compenent for these settings -->
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title
+          class="headline primary dark"
+          primary-title
+        >
+          Thread Settings
+        </v-card-title>
+        <v-card-text>
+          This will be where all the sweet configurations for your current thread can take place. Also,
+          you will be able to select different threads and what not. Sick!
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="dialog = false"
+          >
+            Done
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -66,6 +88,7 @@ export default {
     return {
       // View data
       fab: false,
+      dialog: false,
       transition: 'slide-y-reverse-transition',
       // Thread Spinner Data
       scene: userData.scenes[0], // load first scene for now TODO
