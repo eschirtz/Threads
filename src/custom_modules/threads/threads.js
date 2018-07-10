@@ -6,12 +6,14 @@
 import * as Util from './utility.js'
 import * as Transform from './transforms.js'
 import * as Controller from './controller.js'
+import * as Modifiers from './modifiers.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
 export {
   render,
   update,
   initialize,
-  Controller
+  Controller,
+  Modifiers
 }
 const m4 = twgl.m4
 
@@ -86,7 +88,8 @@ function update (scene) {
   camera.target = scene.spindle.position
   // Update each thread
   scene.threads.forEach(function (thread) {
-    let dt = 1 / 60 // difference in time since last call TODO
+    let timeSinceLastCall = 1 / 60 // difference in time since last call TODO
+    let dt = scene.paused ? 0 : timeSinceLastCall // pause all motion
     thread.rotation[0] += thread.rotationSpeed[0] * dt
     thread.rotation[1] += thread.rotationSpeed[1] * dt
     thread.rotation[2] += thread.rotationSpeed[2] * dt

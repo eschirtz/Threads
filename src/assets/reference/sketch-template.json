@@ -12,10 +12,11 @@
         "stepSize": 0.1
       },
       "activeThread": 0,
+      "paused": false,
       "camera": {
         "position": [0, 25, 100],
         "radius": 250,
-        "theta": 0.0,
+        "theta": 1.57079,
         "phi": 1.2,
         "target": [0, 0, 0],
         "up": [0, 1, 0],
@@ -37,7 +38,7 @@
         "position": [0, 0, 0],
         "divisions": 10,
         "spacing": 10,
-        "color": "rgba(200, 150, 60, .25)",
+        "color": "rgba(224, 105, 78, 0.25)",
         "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       },
       "threads": [
@@ -45,7 +46,7 @@
           "position": [0, 0, 0],
           "rotation": [0, 0, 0],
           "rotationSpeed": [0, 0, 0],
-          "color": "green",
+          "color": "#deb853",
           "points": [],
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
         },
@@ -53,7 +54,7 @@
           "position": [0,0,0],
           "rotation": [0, 0, 0],
           "rotationSpeed": [0, 0, 0],
-          "color": "yellow",
+          "color": "#048384",
           "points": [],
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
         }

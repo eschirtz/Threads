@@ -26,6 +26,79 @@ const touch = {
  */
 let keyboardActions = [
   {
+    name: 'Move +x',
+    bindings: [
+      ['76'] // 'i'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveSpindle,
+    options: {
+      direction: [1, 0, 0],
+      stepSize: 0.5
+    }
+  },
+  {
+    name: 'Move -z',
+    bindings: [
+      ['74'] // 'j'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveSpindle,
+    options: {
+      direction: [-1, 0, 0],
+      stepSize: 0.5
+    }
+  },
+  {
+    name: 'Move +z',
+    bindings: [
+      ['75'] // 'k'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveSpindle,
+    options: {
+      direction: [0, 0, 1],
+      stepSize: 0.5
+    }
+  },
+  {
+    name: 'Move -z',
+    bindings: [
+      ['73'] // 'i'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveSpindle,
+    options: {
+      direction: [0, 0, -1],
+      stepSize: 0.5
+    }
+  },
+  {
+    name: 'Play / Pause',
+    bindings: [
+      ['32'] // 'Space'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.playPause,
+    options: {}
+  },
+  {
+    name: 'Undo',
+    bindings: [
+      ['91', '90'], // 'command + z'
+      ['17', '90'] // 'ctrl + z'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.undoLastPoint,
+    options: {numberOfPoints: 1}
+  },
+  {
     name: 'Increase y-rotation speed',
     bindings: [
       ['39'] // 'right arrow'
@@ -110,6 +183,7 @@ onkeydown = onkeyup = function (e) {
         }
       })
       if (takeAction) {
+        e.preventDefault() // if bound, prevent default
         // execute action
         let options = actionObject.options
         actionObject.action(scene, options)
@@ -127,11 +201,8 @@ onkeydown = onkeyup = function (e) {
 function initialize (loadedScene, canvas) {
   scene = loadedScene
   addEventListeners(canvas)
-  // update keybindings TODO make less janky
-  let stepSize = scene.settings.stepSize
   keyboardActions.forEach((actionObject) => {
     actionObject.options = actionObject.options || {}
-    actionObject.options.stepSize = stepSize
   })
 }
 

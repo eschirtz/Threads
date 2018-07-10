@@ -5,19 +5,39 @@ export {
   nextThread,
   prevThread,
   updateThreadSpeed,
-  toggleBuildMode
+  toggleBuildMode,
+  undoLastPoint,
+  playPause,
+  moveSpindle
 }
 const m4 = twgl.m4
 const v3 = twgl.v3
 
+// Thread Modifications
+/**
+ * Changes the rotation speed of the thread that
+ * is currently active
+ * @param  scene   master scene object
+ * @param  options {stepSize, direction}
+ */
 function updateThreadSpeed (scene, options) {
   options = options || {}
-  let stepSize = options.stepSize || 1
+  let stepSize = options.stepSize || scene.settings.stepSize
   let direction = options.direction || [0, 0, 0]
   let activeThread = scene.activeThread
   let rotationSpeed = scene.threads[activeThread].rotationSpeed
   for (let i = 0; i < direction.length; i++) {
     rotationSpeed[i] += direction[i] * stepSize
+  }
+}
+function moveSpindle (scene, options) {
+  options = options || {}
+  let stepSize = options.stepSize || scene.settings.stepSize
+  let direction = options.direction || [0, 0, 0]
+  let activeThread = scene.activeThread
+  let position = scene.threads[activeThread].position
+  for (let i = 0; i < direction.length; i++) {
+    position[i] += direction[i] * stepSize
   }
 }
 function nextThread (scene) {
@@ -35,9 +55,13 @@ function prevThread (scene) {
     : current
   scene.activeThread = current
 }
-function toggleBuildMode (scene) {
-  scene.grid.isVisible = !scene.grid.isVisible
-  scene.spindle.isVisible = !scene.spindle.isVisible
+function undoLastPoint (scene, options) {
+  options = options || {}
+  let numPoints = options.numberOfPoints || 1
+  let activeThread = scene.activeThread
+  for (let i = 0; i < numPoints; i++) {
+    scene.threads[activeThread].points.pop()
+  }
 }
 /**
  * Adds a single point into the scene
@@ -78,4 +102,12 @@ function addPoint (scene, x, y) {
   let iTx = m4.inverse(Tx)
   let point = m4.transformPoint(iTx, [x, y, clippedDepth])
   currentThread.points.push(point)
+}
+// Scene Modifications
+function toggleBuildMode (scene) {
+  scene.grid.isVisible = !scene.grid.isVisible
+  scene.spindle.isVisible = !scene.spindle.isVisible
+}
+function playPause (scene, options) {
+  scene.paused = options.paused || !scene.paused
 }

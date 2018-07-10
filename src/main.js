@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+// components
+// styles
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -10,7 +12,7 @@ Vue.use(Vuetify, {
   theme: {
     primary: '#789f89',
     secondary: '#0a373a', //
-    accent: '#deb853', //
+    accent: '#e3d9a2', //
     error: '#e0694e', //
     info: '#048384', //
     success: '#5f7200', //
