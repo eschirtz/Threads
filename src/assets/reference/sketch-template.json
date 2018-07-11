@@ -45,7 +45,7 @@
         {
           "position": [0, 0, 0],
           "rotation": [0, 0, 0],
-          "rotationSpeed": [0, 0, 0],
+          "rotationSpeed": [10, 0, 0],
           "color": "#deb853",
           "points": [],
           "tx": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]

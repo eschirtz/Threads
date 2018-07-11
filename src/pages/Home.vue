@@ -3,7 +3,7 @@
     <v-layout row wrap justify-center>
       <v-flex
         xs12
-        sm4
+        sm3
       >
         <img
           id="hero-img"
@@ -14,10 +14,10 @@
       </v-flex>
       <v-flex
         xs12 text-xs-center
-        sm4 text-sm-left
+        sm3
       >
         <h2
-          class="display-2 mt-3"
+          class="display-2 mt-2"
         >
         THREADS
         </h2>
@@ -30,28 +30,16 @@
           >Spin Thread!</v-btn>
         </router-link>
       </v-flex>
-      <v-flex
-        xs12 text-xs-center
-        sm8 text-sm-center
-        mt-4
-      >
-      <v-divider class="hidden-sm-and-up"></v-divider>
-      <v-container grid-list-xs,sm,md,lg,xl>
-        <p class="headline">
-          Welcome to <i>THREADS,</i>
-        </p>
-        <p>I've really enjoyed creating this app, and I can't wait to see what you create!</p>
-      </v-container>
-      </v-flex>
+
     </v-layout>
     <div class="spacer ma-5 hidden-sm-and-down">
 
     </div>
     <v-layout row wrap justify-center>
       <v-flex
-        xs10  text-xs-center
+        xs8  text-xs-center
         sm2
-        mt-2 mb-2
+        mt-5 mb-2
       >
         <img
           id="hero-img"

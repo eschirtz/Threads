@@ -30,7 +30,6 @@
         dark
         small
         color="info"
-        @click="control.action"
         style="cursor: pointer"
       >
         <v-icon>{{ control.icon }}</v-icon>
@@ -66,7 +65,7 @@ export default {
         playPause: {
           name: 'pause / pause',
           icon: 'pause',
-          action: 'this.$methods.test'
+          action: ''
         },
         rotate: {
           name: 'rotate',
@@ -85,6 +84,8 @@ export default {
       frameID: undefined // to be able to cancel animation
     }
   },
+  calculated: {
+  },
   methods: {
     frame () {
       Threads.Controller.executeTimerBasedControls()
@@ -102,9 +103,6 @@ export default {
     },
     updateSettings (setting) {
       this.scene.name = setting.value
-    },
-    test () {
-      console.log('testing')
     }
   },
   mounted () {

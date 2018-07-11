@@ -3,17 +3,25 @@
     <v-layout row wrap>
       <v-flex xs12 sm5>
         <v-container class="pa-1">
-          <h2>Keyboard Controls</h2><br>
+          <v-card>
+            <v-card-title class="headline" primary-title>
+              Keyboard Controlls
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              Y-rotation <kbd>Arrow Right</kbd> <kbd>Arrow Left</kbd><br>
+              X-rotation <kbd>Arrow Up</kbd> <kbd>Arrow Down</kbd><br>
+              Move Spindle <kbd>i</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd><br>
+              <v-divider class="mt-2 mb-2"></v-divider>
+              Orbit Camera <kbd>a</kbd> <kbd>w</kbd> <kbd>s</kbd> <kbd>d</kbd><br>
+              Next Thread <kbd>Shift + Arrow Right</kbd><br>
+              Previous Thread <kbd>Shift + Arrow Left</kbd><br>
+              Toggle Build Mode <kbd>h</kbd><br>
+            </v-card-text>
+          </v-card>
+          <h2 class="headline">Keyboard Controls</h2><br>
           <p>
-            <b>Controls For The Active Thread</b><br>
-            Increase y-rotation speed: "Right Arrow"<br>
-            Decrease y-rotation speed: "Left Arrow"<br>
-            Increase x-rotation speed: "Up Arrow"<br>
-            Decrease x-rotation speed: "Down Arrow"<br>
-            <br><b>Scene Controls</b><br>
-            Next Thread: "Shift + Right Arrow"<br>
-            Previous Thread: "Shift + Right Arrow"<br>
-            Hide grid/spindle: "h"<br>
+
           </p>
         </v-container>
       </v-flex>
@@ -59,5 +67,8 @@ export default {
   }
   p{
     font-weight: lighter
+  }
+  kbd{
+    background: rgba(0,0,0,0.5)
   }
 </style>
