@@ -1,4 +1,5 @@
-# thread-spinner-2.0
+# Threads
+> A 3D drawaing toy
 
 > A Vue.js project
 
