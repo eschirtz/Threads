@@ -1,4 +1,4 @@
-# Threads *A 3D drawing toy*
+# Threads *- a 3D drawing toy*
 >Written by Eric Schirtzinger, [Eschirtz.com](https://eschirtz.com)
 
 ## Build Setup
