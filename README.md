@@ -1,7 +1,9 @@
 # Threads
 ### A 3D drawaing toy
 > Node.js
+
 > Vue.js
+
 > TWGL.js
 
 ## Build Setup
