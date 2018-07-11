@@ -16,7 +16,7 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title style = "font-weight: lighter">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -24,13 +24,13 @@
       <v-toolbar
         app
         flat
-        class='primary'
+        color='primary'
       >
         <v-toolbar-side-icon
           @click.native.stop="sideNav = !sideNav"
           class="hidden-sm-and-up"></v-toolbar-side-icon>
         <v-toolbar-title>
-          <router-link to="/" tag="span" style="cursor: pointer; font-weight: lighter"><v-icon class="mr-2">gesture</v-icon>THREADS</router-link>
+          <router-link to="/" tag="span" style="cursor: pointer;">THREADS</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
