@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-container pa-5>
+  <v-container mt-5>
     <v-layout row wrap justify-center>
       <v-flex
         xs12

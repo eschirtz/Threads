@@ -4,11 +4,13 @@ export {
   addPoint,
   nextThread,
   prevThread,
+  addThread,
   updateThreadSpeed,
   toggleBuildMode,
   undoLastPoint,
   playPause,
-  moveSpindle
+  moveSpindle,
+  moveCamera
 }
 const m4 = twgl.m4
 const v3 = twgl.v3
@@ -54,6 +56,20 @@ function prevThread (scene) {
     ? current - 1
     : current
   scene.activeThread = current
+}
+function addThread (scene) {
+  let hue = Math.random() * 360 // scale 0 - 360 for hue
+  let color = 'hsl(' + hue + ', 100%, 50%)'
+  let newThread = {
+    'position': [0, 0, 0],
+    'rotation': [0, 0, 0],
+    'rotationSpeed': [0, 0, 0],
+    'color': color,
+    'points': [],
+    'tx': [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+  }
+  scene.threads.push(newThread)
+  scene.activeThread = scene.threads.length - 1
 }
 function undoLastPoint (scene, options) {
   options = options || {}
@@ -110,4 +126,14 @@ function toggleBuildMode (scene) {
 }
 function playPause (scene, options) {
   scene.paused = options.paused || !scene.paused
+}
+function moveCamera (scene, options) {
+  options = options || {}
+  let thetaStep = options.thetaStep || 0
+  let phiStep = options.phiStep || 0
+  scene.camera.theta = (scene.camera.theta + thetaStep) % (2 * Math.PI)
+  scene.camera.phi = scene.camera.phi + phiStep
+  // Bound camera position, TODO clean up magic numbers
+  scene.camera.phi = scene.camera.phi > Math.PI - 0.1 ? Math.PI - 0.1 : scene.camera.phi
+  scene.camera.phi = scene.camera.phi < 0 ? 0.01 : scene.camera.phi
 }

@@ -3,7 +3,7 @@
  * on the following custom modules
  * @type {[type]}
  */
-import * as Util from './utility.js'
+import * as Renderer from './renderer.js'
 import * as Transform from './transforms.js'
 import * as Controller from './controller.js'
 import * as Modifiers from './modifiers.js'
@@ -55,17 +55,17 @@ function render (scene, canvas) {
   // Draw all threads to scene
   scene.threads.forEach(function (thread) {
     let tx = Transform.combine([Tcpv, thread.tx])
-    Util.renderThread(tx, thread, ctx)
+    Renderer.renderThread(tx, thread, ctx)
   })
   // Draw the spindle
   if (spindle.isVisible) {
     let tx = Transform.combine([Tcpv, spindle.tx])
-    Util.renderSpindle(tx, spindle.size, ctx, spindle.color)
+    Renderer.renderSpindle(tx, spindle.size, ctx, spindle.color)
   }
   // Draw the grid
   if (grid.isVisible) {
     let tx = Transform.combine([Tcpv, grid.tx])
-    Util.renderGrid(tx, grid.spacing, grid.divisions, ctx, grid.color)
+    Renderer.renderGrid(tx, grid.spacing, grid.divisions, ctx, grid.color)
   }
 }
 
