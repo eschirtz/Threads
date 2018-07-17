@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- SECTION: ALL ABOUT THREADS  -->
       <v-jumbotron class="text-xs-center text-sm-left">
         <v-container fill-height>
           <v-layout align-center>
@@ -34,12 +35,13 @@
           </v-layout>
         </v-container>
       </v-jumbotron>
-      <v-jumbotron
-        class="text-xs-center text-md-right accent lighten-2"
-        height="100%"
-      >
-        <v-container fill-height>
-          <v-layout align-center row wrap>
+      <!-- SECTION: HELLO! -->
+      <!-- <v-jumbotron -->
+        <!-- class="text-xs-center text-md-right accent lighten-2" -->
+        <!-- height="100%" -->
+      <!-- > -->
+        <v-container fill-height color="blue">
+          <v-layout align-center row wrap fill-height>
             <v-flex
               sm12
               md4
@@ -58,9 +60,10 @@
               class="ts-light"
             >
               <h3 class="display-3">Hello!</h3>
-              <span class="subheading">My name is Eric Schirtzinger, I am a computer engineering student at the University of Wisconsin Madison. I also have a deep rooted passion in film and the arts.
-              The field of computer graphics lives at the interface of tech and art, and that's what inspired me to create this app. I hope that you enjoy learning a little about what went into the making of <i>Threads</i>,
-              and that you enjoy using it!</span><br>
+              <p class="subheading">My name is Eric Schirtzinger, I am a computer engineering student at the University of Wisconsin Madison.
+                I also have a deep rooted passion in film and the arts. The field of computer graphics lives at the interface of
+                technology and art, and that's what inspired me to create this app. I hope that you enjoy learning a
+                little about what went into the making of <i>Threads</i>!</p><br>
               <a style="text-decoration: none" target="_blank" href="https://eschirtz.com">
                 <v-btn
                   slot="activator"
@@ -73,12 +76,25 @@
                 </v-btn>
               </a>
             </v-flex>
+            <!-- SECTION: Basic Mechanics -->
+            <v-flex text-xs-center xs12 class="ts-light">
+              <v-divider class="my-5"></v-divider>
+              <h3 class="display-3 my-4">Basic Mechanics</h3>
+            </v-flex>
+            <v-flex xs12 md8 offset-md2 class="ts-light text-xs-center">
+              <p class="subheading">While <i>Threads</i> is pretty easy to mess around with and make fun drawings,
+                if you ever want to try to make something more precise it would be to your advantage to understand a little about
+                how the drawing engine actually works!</p>
+            </v-flex>
+            <v-flex xs12 md6 class="ts-light mt-2">
+              <p> <span class="title">What makes a thread?</span> </p>
+            </v-flex>
           </v-layout>
         </v-container>
-      </v-jumbotron>
+      <!-- </v-jumbotron> -->
       <v-jumbotron class="accent lighten-2 text-xs-left" height="100%">
         <v-container grid-list-xs,sm,md,lg,xl>
-          <v-layout row wrap>
+          <v-layout column wrap>
             <v-flex xs12 class="ts-light">
             </v-flex>
           </v-layout>
@@ -116,6 +132,6 @@ export default {
     color: black;
   }
   .ts-light hr {
-    background-color: black;
+    background-color: rgba(0,0,0,0.25)
   }
 </style>
