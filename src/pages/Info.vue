@@ -36,12 +36,12 @@
         </v-container>
       </v-jumbotron>
       <!-- SECTION: HELLO! -->
-      <!-- <v-jumbotron -->
-        <!-- class="text-xs-center text-md-right accent lighten-2" -->
-        <!-- height="100%" -->
-      <!-- > -->
-        <v-container fill-height color="blue">
-          <v-layout align-center row wrap fill-height>
+      <v-jumbotron
+        class="text-xs-center text-md-right accent lighten-2"
+        height="100%"
+      >
+        <v-container fill-height justify-space-around>
+          <v-layout align-center row wrap>
             <v-flex
               sm12
               md4
@@ -81,25 +81,35 @@
               <v-divider class="my-5"></v-divider>
               <h3 class="display-3 my-4">Basic Mechanics</h3>
             </v-flex>
-            <v-flex xs12 md8 offset-md2 class="ts-light text-xs-center">
+            <v-flex xs12 md8 offset-md2 class="ts-light text-xs-center mb-5">
               <p class="subheading">While <i>Threads</i> is pretty easy to mess around with and make fun drawings,
                 if you ever want to try to make something more precise it would be to your advantage to understand a little about
                 how the drawing engine actually works!</p>
             </v-flex>
-            <v-flex xs12 md6 class="ts-light mt-2">
-              <p> <span class="title">What makes a thread?</span> </p>
+            <v-flex text-xs-center xs12 md6 class="ts-light mt-2">
+
+                <h4 class="title mb-4">How are threads made?</h4>
+                <p class="body-1">When you draw on the screen your stroke is extruded into 3D
+                space following the motion of the <i>spindle.</i> You can imagine it as if you are painting on a transparent sphere
+                that is rotating around, when you hold your brush (mouse) still, the ball would still be spinning relative to the brush,
+                leaving a mark across the ball.
+                </p>
+            </v-flex>
+            <v-flex text-xs-center xs12 md6 class="ts-light mt-2">
+              <img src="@/assets/images/Spool.png" width="auto" height="148px" class="hidden-sm-and-down" alt="">
+            </v-flex>
+            <v-flex text-xs-center xs12 md6 offset-md3 class="ts-light mt-5">
+
+                <h4 class="title mb-4">At what depth am I drawing?</h4>
+                <p class="body-1">The depth at which you are drawing may seem arbitrary, especially since when drawing on a screen
+                  it seems as if you only have x and y coordinates (which is true). However, the way <i>Threads</i> works is that the position
+                  of the spindle determines the depth. But it is not just the spindle, it also depends on the orientation of the camera. Your drawings
+                  are made on the plane parallel to the camera, at the depth of the spindle. So looking top down, you'd be drawing on the xz plane, where
+                  looking straight ahead, you are drawing on the xy plane.
+                </p>
             </v-flex>
           </v-layout>
         </v-container>
-      <!-- </v-jumbotron> -->
-      <v-jumbotron class="accent lighten-2 text-xs-left" height="100%">
-        <v-container grid-list-xs,sm,md,lg,xl>
-          <v-layout column wrap>
-            <v-flex xs12 class="ts-light">
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <ts-keyboard-shortcuts></ts-keyboard-shortcuts>
       </v-jumbotron>
     </div>
 </template>
@@ -133,5 +143,8 @@ export default {
   }
   .ts-light hr {
     background-color: rgba(0,0,0,0.25)
+  }
+  .ts-bg-light {
+    background-color:purple
   }
 </style>
