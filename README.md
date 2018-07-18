@@ -1,6 +1,7 @@
 # Threads
->A 3D drawing toy
->Written by Eric Schirtzinger, [Eschirtz.com](https://eschirtz.com)
+>A 3D drawing toy [Eschirtz.com](https://eschirtz.com)
+## [Visit The Site!](https://thread-spinner.firebaseapp.com/#/newscene)
+
 ## Overview
 Threads is an application that gives users a fun way of drawing in 3D. Weild a *magic thread* into infinite shapes and patterns. This oddly satisfying drawing toy will keep you mesmerized for ages. Share your creations with the world! 
 
