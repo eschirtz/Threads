@@ -26,8 +26,72 @@ const touch = {
  */
 let keyboardActions = [
   {
+    name: 'Camera Up',
+    keycodeBindings: [
+      ['87'] // 'w'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveCamera,
+    options: {
+      thetaStep: 0.0,
+      phiStep: -0.1
+    }
+  },
+  {
+    name: 'Camera Down',
+    keycodeBindings: [
+      ['83'] // 's'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveCamera,
+    options: {
+      thetaStep: 0.0,
+      phiStep: 0.1
+    }
+  },
+  {
+    name: 'Camera Right',
+    keycodeBindings: [
+      ['68'] // 'd'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveCamera,
+    options: {
+      thetaStep: -0.1,
+      phiStep: 0.0
+    }
+  },
+  {
+    name: 'Camera Left',
+    keycodeBindings: [
+      ['65'] // 'a'
+    ],
+    badBindings: [
+    ],
+    action: ModScene.moveCamera,
+    options: {
+      thetaStep: 0.1,
+      phiStep: 0.0
+    }
+  },
+  {
+    name: 'Add Thread',
+    keycodeBindings: [
+      ['187'], // '+'
+      ['67']
+    ],
+    badBindings: [
+    ],
+    action: ModScene.addThread,
+    options: {
+    }
+  },
+  {
     name: 'Move +x',
-    bindings: [
+    keycodeBindings: [
       ['76'] // 'i'
     ],
     badBindings: [
@@ -40,7 +104,7 @@ let keyboardActions = [
   },
   {
     name: 'Move -z',
-    bindings: [
+    keycodeBindings: [
       ['74'] // 'j'
     ],
     badBindings: [
@@ -53,7 +117,7 @@ let keyboardActions = [
   },
   {
     name: 'Move +z',
-    bindings: [
+    keycodeBindings: [
       ['75'] // 'k'
     ],
     badBindings: [
@@ -66,7 +130,7 @@ let keyboardActions = [
   },
   {
     name: 'Move -z',
-    bindings: [
+    keycodeBindings: [
       ['73'] // 'i'
     ],
     badBindings: [
@@ -79,7 +143,7 @@ let keyboardActions = [
   },
   {
     name: 'Play / Pause',
-    bindings: [
+    keycodeBindings: [
       ['32'] // 'Space'
     ],
     badBindings: [
@@ -89,7 +153,7 @@ let keyboardActions = [
   },
   {
     name: 'Undo',
-    bindings: [
+    keycodeBindings: [
       ['91', '90'], // 'command + z'
       ['17', '90'] // 'ctrl + z'
     ],
@@ -100,7 +164,7 @@ let keyboardActions = [
   },
   {
     name: 'Increase y-rotation speed',
-    bindings: [
+    keycodeBindings: [
       ['39'] // 'right arrow'
     ],
     badBindings: [
@@ -111,7 +175,7 @@ let keyboardActions = [
   },
   {
     name: 'Decrease y-rotation speed',
-    bindings: [
+    keycodeBindings: [
       ['37'] // 'left arrow'
     ],
     badBindings: [
@@ -122,7 +186,7 @@ let keyboardActions = [
   },
   {
     name: 'Increase x-rotation speed',
-    bindings: [
+    keycodeBindings: [
       ['38'] // 'up arrow'
     ],
     action: ModScene.updateThreadSpeed,
@@ -130,7 +194,7 @@ let keyboardActions = [
   },
   {
     name: 'Decrease x-rotation speed',
-    bindings: [
+    keycodeBindings: [
       ['40'] // 'down arrow'
     ],
     action: ModScene.updateThreadSpeed,
@@ -138,21 +202,21 @@ let keyboardActions = [
   },
   {
     name: 'Next Thread',
-    bindings: [
+    keycodeBindings: [
       ['16', '39'] // 'shift + right arrow'
     ],
     action: ModScene.nextThread
   },
   {
     name: 'Previous Thread',
-    bindings: [
+    keycodeBindings: [
       ['16', '37'] // 'shift + left arrow'
     ],
     action: ModScene.prevThread
   },
   {
     name: 'Toggle Build Mode',
-    bindings: [
+    keycodeBindings: [
       ['72'] // 'h'
     ],
     action: ModScene.toggleBuildMode
@@ -168,7 +232,7 @@ onkeydown = onkeyup = function (e) {
     keyboardActions.forEach((actionObject) => {
       let takeAction = false
       // Check if there is a match with the key binding
-      actionObject.bindings.forEach((binding) => {
+      actionObject.keycodeBindings.forEach((binding) => {
         let bindingMatch = true
         for (let i = 0; i < binding.length; i++) {
           let keyCode = binding[i]
