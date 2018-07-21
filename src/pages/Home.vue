@@ -9,12 +9,14 @@
               <div class="text-xs-center text-md-right">
                 <h3 class="display-3 hero-text pb-0">THREADS</h3>
                 <h3 class="subheading"><i>A 3D Drawing Toy</i></h3>
-                <v-btn
-                  color="error"
-                  round
-                  large
-                  class="mx-0 my-4"
-                >Spin A Thread!</v-btn>
+                <router-link style="text-decoration: none" to="/newscene">
+                  <v-btn
+                    color="error"
+                    round
+                    large
+                    class="mx-0 my-4"
+                  >Spin A Thread!</v-btn>
+                </router-link>
               </div>
             </div>
           </v-flex>
@@ -30,7 +32,7 @@
           <img class="png-shadow" src="@/assets/images/wand-full.png" height="200px" alt="wand-image">
         </v-flex>
         <v-flex xs12 sm8 md5 mt-3>
-          <h3 class="headline mb-3">MAGIC THREAD!</h3>
+          <h3 class="display-1 mb-3">MAGIC THREAD!</h3>
           <p>Weild a magic thread into infinite shapes and patterns. This oddly satisfying drawing toy will keep you mesmerized for hours on end!</p>
         </v-flex>
       </v-layout>
@@ -39,7 +41,7 @@
           <img class="png-shadow" src="@/assets/images/user-full.png" height="200px" alt="user-image">
         </v-flex>
         <v-flex xs12 sm8 md5 mt-3>
-          <h3 class="headline mb-3">SHOW OFF!</h3>
+          <h3 class="display-1 mb-3">SHOW OFF!</h3>
           <p>Show off your creations to your friends. Threads saves all your work so you can revisit and update your masterpieces.</p>
         </v-flex>
       </v-layout>

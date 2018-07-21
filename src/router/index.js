@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/pages/Home'
 import Info from '@/pages/Info'
 import NewScene from '@/pages/NewScene'
+import Account from '@/pages/Account'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/info',
       name: 'Info',
       component: Info
+    },
+    {
+      path: '/account',
+      name: 'Account',
+      component: Account
     },
     {
       path: '/NewScene',
