@@ -23,6 +23,9 @@
       </v-navigation-drawer>
       <v-toolbar
         app
+        fixed
+        :scroll-threshold='100'
+        scroll-off-screen
         flat
         color='primary'
       >

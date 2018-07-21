@@ -77,7 +77,6 @@ export default {
           icon: 'settings',
           action: ''
         }
-
       },
       // Thread Spinner Data
       scene: userData.scenes[0], // load first scene for now TODO
