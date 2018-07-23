@@ -26,10 +26,8 @@ const state = {
   },
   spindle: {
     isVisible: true,
-    position: [0, 0, 0],
     color: 'white',
-    size: 10,
-    tx: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    size: 10
   },
   grid: {
     isVisible: true,

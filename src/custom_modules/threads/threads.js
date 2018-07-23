@@ -6,13 +6,11 @@
 import * as Renderer from './renderer.js'
 import * as Transform from './transforms.js'
 import * as Controller from './controller.js'
-import * as Modifiers from './modifiers.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
 export {
   render,
   initialize,
-  Controller,
-  Modifiers
+  Controller
 }
 const m4 = twgl.m4
 
@@ -46,7 +44,7 @@ function render (scene, canvas) {
   })
   // Draw the spindle
   if (spindle.isVisible) {
-    let tx = Transform.combine([Tcpv, spindle.tx])
+    let tx = Transform.combine([Tcpv, scene.threads[scene.activeThread].tx])
     Renderer.renderSpindle(tx, spindle.size, ctx, spindle.color)
   }
   // Draw the grid
@@ -64,6 +62,6 @@ function render (scene, canvas) {
  * @param  {[type]} scene [optional scene object to load]
  */
 function initialize (canvas, scene) {
-  Controller.initialize(scene, canvas)
+  Controller.initialize(canvas)
   render(scene, canvas)
 }

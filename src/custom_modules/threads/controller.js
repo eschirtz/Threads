@@ -2,7 +2,7 @@
  * The controller binds user input
  * to application controlls, or scene modifications
  */
-import * as ModScene from './modifiers.js'
+// import * as ModScene from './modifiers.js'
 import store from '@/store'
 export {
   initialize,
@@ -10,7 +10,6 @@ export {
   executeTimerBasedControls
 }
 // Globals
-let scene // hold a global reference to the current scene
 const mouse = {
   down: false,
   position: { x: 0, y: 0 }
@@ -29,202 +28,128 @@ const touch = {
 let keyboardActions = [
   {
     name: 'Camera Up',
-    keycodeBindings: [
-      ['87'] // 'w'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveCamera,
-    options: {
-      thetaStep: 0.0,
-      phiStep: -0.1
-    }
+    keycodeBindings: [['87']],
+    badBindings: [],
+    action: 'scene/moveCamera',
+    options: { phiStepSize: -0.1 }
   },
   {
     name: 'Camera Down',
-    keycodeBindings: [
-      ['83'] // 's'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveCamera,
-    options: {
-      thetaStep: 0.0,
-      phiStep: 0.1
-    }
+    keycodeBindings: [['83']],
+    badBindings: [],
+    action: 'scene/moveCamera',
+    options: { phiStepSize: 0.1 }
   },
   {
     name: 'Camera Right',
-    keycodeBindings: [
-      ['68'] // 'd'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveCamera,
-    options: {
-      thetaStep: -0.1,
-      phiStep: 0.0
-    }
+    keycodeBindings: [['68']],
+    badBindings: [],
+    action: 'scene/moveCamera',
+    options: { thetaStepSize: -0.1 }
   },
   {
     name: 'Camera Left',
-    keycodeBindings: [
-      ['65'] // 'a'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveCamera,
-    options: {
-      thetaStep: 0.1,
-      phiStep: 0.0
-    }
+    keycodeBindings: [['65']],
+    badBindings: [],
+    action: 'scene/moveCamera',
+    options: { thetaStepSize: 0.1 }
   },
   {
     name: 'Add Thread',
-    keycodeBindings: [
-      ['187'], // '+'
-      ['67']
-    ],
-    badBindings: [
-    ],
-    action: ModScene.addThread,
-    options: {
-    }
+    keycodeBindings: [['187'], ['67']],
+    badBindings: [],
+    action: 'scene/addThread',
+    options: {}
   },
   {
     name: 'Move +x',
-    keycodeBindings: [
-      ['76'] // 'i'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveSpindle,
-    options: {
-      direction: [1, 0, 0],
-      stepSize: 0.5
-    }
+    keycodeBindings: [ ['76'] ],
+    badBindings: [],
+    action: 'scene/updateThreadPosition',
+    options: { direction: [1, 0, 0], stepSize: 1 }
   },
   {
     name: 'Move -z',
-    keycodeBindings: [
-      ['74'] // 'j'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveSpindle,
-    options: {
-      direction: [-1, 0, 0],
-      stepSize: 0.5
-    }
+    keycodeBindings: [ ['74'] ],
+    badBindings: [],
+    action: 'scene/updateThreadPosition',
+    options: { direction: [-1, 0, 0], stepSize: 1 }
   },
   {
     name: 'Move +z',
-    keycodeBindings: [
-      ['75'] // 'k'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveSpindle,
-    options: {
-      direction: [0, 0, 1],
-      stepSize: 0.5
-    }
+    keycodeBindings: [ ['75'] ],
+    badBindings: [],
+    action: 'scene/updateThreadPosition',
+    options: { direction: [0, 0, 1], stepSize: 1 }
   },
   {
     name: 'Move -z',
-    keycodeBindings: [
-      ['73'] // 'i'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.moveSpindle,
-    options: {
-      direction: [0, 0, -1],
-      stepSize: 0.5
-    }
+    keycodeBindings: [ ['73'] ],
+    badBindings: [],
+    action: 'scene/updateThreadPosition',
+    options: { direction: [0, 0, -1], stepSize: 1 }
   },
   {
     name: 'Play / Pause',
-    keycodeBindings: [
-      ['32'] // 'Space'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.playPause,
+    keycodeBindings: [['32']],
+    badBindings: [],
+    action: 'scene/playPause',
     options: {}
   },
   {
     name: 'Undo',
-    keycodeBindings: [
-      ['91', '90'], // 'command + z'
-      ['17', '90'] // 'ctrl + z'
-    ],
-    badBindings: [
-    ],
-    action: ModScene.undoLastPoint,
+    keycodeBindings: [['91', '90'], ['17', '90']],
+    badBindings: [],
+    action: 'scene/undo',
     options: {numberOfPoints: 1}
   },
   {
     name: 'Increase y-rotation speed',
-    keycodeBindings: [
-      ['39'] // 'right arrow'
-    ],
-    badBindings: [
-      ['16', '39'] // 'shift + right arrow'
-    ],
-    action: ModScene.updateThreadSpeed,
+    keycodeBindings: [ ['39'] ],
+    badBindings: [ ['16', '39'] ],
+    action: 'scene/updateThreadSpeed',
     options: {direction: [0, 1, 0]}
   },
   {
     name: 'Decrease y-rotation speed',
-    keycodeBindings: [
-      ['37'] // 'left arrow'
-    ],
-    badBindings: [
-      ['16', '37'] // 'shift + left arrow'
-    ],
-    action: ModScene.updateThreadSpeed,
+    keycodeBindings: [ ['37'] ],
+    badBindings: [ ['16', '37'] ],
+    action: 'scene/updateThreadSpeed',
     options: {direction: [0, -1, 0]}
   },
   {
     name: 'Increase x-rotation speed',
-    keycodeBindings: [
-      ['38'] // 'up arrow'
-    ],
-    action: ModScene.updateThreadSpeed,
+    keycodeBindings: [ ['38'] ],
+    action: 'scene/updateThreadSpeed',
     options: {direction: [-1, 0, 0]}
   },
   {
     name: 'Decrease x-rotation speed',
-    keycodeBindings: [
-      ['40'] // 'down arrow'
-    ],
-    action: ModScene.updateThreadSpeed,
+    keycodeBindings: [ ['40'] ],
+    action: 'scene/updateThreadSpeed',
     options: {direction: [1, 0, 0]}
   },
   {
     name: 'Next Thread',
-    keycodeBindings: [
-      ['16', '39'] // 'shift + right arrow'
-    ],
-    action: ModScene.nextThread
+    keycodeBindings: [['16', '39']],
+    action: 'scene/nextThread'
   },
   {
     name: 'Previous Thread',
-    keycodeBindings: [
-      ['16', '37'] // 'shift + left arrow'
-    ],
-    action: ModScene.prevThread
+    keycodeBindings: [['16', '37']],
+    action: 'scene/prevThread'
   },
   {
     name: 'Toggle Build Mode',
-    keycodeBindings: [
-      ['72'] // 'h'
-    ],
-    action: ModScene.toggleBuildMode
+    keycodeBindings: [['72']],
+    action: 'scene/toggleBuildMode'
   }
 ]
 
+/**
+ * Handle key down events
+ * @type {Object}
+ */
 let keyMap = {}
 onkeydown = onkeyup = function (e) {
   e = e || event // to deal with IE
@@ -251,8 +176,8 @@ onkeydown = onkeyup = function (e) {
       if (takeAction) {
         e.preventDefault() // if bound, prevent default
         // execute action
-        let options = actionObject.options
-        actionObject.action(scene, options)
+        let options = actionObject.options || {}
+        store.commit(actionObject.action, options)
       }
     })
   }
@@ -264,14 +189,14 @@ onkeydown = onkeyup = function (e) {
  * @param  {[type]} canvas      canvas for canvas specific events
  * @return {[type]}             [description]
  */
-function initialize (loadedScene, canvas) {
-  scene = loadedScene
+function initialize (canvas) {
   addEventListeners(canvas)
-  keyboardActions.forEach((actionObject) => {
-    actionObject.options = actionObject.options || {}
-  })
 }
-
+/**
+ * Tear down the controller
+ * @param  {[type]} canvas [description]
+ * @return {[type]}        [description]
+ */
 function terminate (canvas) {
   removeEventListeners(canvas)
   // TODO: Save?
@@ -378,9 +303,8 @@ function getMousePosition (event) {
   /* eslint-enable no-mixed-operators */
   mouse.position.x = event.pageX
   mouse.position.y = event.pageY
-
-  if (mouse.position.x > scene.width ||
-    mouse.position.y > scene.height ||
+  if (mouse.position.x > store.state.scene.width ||
+    mouse.position.y > store.state.scene.height ||
     mouse.position.x < 0 ||
     mouse.position.y < 0) {
     mouse.down = false // force mouse button up if mouse leaves screen

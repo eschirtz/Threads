@@ -68,6 +68,80 @@ export default {
   },
 
   /**
+   * Rotate selected thread
+   * @param  {[type]} state
+   * @param  {[type]} options {direction, stepSize, threadIndex}
+   */
+  updateThreadSpeed (state, options) {
+    options = options || {}
+    let stepSize = options.stepSize || state.settings.stepSize
+    let direction = options.direction || [0, 0, 0]
+    let threadIndex = options.threadIndex || state.activeThread
+    let rotationSpeed = state.threads[threadIndex].rotationSpeed
+    for (let i = 0; i < direction.length; i++) {
+      rotationSpeed[i] += direction[i] * stepSize
+    }
+  },
+  /**
+   * Move selected thread around
+   * @param  {[type]} state
+   * @param  {[type]} options {direction, stepSize, threadIndex}
+   */
+  updateThreadPosition (state, options) {
+    options = options || {}
+    let stepSize = options.stepSize || state.settings.stepSize
+    let direction = options.direction || [0, 0, 0]
+    let threadIndex = options.threadIndex || state.activeThread
+    let position = state.threads[threadIndex].position
+    for (let i = 0; i < direction.length; i++) {
+      position[i] += direction[i] * stepSize
+    }
+  },
+  /**
+   * Move / orbit camera
+   * @param  {[type]} scene
+   * @param  {[type]} options {thetaStepSize, phiStepSize}
+   */
+  moveCamera (state, options) {
+    options = options || {}
+    let thetaStep = options.thetaStepSize || 0
+    let phiStep = options.phiStepSize || 0
+    state.camera.theta = (state.camera.theta + thetaStep) % (2 * Math.PI)
+    state.camera.phi = state.camera.phi + phiStep
+    // Restrict camera position, TODO clean up magic numbers
+    state.camera.phi = state.camera.phi > Math.PI - 0.1 ? Math.PI - 0.1 : state.camera.phi
+    state.camera.phi = state.camera.phi < 0 ? 0.01 : state.camera.phi
+  },
+  prevThread (state) {
+    let current = state.activeThread
+    current = current - 1 >= 0
+      ? current - 1
+      : current
+    state.activeThread = current
+  },
+  nextThread (state) {
+    let length = state.threads.length
+    let current = state.activeThread
+    current = current + 1 < length
+      ? current + 1
+      : current
+    state.activeThread = current
+  },
+  addThread (state) {
+    let hue = Math.random() * 360 // scale 0 - 360 for hue
+    let color = 'hsl(' + hue + ', 100%, 50%)'
+    let newThread = {
+      'position': [0, 0, 0],
+      'rotation': [0, 0, 0],
+      'rotationSpeed': [0, 0, 0],
+      'color': color,
+      'points': [],
+      'tx': [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    }
+    state.threads.push(newThread)
+    state.activeThread = state.threads.length - 1
+  },
+  /**
    * Sets the width and height of the scene
    * @param {[type]} state   [description]
    * @param {[type]} payload {width, height}
@@ -75,5 +149,20 @@ export default {
   setSize (state, payload) {
     state.width = payload.width
     state.height = payload.height
+  },
+  toggleBuildMode (state) {
+    state.grid.isVisible = !state.grid.isVisible
+    state.spindle.isVisible = !state.spindle.isVisible
+  },
+  playPause (state, options) {
+    state.paused = options.paused || !state.paused
+  },
+  undo (state, options) {
+    options = options || {}
+    let numPoints = options.numberOfPoints || 1
+    let threadIndex = options.threadIndex || state.activeThread
+    for (let i = 0; i < numPoints; i++) {
+      state.threads[threadIndex].points.pop()
+    }
   }
 }
