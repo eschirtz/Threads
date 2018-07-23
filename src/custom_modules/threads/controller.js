@@ -3,8 +3,10 @@
  * to application controlls, or scene modifications
  */
 import * as ModScene from './modifiers.js'
+import store from '@/store'
 export {
   initialize,
+  terminate,
   executeTimerBasedControls
 }
 // Globals
@@ -270,6 +272,11 @@ function initialize (loadedScene, canvas) {
   })
 }
 
+function terminate (canvas) {
+  removeEventListeners(canvas)
+  // TODO: Save?
+}
+
 /**
  * Attatches listeners
  * @param canvas
@@ -286,6 +293,24 @@ function addEventListeners (canvas) {
   // Keyboard Controlls
   window.addEventListener('onkeydown', onkeydown)
   window.addEventListener('onkeyup', onkeyup)
+}
+
+/**
+ * Detatches listeners
+ * @param canvas
+ */
+function removeEventListeners (canvas) {
+  // Mouse & Touch Events
+  canvas.removeEventListener('touchstart', touchStartHandler)
+  canvas.removeEventListener('touchmove', touchMoveHandler)
+  canvas.removeEventListener('touchend', touchEndHandler)
+  canvas.removeEventListener('touchcancel', touchEndHandler)
+  canvas.removeEventListener('mousedown', mouseDownHandler)
+  window.removeEventListener('mousemove', getMousePosition)
+  window.removeEventListener('mouseup', mouseUpHandler)
+  // Keyboard Controlls
+  window.removeEventListener('onkeydown', onkeydown)
+  window.removeEventListener('onkeyup', onkeyup)
 }
 
 /**
@@ -322,9 +347,9 @@ function touchEndHandler (event) {
 function executeTimerBasedControls () {
   let leftMouseButton = 0
   if (mouse.down && mouse.button === leftMouseButton) {
-    ModScene.addPoint(scene, mouse.position.x, mouse.position.y)
+    store.commit('scene/addPoint', {x: mouse.position.x, y: mouse.position.y})
   } else if (touch.down) {
-    ModScene.addPoint(scene, touch.position.x, touch.position.y)
+    store.commit('scene/addPoint', {x: touch.position.x, y: touch.position.y})
   }
 }
 /**

@@ -24,6 +24,7 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-btn
+        @click="addPointTest"
         v-for="control in controls"
         v-bind:key="control.name"
         fab
@@ -39,21 +40,15 @@
       v-model="dialog"
       width="500"
     >
-    <ts-thread-settings
-      :scene = "scene"
-      @settingChanged = "updateSettings($event)"
-    ></ts-thread-settings>
+    <v-card>
+      hello
+    </v-card>
     </v-dialog>
   </v-container>
 </template>
 
 <script>
-// modules
 import * as Threads from '@/custom_modules/threads/threads.js'
-// components
-import TsThreadSettings from '@/components/ts-thread-settings.vue'
-// globals
-let userData = require('@/assets/reference/sketch-template.json')
 export default {
   data () {
     return {
@@ -79,16 +74,23 @@ export default {
         }
       },
       // Thread Spinner Data
-      scene: userData.scenes[0], // load first scene for now TODO
+      // scene: userData.scenes[0], // load first scene for now TODO
       frameID: undefined // to be able to cancel animation
     }
   },
   calculated: {
+    scene () {
+      return this.$store.state.scene
+    }
   },
   methods: {
+    addPointTest () {
+      this.$store.commit('scene/addPoint', {x: 100, y: 200})
+    },
     frame () {
       Threads.Controller.executeTimerBasedControls()
-      Threads.update(this.scene)
+      // Threads.update(this.scene)
+      this.$store.commit('scene/update')
       Threads.render(this.scene, this.$refs.canvas)
       this.frameID = window.requestAnimationFrame(this.frame)
     },
@@ -96,18 +98,17 @@ export default {
       // Fill screen with canvas
       this.$refs.canvas.width = window.innerWidth
       this.$refs.canvas.height = window.innerHeight
-      this.scene.width = this.$refs.canvas.width // update the scene dimensions
-      this.scene.height = this.$refs.canvas.height
+      this.$store.commit('scene/setSize', {
+        width: window.innerWidth, height: window.innerHeight
+      })
       Threads.render(this.scene, this.$refs.canvas) // re-render
-    },
-    updateSettings (setting) {
-      this.scene.name = setting.value
     }
   },
   mounted () {
     this.$nextTick(function () {
+      this.scene = this.$store.state.scene
       // initialize scene (must happen first)
-      this.scene = Threads.initialize(this.$refs.canvas, this.scene)
+      Threads.initialize(this.$refs.canvas, this.scene)
       window.addEventListener('resize', this.setCanvasSize)
       this.setCanvasSize()
       // Start
@@ -115,11 +116,9 @@ export default {
     })
   },
   beforeDestroy () {
+    Threads.Controller.terminate(this.$refs.canvas)
     window.cancelAnimationFrame(this.frameID)
     window.removeEventListener('resize', this.setCanvasSize)
-  },
-  components: {
-    TsThreadSettings
   }
 }
 </script>

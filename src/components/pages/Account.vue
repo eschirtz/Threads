@@ -10,13 +10,13 @@
           </v-card-media>
           <v-card-title primary-title>
             <div>
-              <h3 class="headline mb-0">Your Account Here</h3>
+              <h3 class="headline mb-0">{{fullName}}</h3>
               <div>This part of the site is under construction<br>Keep checking back, we'll have it up in no time</div>
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn color="primary" flat>Some Action</v-btn>
-            <v-btn color="accent" flat>Another Action</v-btn>
+            <v-btn color="primary" @click="setName({firstName: 'Eric'})" flat>Add {{ firstName }}</v-btn>
+            <v-btn color="accent" @click="foo()" flat>Another Action</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -25,7 +25,22 @@
 </template>
 
 <script>
+import {mapState, mapGetters, mapMutations} from 'vuex'
 export default {
+  computed: {
+    // User Fields
+    ...mapState('user', [
+      'firstName'
+    ]),
+    ...mapGetters('user', [
+      'fullName'
+    ])
+  },
+  methods: {
+    ...mapMutations('user', [
+      'setName'
+    ])
+  }
 }
 </script>
 
