@@ -1,8 +1,9 @@
 /**
- * Top level application code, relies
- * on the following custom modules
- * @type {[type]}
+ * Top level application code, entry point
+ * / wrapper for Threads
+ * @file
  */
+
 import * as Renderer from './renderer.js'
 import * as Transform from './transforms.js'
 import * as Controller from './controller.js'

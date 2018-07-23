@@ -24,7 +24,7 @@
         <v-icon>close</v-icon>
       </v-btn>
       <v-btn
-        @click="addPointTest"
+        @click="fabControl(control.action, control.payload, control.vuex)"
         v-for="control in controls"
         v-bind:key="control.name"
         fab
@@ -40,15 +40,14 @@
       v-model="dialog"
       width="500"
     >
-    <v-card>
-      hello
-    </v-card>
+    <ts-settings></ts-settings>
     </v-dialog>
   </v-container>
 </template>
 
 <script>
 import * as Threads from '@/custom_modules/threads/threads.js'
+import TsSettings from '@/components/widgets/ts-settings'
 export default {
   data () {
     return {
@@ -56,36 +55,58 @@ export default {
       fab: false,
       dialog: false,
       transition: 'slide-y-reverse-transition',
-      controls: {
-        playPause: {
-          name: 'pause / pause',
-          icon: 'pause',
-          action: ''
-        },
-        rotate: {
-          name: 'rotate',
-          icon: 'cached',
-          action: ''
-        },
-        more: {
-          name: 'more settings',
-          icon: 'settings',
-          action: ''
-        }
-      },
-      // Thread Spinner Data
-      // scene: userData.scenes[0], // load first scene for now TODO
       frameID: undefined // to be able to cancel animation
     }
   },
-  calculated: {
+  computed: {
     scene () {
       return this.$store.state.scene
+    },
+    controls () {
+      const toggleBuildMode =
+      {
+        tooltip: 'rotate',
+        icon: 'grid_off',
+        action: 'scene/toggleBuildMode',
+        vuex: true
+      }
+      toggleBuildMode.icon =
+        this.scene.settings.buildMode ? 'grid_off' : 'grid_on'
+      const playPause =
+      {
+        tooltip: 'play / pause',
+        icon: '',
+        action: 'scene/playPause',
+        vuex: true
+      }
+      playPause.icon =
+        this.scene.paused ? 'play_arrow' : 'pause'
+      const settings = {
+        tooltip: 'more',
+        icon: 'settings',
+        action: 'settings',
+        vuex: false
+      }
+      const controlList = [
+        toggleBuildMode,
+        playPause,
+        settings
+      ]
+      return controlList
     }
   },
   methods: {
-    addPointTest () {
-      this.$store.commit('scene/addPoint', {x: 100, y: 200})
+    fabControl (action, payload, vuex) {
+      if (vuex) {
+        this.$store.commit(action, payload)
+      } else {
+        switch (action) {
+          case 'settings':
+            this.dialog = true
+            break
+          default:
+        }
+      }
     },
     frame () {
       Threads.Controller.executeTimerBasedControls()
@@ -106,7 +127,6 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      this.scene = this.$store.state.scene
       // initialize scene (must happen first)
       Threads.initialize(this.$refs.canvas, this.scene)
       window.addEventListener('resize', this.setCanvasSize)
@@ -119,6 +139,9 @@ export default {
     Threads.Controller.terminate(this.$refs.canvas)
     window.cancelAnimationFrame(this.frameID)
     window.removeEventListener('resize', this.setCanvasSize)
+  },
+  components: {
+    TsSettings
   }
 }
 </script>

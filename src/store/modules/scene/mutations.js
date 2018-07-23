@@ -151,10 +151,12 @@ export default {
     state.height = payload.height
   },
   toggleBuildMode (state) {
+    state.settings.buildMode = !state.settings.buildMode
     state.grid.isVisible = !state.grid.isVisible
     state.spindle.isVisible = !state.spindle.isVisible
   },
   playPause (state, options) {
+    options = options || {}
     state.paused = options.paused || !state.paused
   },
   undo (state, options) {

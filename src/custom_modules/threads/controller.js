@@ -1,8 +1,9 @@
 /**
- * The controller binds user input
- * to application controlls, or scene modifications
+ * Binds physical input devices to
+ * state mutations.
+ * @file
  */
-// import * as ModScene from './modifiers.js'
+
 import store from '@/store'
 export {
   initialize,
@@ -21,11 +22,10 @@ const touch = {
 
 /**
  * Keyboard controlls
- * this regularly formatted object contains
- * all the info required to map keboard controls
- * to game actions
+ * this regularly formatted object contains all the info
+ * required to map keboard controls to game actions
  */
-let keyboardActions = [
+const keyboardActions = [
   {
     name: 'Camera Up',
     keycodeBindings: [['87']],
@@ -146,15 +146,15 @@ let keyboardActions = [
   }
 ]
 
+const keyMap = {}
 /**
- * Handle key down events
- * @type {Object}
+ * Event handler for keyboard controlls
+ * @param  {[type]} e keyboard event
  */
-let keyMap = {}
 onkeydown = onkeyup = function (e) {
   e = e || event // to deal with IE
   keyMap[e.keyCode] = e.type === 'keydown'
-  // handle current key event on keyup
+  // handle current key event on keydown
   if (e.type === 'keydown') {
     keyboardActions.forEach((actionObject) => {
       let takeAction = false
@@ -185,21 +185,17 @@ onkeydown = onkeyup = function (e) {
 
 /**
  * Setup the controller
- * @param  {[type]} loadedScene scene data
- * @param  {[type]} canvas      canvas for canvas specific events
- * @return {[type]}             [description]
+ * @param  {[type]} canvas  canvas to bind listeners to
  */
 function initialize (canvas) {
   addEventListeners(canvas)
 }
 /**
  * Tear down the controller
- * @param  {[type]} canvas [description]
- * @return {[type]}        [description]
+ * @param  {[type]} canvas canvas to undbind listeners from
  */
 function terminate (canvas) {
   removeEventListeners(canvas)
-  // TODO: Save?
 }
 
 /**

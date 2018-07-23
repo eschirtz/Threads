@@ -10,7 +10,8 @@ const state = {
   paused: false,
   settings: {
     stepSize: 0.1,
-    orbitalCamera: true
+    orbitalCamera: true,
+    buildMode: true
   },
   camera: {
     position: [0, 0, 0],
