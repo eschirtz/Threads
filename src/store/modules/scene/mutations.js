@@ -67,6 +67,13 @@ export default {
     currentThread.points.push(point)
   },
 
+  nullTerminateThread (state, payload) {
+    payload = payload || {}
+    let index = payload.threadIndex || state.activeThread
+    let currentThread = state.threads[index]
+    currentThread.points.push(null) // mark with null terminator
+  },
+
   /**
    * Rotate selected thread
    * @param  {[type]} state
@@ -166,5 +173,8 @@ export default {
     for (let i = 0; i < numPoints; i++) {
       state.threads[threadIndex].points.pop()
     }
+  },
+  setName (state, payload) {
+    state.name = payload
   }
 }

@@ -140,6 +140,18 @@ export default {
     window.cancelAnimationFrame(this.frameID)
     window.removeEventListener('resize', this.setCanvasSize)
   },
+  watch: {
+    dialog: function (guiUp) {
+      if (guiUp) {
+        // Remove listeners to avoid conflict with GUI
+        console.log(this.$refs.canvas)
+        Threads.Controller.terminate(this.$refs.canvas)
+      } else {
+        // Re-attatch listeners when no GUI
+        Threads.Controller.initialize(this.$refs.canvas)
+      }
+    }
+  },
   components: {
     TsSettings
   }

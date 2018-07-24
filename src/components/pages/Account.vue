@@ -14,6 +14,9 @@
               <div>This part of the site is under construction<br>Keep checking back, we'll have it up in no time</div>
             </div>
           </v-card-title>
+          <v-card-text>
+            {{ sceneName }}
+          </v-card-text>
           <v-card-actions>
             <v-btn color="primary" @click="setName({firstName: 'Eric'})" flat>Add {{ firstName }}</v-btn>
             <v-btn color="accent" @click="foo()" flat>Another Action</v-btn>
@@ -34,7 +37,10 @@ export default {
     ]),
     ...mapGetters('user', [
       'fullName'
-    ])
+    ]),
+    ...mapState('scene', {
+      sceneName: 'name'
+    })
   },
   methods: {
     ...mapMutations('user', [

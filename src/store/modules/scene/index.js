@@ -3,7 +3,7 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-  name: 'Scene Name',
+  name: 'Eric\'s Scene',
   width: 0,
   height: 0,
   activeThread: 0,

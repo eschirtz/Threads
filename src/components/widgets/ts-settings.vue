@@ -9,7 +9,9 @@
           <v-text-field
             name="name"
             label="Scene Name"
-            id="id"
+            :value="sceneName"
+            @input="bindTextInput($event, 'scene/setName')"
+
           ></v-text-field>
         </v-flex>
         <v-flex xs6>
@@ -45,12 +47,22 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState('scene', {
+      sceneName: 'name'
+    })
+  },
   methods: {
+    bindTextInput (input, action) {
+      console.log(input)
+      this.$store.commit(action, input)
+    },
     ...mapMutations('scene', {
       updateThreadSpeed: 'updateThreadSpeed',
-      addThread: 'addThread'
+      addThread: 'addThread',
+      setSceneName: 'setSceneName'
     })
   }
 }

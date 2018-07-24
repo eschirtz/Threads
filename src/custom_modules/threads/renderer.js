@@ -31,7 +31,12 @@ function renderThread (Tmvp, thread, context) {
     moveToTx(points[0], Tmvp, context)
   }
   for (let i = 1; i < points.length; i++) {
-    lineToTx(points[i], Tmvp, context)
+    if (points[i] === null || points[i] === undefined) {
+      context.stroke()
+      context.beginPath()
+    } else {
+      lineToTx(points[i], Tmvp, context)
+    }
   }
   context.stroke()
 }

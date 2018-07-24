@@ -151,7 +151,8 @@ const keyMap = {}
  * Event handler for keyboard controlls
  * @param  {[type]} e keyboard event
  */
-onkeydown = onkeyup = function (e) {
+function keyDownHandler (e) {
+  console.log('hit')
   e = e || event // to deal with IE
   keyMap[e.keyCode] = e.type === 'keydown'
   // handle current key event on keydown
@@ -203,17 +204,19 @@ function terminate (canvas) {
  * @param canvas
  */
 function addEventListeners (canvas) {
+  console.log('Adding Listeners')
+
   // Mouse & Touch Events
   canvas.addEventListener('touchstart', touchStartHandler)
   canvas.addEventListener('touchmove', touchMoveHandler)
   canvas.addEventListener('touchend', touchEndHandler)
   canvas.addEventListener('touchcancel', touchEndHandler)
   canvas.addEventListener('mousedown', mouseDownHandler)
-  window.addEventListener('mousemove', getMousePosition)
-  window.addEventListener('mouseup', mouseUpHandler)
+  canvas.addEventListener('mousemove', getMousePosition)
+  canvas.addEventListener('mouseup', mouseUpHandler)
   // Keyboard Controlls
-  window.addEventListener('onkeydown', onkeydown)
-  window.addEventListener('onkeyup', onkeyup)
+  window.addEventListener('keydown', keyDownHandler)
+  window.addEventListener('keyup', keyDownHandler)
 }
 
 /**
@@ -221,17 +224,18 @@ function addEventListeners (canvas) {
  * @param canvas
  */
 function removeEventListeners (canvas) {
+  console.log('Removing Listeners')
   // Mouse & Touch Events
   canvas.removeEventListener('touchstart', touchStartHandler)
   canvas.removeEventListener('touchmove', touchMoveHandler)
   canvas.removeEventListener('touchend', touchEndHandler)
   canvas.removeEventListener('touchcancel', touchEndHandler)
   canvas.removeEventListener('mousedown', mouseDownHandler)
-  window.removeEventListener('mousemove', getMousePosition)
-  window.removeEventListener('mouseup', mouseUpHandler)
+  canvas.removeEventListener('mousemove', getMousePosition)
+  canvas.removeEventListener('mouseup', mouseUpHandler)
   // Keyboard Controlls
-  window.removeEventListener('onkeydown', onkeydown)
-  window.removeEventListener('onkeyup', onkeyup)
+  window.removeEventListener('keydown', keyDownHandler)
+  window.removeEventListener('keyup', keyDownHandler)
 }
 
 /**
@@ -245,6 +249,7 @@ function mouseDownHandler (event) {
 }
 function mouseUpHandler (event) {
   mouse.down = false
+  store.commit('scene/nullTerminateThread')
 }
 function touchStartHandler (event) {
   event.preventDefault()
