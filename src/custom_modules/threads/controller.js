@@ -152,7 +152,6 @@ const keyMap = {}
  * @param  {[type]} e keyboard event
  */
 function keyDownHandler (e) {
-  console.log('hit')
   e = e || event // to deal with IE
   keyMap[e.keyCode] = e.type === 'keydown'
   // handle current key event on keydown
@@ -204,8 +203,6 @@ function terminate (canvas) {
  * @param canvas
  */
 function addEventListeners (canvas) {
-  console.log('Adding Listeners')
-
   // Mouse & Touch Events
   canvas.addEventListener('touchstart', touchStartHandler)
   canvas.addEventListener('touchmove', touchMoveHandler)
@@ -224,7 +221,6 @@ function addEventListeners (canvas) {
  * @param canvas
  */
 function removeEventListeners (canvas) {
-  console.log('Removing Listeners')
   // Mouse & Touch Events
   canvas.removeEventListener('touchstart', touchStartHandler)
   canvas.removeEventListener('touchmove', touchMoveHandler)
@@ -264,6 +260,7 @@ function touchMoveHandler (event) {
 }
 function touchEndHandler (event) {
   touch.down = false
+  store.commit('scene/nullTerminateThread')
 }
 /**
  * The main application calls this function
