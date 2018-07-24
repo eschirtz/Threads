@@ -4,56 +4,50 @@
       id="main-canvas"
       ref="canvas"
     ></canvas>
-    <v-speed-dial
-      v-model="fab"
-      fixed
-      bottom
-      left
-      direction="top"
-      transition="slide-y-reverse-transition"
-      style="cursor: pointer"
+    <v-bottom-sheet
+      v-model="sheet"
     >
       <v-btn
         slot="activator"
-        v-model="fab"
-        fab
         color="error"
-        class="mt-2"
-      >
-        <v-icon>edit</v-icon>
-        <v-icon>close</v-icon>
-      </v-btn>
-      <v-btn
-        @click="fabControl(control.action, control.payload, control.vuex)"
-        v-for="control in controls"
-        v-bind:key="control.name"
-        fab
-        dark
+        fixed
+        bottom
+        right
         small
-        color="info"
-        style="cursor: pointer"
+        fab
+        outline
       >
-        <v-icon>{{ control.icon }}</v-icon>
+        <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
-    </v-speed-dial>
-    <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-    <ts-settings></ts-settings>
-    </v-dialog>
+      <!-- <v-btn
+        color="error"
+        fixed
+        right
+        small
+        fab
+        outline
+        class="mt-2"
+        @click="sheet=false"
+      >
+        <v-icon>keyboard_arrow_down</v-icon>
+      </v-btn> -->
+      <!-- <ts-thread-settings></ts-thread-settings> -->
+      <ts-settings-sheet></ts-settings-sheet>
+    </v-bottom-sheet>
   </v-container>
 </template>
 
 <script>
 import * as Threads from '@/custom_modules/threads/threads.js'
-import TsSettings from '@/components/widgets/ts-settings'
+import TsThreadSettings from '@/components/widgets/ts-thread-settings'
+import TsSettingsSheet from '@/components/widgets/ts-settings-sheet'
 export default {
   data () {
     return {
       // View data
       fab: false,
       dialog: false,
+      sheet: false,
       transition: 'slide-y-reverse-transition',
       frameID: undefined // to be able to cancel animation
     }
@@ -144,7 +138,6 @@ export default {
     dialog: function (guiUp) {
       if (guiUp) {
         // Remove listeners to avoid conflict with GUI
-        console.log(this.$refs.canvas)
         Threads.Controller.terminate(this.$refs.canvas)
       } else {
         // Re-attatch listeners when no GUI
@@ -153,7 +146,8 @@ export default {
     }
   },
   components: {
-    TsSettings
+    TsThreadSettings,
+    TsSettingsSheet
   }
 }
 </script>
