@@ -13,25 +13,11 @@
         fixed
         bottom
         right
-        small
         fab
         outline
       >
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
-      <!-- <v-btn
-        color="error"
-        fixed
-        right
-        small
-        fab
-        outline
-        class="mt-2"
-        @click="sheet=false"
-      >
-        <v-icon>keyboard_arrow_down</v-icon>
-      </v-btn> -->
-      <!-- <ts-thread-settings></ts-thread-settings> -->
       <ts-settings-sheet></ts-settings-sheet>
     </v-bottom-sheet>
   </v-container>
@@ -39,69 +25,23 @@
 
 <script>
 import * as Threads from '@/custom_modules/threads/threads.js'
-import TsThreadSettings from '@/components/widgets/ts-thread-settings'
 import TsSettingsSheet from '@/components/widgets/ts-settings-sheet'
 export default {
   data () {
     return {
       // View data
-      fab: false,
-      dialog: false,
       sheet: false,
-      transition: 'slide-y-reverse-transition',
+      dialog: false,
+      arrowControl: 'scene/updateThreadSpeed',
       frameID: undefined // to be able to cancel animation
     }
   },
   computed: {
     scene () {
       return this.$store.state.scene
-    },
-    controls () {
-      const toggleBuildMode =
-      {
-        tooltip: 'rotate',
-        icon: 'grid_off',
-        action: 'scene/toggleBuildMode',
-        vuex: true
-      }
-      toggleBuildMode.icon =
-        this.scene.settings.buildMode ? 'grid_off' : 'grid_on'
-      const playPause =
-      {
-        tooltip: 'play / pause',
-        icon: '',
-        action: 'scene/playPause',
-        vuex: true
-      }
-      playPause.icon =
-        this.scene.paused ? 'play_arrow' : 'pause'
-      const settings = {
-        tooltip: 'more',
-        icon: 'settings',
-        action: 'settings',
-        vuex: false
-      }
-      const controlList = [
-        toggleBuildMode,
-        playPause,
-        settings
-      ]
-      return controlList
     }
   },
   methods: {
-    fabControl (action, payload, vuex) {
-      if (vuex) {
-        this.$store.commit(action, payload)
-      } else {
-        switch (action) {
-          case 'settings':
-            this.dialog = true
-            break
-          default:
-        }
-      }
-    },
     frame () {
       Threads.Controller.executeTimerBasedControls()
       // Threads.update(this.scene)
@@ -146,7 +86,6 @@ export default {
     }
   },
   components: {
-    TsThreadSettings,
     TsSettingsSheet
   }
 }
