@@ -7,7 +7,7 @@
         fab
         small
         class="ma-0 elevation-0"
-        @click="arrowClick('up')"
+        @click="arrowClickUp()"
       >
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
@@ -18,7 +18,7 @@
         fab
         small
         class="my-0 mx-4 elevation-0"
-        @click="arrowClick('left')"
+        @click="arrowClickLeft()"
       >
         <v-icon>keyboard_arrow_left</v-icon>
       </v-btn>
@@ -27,7 +27,7 @@
         fab
         small
         class="my-0 mx-4 elevation-0"
-        @click="arrowClick('right')"
+        @click="arrowClickRight()"
       >
         <v-icon>keyboard_arrow_right</v-icon>
       </v-btn>
@@ -38,7 +38,7 @@
         fab
         small
         class="ma-0 elevation-0"
-        @click="arrowClick('down')"
+        @click="arrowClickDown()"
       >
         <v-icon>keyboard_arrow_down</v-icon>
       </v-btn>
@@ -50,19 +50,58 @@
 <script>
 export default {
   methods: {
-    arrowClick (arrow) {
-      switch (arrow) {
-        case 'up':
+    arrowClickUp () {
+      switch (this.control) {
+        case 'scene/updateThreadSpeed':
           this.$store.commit(this.control, {direction: [-1, 0, 0]})
           break
-        case 'down':
+        case 'scene/updateThreadPosition':
+          this.$store.commit(this.control, {direction: [0, 0, -1]})
+          break
+        case 'scene/moveCamera':
+          this.$store.commit(this.control, {phiStepSize: -0.1})
+          break
+        default:
+      }
+    },
+    arrowClickDown () {
+      switch (this.control) {
+        case 'scene/updateThreadSpeed':
           this.$store.commit(this.control, {direction: [1, 0, 0]})
           break
-        case 'right':
+        case 'scene/updateThreadPosition':
+          this.$store.commit(this.control, {direction: [0, 0, 1]})
+          break
+        case 'scene/moveCamera':
+          this.$store.commit(this.control, {phiStepSize: 0.1})
+          break
+        default:
+      }
+    },
+    arrowClickRight () {
+      switch (this.control) {
+        case 'scene/updateThreadSpeed':
           this.$store.commit(this.control, {direction: [0, 1, 0]})
           break
-        case 'left':
+        case 'scene/updateThreadPosition':
+          this.$store.commit(this.control, {direction: [1, 0, 0]})
+          break
+        case 'scene/moveCamera':
+          this.$store.commit(this.control, {thetaStepSize: -0.1})
+          break
+        default:
+      }
+    },
+    arrowClickLeft () {
+      switch (this.control) {
+        case 'scene/updateThreadSpeed':
           this.$store.commit(this.control, {direction: [0, -1, 0]})
+          break
+        case 'scene/updateThreadPosition':
+          this.$store.commit(this.control, {direction: [-1, 0, 0]})
+          break
+        case 'scene/moveCamera':
+          this.$store.commit(this.control, {thetaStepSize: 0.1})
           break
         default:
       }

@@ -6,6 +6,7 @@
           color="grey darken-3"
           fab
           small
+          @click="add()"
         >
           <v-icon>undo</v-icon>
         </v-btn>
@@ -13,6 +14,7 @@
           color="grey darken-3"
           fab
           small
+          @click="add()"
         >
           <v-icon>add</v-icon>
         </v-btn>
@@ -39,11 +41,18 @@
 
 <script>
 import TsArrows from '@/components/widgets/ts-arrows'
+import {mapMutations} from 'vuex'
 export default {
   data () {
     return {
       controlType: 'scene/updateThreadSpeed'
     }
+  },
+  methods: {
+    ...mapMutations('scene', {
+      undo: 'undo',
+      add: 'addThread'
+    })
   },
   components: {
     TsArrows

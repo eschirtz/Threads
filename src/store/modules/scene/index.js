@@ -10,7 +10,7 @@ const state = {
   paused: false,
   settings: {
     rotationStepSize: 0.5,
-    positionStepSize: 0.5,
+    positionStepSize: 2,
     orbitStepSize: 5.0,
     orbitalCamera: true,
     buildMode: true

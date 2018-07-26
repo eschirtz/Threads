@@ -111,7 +111,7 @@ export default {
    */
   moveCamera (state, options) {
     options = options || {}
-    let thetaStep = options.thetaStepSize || state.settings.orbitStepSize
+    let thetaStep = options.thetaStepSize || 0
     let phiStep = options.phiStepSize || 0
     state.camera.theta = (state.camera.theta + thetaStep) % (2 * Math.PI)
     state.camera.phi = state.camera.phi + phiStep
