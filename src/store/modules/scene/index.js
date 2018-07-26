@@ -9,7 +9,9 @@ const state = {
   activeThread: 0,
   paused: false,
   settings: {
-    stepSize: 0.1,
+    rotationStepSize: 0.5,
+    positionStepSize: 0.5,
+    orbitStepSize: 5.0,
     orbitalCamera: true,
     buildMode: true
   },

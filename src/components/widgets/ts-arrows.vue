@@ -1,5 +1,5 @@
 <template lang="html">
-<v-container fluid text-xs-center pa-3>
+<v-container fluid text-xs-center px-0 py-3>
   <v-layout row wrap>
     <v-flex xs12>
       <v-btn

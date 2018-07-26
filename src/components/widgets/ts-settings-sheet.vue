@@ -2,7 +2,7 @@
 <div>
   <v-card style="background: rgba(0,0,0,0.5)">
     <v-tabs
-      color="secondary"
+      color="info"
       dark
       slider-color="white"
       show-arrows
@@ -12,30 +12,13 @@
       Controller
     </v-tab>
     <v-tab-item>
+      <v-container my-0 py-0 px-1>
         <ts-controller></ts-controller>
+      </v-container>
     </v-tab-item>
-    <v-tab ripple>Settings</v-tab>
+    <v-tab ripple>Thread</v-tab>
     <v-tab-item>
-      <!-- <v-card flat> -->
-        <v-container grid-list-md>
-          <v-layout row wrap>
-            <v-flex xs12 md6>
-              <v-text-field
-                name="name"
-                label="Scene Name"
-                id="id"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 md6>
-              <v-text-field
-                name="name"
-                label="Another Setting"
-                id="id"
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      <!-- </v-card> -->
+      <ts-thread-settings></ts-thread-settings>
     </v-tab-item>
     </v-tabs>
   </v-card>
@@ -44,6 +27,7 @@
 
 <script>
 import TsController from '@/components/widgets/ts-controller'
+import TsThreadSettings from '@/components/widgets/ts-thread-settings'
 export default {
   data () {
     return {
@@ -51,7 +35,8 @@ export default {
     }
   },
   components: {
-    TsController
+    TsController,
+    TsThreadSettings
   }
 }
 </script>

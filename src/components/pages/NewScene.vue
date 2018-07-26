@@ -6,6 +6,7 @@
     ></canvas>
     <v-bottom-sheet
       v-model="sheet"
+      inset
     >
       <v-btn
         slot="activator"

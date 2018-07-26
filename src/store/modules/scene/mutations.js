@@ -81,7 +81,7 @@ export default {
    */
   updateThreadSpeed (state, options) {
     options = options || {}
-    let stepSize = options.stepSize || state.settings.stepSize
+    let stepSize = options.stepSize || state.settings.rotationStepSize
     let direction = options.direction || [0, 0, 0]
     let threadIndex = options.threadIndex || state.activeThread
     let rotationSpeed = state.threads[threadIndex].rotationSpeed
@@ -96,7 +96,7 @@ export default {
    */
   updateThreadPosition (state, options) {
     options = options || {}
-    let stepSize = options.stepSize || state.settings.stepSize
+    let stepSize = options.stepSize || state.settings.positionStepSize
     let direction = options.direction || [0, 0, 0]
     let threadIndex = options.threadIndex || state.activeThread
     let position = state.threads[threadIndex].position
@@ -111,7 +111,7 @@ export default {
    */
   moveCamera (state, options) {
     options = options || {}
-    let thetaStep = options.thetaStepSize || 0
+    let thetaStep = options.thetaStepSize || state.settings.orbitStepSize
     let phiStep = options.phiStepSize || 0
     state.camera.theta = (state.camera.theta + thetaStep) % (2 * Math.PI)
     state.camera.phi = state.camera.phi + phiStep
