@@ -10,7 +10,7 @@
     >
       <v-btn
         slot="activator"
-        color="error"
+        color="primary"
         fixed
         bottom
         right
@@ -45,30 +45,18 @@ export default {
   methods: {
     frame () {
       Threads.Controller.executeTimerBasedControls()
-      // Threads.update(this.scene)
-      this.$store.commit('scene/update')
+      Threads.update()
       Threads.render(this.scene, this.$refs.canvas)
       this.frameID = window.requestAnimationFrame(this.frame)
     },
     setCanvasSize () {
-      // Fill screen with canvas
-      this.$refs.canvas.width = window.innerWidth
-      this.$refs.canvas.height = window.innerHeight
-      this.$store.commit('scene/setSize', {
-        width: window.innerWidth, height: window.innerHeight
-      })
-      Threads.render(this.scene, this.$refs.canvas) // re-render
+      Threads.setCanvasSize(this.$refs.canvas)
     }
   },
   mounted () {
-    this.$nextTick(function () {
-      // initialize scene (must happen first)
-      Threads.initialize(this.$refs.canvas, this.scene)
-      window.addEventListener('resize', this.setCanvasSize)
-      this.setCanvasSize()
-      // Start
-      this.frame()
-    })
+    Threads.initialize(this.$refs.canvas, this.scene)
+    window.addEventListener('resize', this.setCanvasSize)
+    this.frame() // kick off animation
   },
   beforeDestroy () {
     Threads.Controller.terminate(this.$refs.canvas)

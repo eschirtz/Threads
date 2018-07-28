@@ -3,7 +3,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
-// global components
 // styles
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/dist/vuetify.min.css'
@@ -11,13 +10,12 @@ import 'vuetify/dist/vuetify.min.css'
 // Overide Theme
 Vue.use(Vuetify, {
   theme: {
-    primary: '#789f89',
-    secondary: '#0a373a', //
-    accent: '#e3d9a2', //
-    error: '#e0694e', //
-    info: '#048384', //
-    success: '#5f7200', //
-    warning: '#deb853' //
+    primary: '#e0694e',
+    secondary: '#e3d9a2', //
+    accent: '#048384', //
+    error: '#aa0000', //
+    warning: '#efc953', //
+    success: '#5f9400' //
   }
 })
 

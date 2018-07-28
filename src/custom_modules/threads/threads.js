@@ -8,12 +8,17 @@ import * as Renderer from './renderer.js'
 import * as Transform from './transforms.js'
 import * as Controller from './controller.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
+import store from '@/store'
+
 export {
   render,
+  update,
   initialize,
+  setCanvasSize,
   Controller
 }
 const m4 = twgl.m4
+// let ctx
 
 /**
  * Render generates transforms,
@@ -63,6 +68,26 @@ function render (scene, canvas) {
  * @param  {[type]} scene [optional scene object to load]
  */
 function initialize (canvas, scene) {
+  setCanvasSize(canvas)
   Controller.initialize(canvas)
   render(scene, canvas)
+}
+
+/**
+ * Wrapper to keep everything contained in Threads
+ * @return {[type]} [description]
+ */
+function update () {
+  store.commit('scene/update')
+}
+/**
+ * configure drawing elements
+ */
+function setCanvasSize (canvas) {
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+  store.commit('scene/setSize', {
+    width: window.innerWidth, height: window.innerHeight
+  })
+  render(store.state.scene, canvas) // re-render
 }

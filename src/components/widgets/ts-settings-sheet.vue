@@ -1,8 +1,8 @@
 <template lang="html">
 <div>
-  <v-card style="background: rgba(0,0,0,0.5)">
+  <v-card style="background: rgba(0,0,0,0.4)">
     <v-tabs
-      color="info"
+      color="black"
       dark
       slider-color="white"
       show-arrows

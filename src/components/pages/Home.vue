@@ -11,7 +11,7 @@
                 <h3 class="subheading"><i>A 3D Drawing Toy</i></h3>
                 <router-link style="text-decoration: none" to="/newscene">
                   <v-btn
-                    color="error"
+                    color="primary"
                     round
                     large
                     class="mx-0 my-4"

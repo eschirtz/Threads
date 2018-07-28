@@ -20,7 +20,7 @@
         </v-btn>
       </v-flex>
       <v-flex xs8>
-        <ts-arrows :control="controlType"></ts-arrows>
+        <ts-arrows :control="controlType" :color="arrowsColor"></ts-arrows>
       </v-flex>
       <v-flex xs2>
         <v-btn-toggle mandatory v-model="controlType">
@@ -46,6 +46,12 @@ export default {
   data () {
     return {
       controlType: 'scene/updateThreadSpeed'
+    }
+  },
+  computed: {
+    arrowsColor () {
+      let color = 'primary'
+      return color
     }
   },
   methods: {

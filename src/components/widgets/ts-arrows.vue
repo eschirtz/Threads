@@ -3,7 +3,7 @@
   <v-layout row wrap>
     <v-flex xs12>
       <v-btn
-        color="error"
+        :color="color"
         fab
         small
         class="ma-0 elevation-0"
@@ -14,7 +14,7 @@
     </v-flex>
     <v-flex xs12>
       <v-btn
-        color="error"
+        :color="color"
         fab
         small
         class="my-0 mx-4 elevation-0"
@@ -23,7 +23,7 @@
         <v-icon>keyboard_arrow_left</v-icon>
       </v-btn>
       <v-btn
-        color="error"
+        :color="color"
         fab
         small
         class="my-0 mx-4 elevation-0"
@@ -34,7 +34,7 @@
     </v-flex>
     <v-flex xs12>
       <v-btn
-        color="error"
+        :color="color"
         fab
         small
         class="ma-0 elevation-0"
@@ -108,7 +108,8 @@ export default {
     }
   },
   props: [
-    'control'
+    'control',
+    'color'
   ]
 }
 </script>

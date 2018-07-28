@@ -30,7 +30,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-jumbotron class="mt-5" height="100%" color="accent">
+    <v-jumbotron class="mt-5" height="100%" color="white">
       <v-container class="light-section pb-5" grid-list-lg>
         <v-layout row mt-5>
           <v-flex xs12 sm8 offset-sm2 class="text-xs-center">
