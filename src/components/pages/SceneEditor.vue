@@ -42,6 +42,9 @@ export default {
   computed: {
     scene () {
       return this.$store.state.scene
+    },
+    sceneID () {
+      return this.$route.paramas.id
     }
   },
   methods: {
@@ -53,16 +56,20 @@ export default {
     },
     setCanvasSize () {
       Threads.setCanvasSize(this.$refs.canvas)
+    },
+    loadNewScene (id) {
+      this.$store.commit('setScene', BlankScene()) // draw blank scene everytime
+      if (id !== undefined && id !== 'undefined') {
+        // if there is a scene, load that
+        this.$store.dispatch('scene/load', {
+          id: id
+        })
+      }
     }
   },
   mounted () {
-    if (this.$route.params.id !== undefined && this.$route.params.id !== 'undefined') {
-      this.$store.dispatch('scene/load', {
-        id: this.$route.params.id
-      })
-    } else {
-      this.$store.commit('setScene', BlankScene)
-    }
+    console.log('mounted')
+    this.loadNewScene(this.$route.params.id)
     Threads.initialize(this.$refs.canvas, this.scene)
     window.addEventListener('resize', this.setCanvasSize)
     this.frame() // kick off animation
@@ -81,6 +88,10 @@ export default {
         // Re-attatch listeners when no GUI
         Threads.Controller.initialize(this.$refs.canvas)
       }
+    },
+    sceneID: function (id) {
+      console.log('changed')
+      this.loadNewScene(id) // if the scene id changes, load the new scene
     }
   },
   components: {
