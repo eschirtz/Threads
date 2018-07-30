@@ -1,28 +1,18 @@
+// import getters from './getters'
+import mutations from './mutations'
+import actions from './actions'
+
 const state = {
-  uid: '001',
-  firstName: 'First',
-  lastName: 'Last',
-  scenes: {
-    sceneid1: true,
-    sceneid2: true
-  }
+  uid: undefined,
+  email: undefined,
+  userName: undefined,
+  scenes: []
 }
 
 const getters = {
-  fullName (state) {
-    return state.firstName + ' ' + state.lastName
+  userName (state) {
+    return state.userName
   }
-}
-
-const mutations = {
-  setName (state, payload) {
-    state.firstName = payload.firstName || state.firstName
-    state.lastName = payload.lastName || state.lastName
-  }
-}
-
-const actions = {
-
 }
 
 export default {

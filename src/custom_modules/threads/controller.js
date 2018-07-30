@@ -69,7 +69,7 @@ const keyboardActions = [
     options: { direction: [1, 0, 0], stepSize: 1 }
   },
   {
-    name: 'Move -z',
+    name: 'Move -x',
     keycodeBindings: [ ['74'] ],
     badBindings: [],
     action: 'scene/updateThreadPosition',

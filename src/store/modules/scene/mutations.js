@@ -81,7 +81,7 @@ export default {
    */
   updateThreadSpeed (state, options) {
     options = options || {}
-    let stepSize = options.stepSize || state.settings.stepSize
+    let stepSize = options.stepSize || state.settings.rotationStepSize
     let direction = options.direction || [0, 0, 0]
     let threadIndex = options.threadIndex || state.activeThread
     let rotationSpeed = state.threads[threadIndex].rotationSpeed
@@ -96,7 +96,7 @@ export default {
    */
   updateThreadPosition (state, options) {
     options = options || {}
-    let stepSize = options.stepSize || state.settings.stepSize
+    let stepSize = options.stepSize || state.settings.positionStepSize
     let direction = options.direction || [0, 0, 0]
     let threadIndex = options.threadIndex || state.activeThread
     let position = state.threads[threadIndex].position
@@ -176,5 +176,8 @@ export default {
   },
   setName (state, payload) {
     state.name = payload
+  },
+  setCreatorID (state, id) {
+    state.creatorID = id
   }
 }
