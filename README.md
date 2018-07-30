@@ -1,4 +1,5 @@
-# Threads
+<p align="center"><img src="https://s33.postimg.cc/6rpo5rnlr/LOGO_THREADS_Readme_1.jpg"></p>
+
 >A 3D drawing toy [Eschirtz.com](https://eschirtz.com)
 ## [Visit The Site!](https://thread-spinner.firebaseapp.com/#/newscene)
 
@@ -27,3 +28,4 @@ npm run dev
 npm run build
 
 ```
+<p align="center"><img src="https://s33.postimg.cc/5co3h51z3/LOGO_THREADS_Readme_2.jpg"></p>
