@@ -9,7 +9,7 @@
               <div class="text-xs-center text-md-right">
                 <h3 class="display-3 hero-text pb-0">THREADS</h3>
                 <h3 class="subheading"><i>A 3D Drawing Toy</i></h3>
-                <router-link style="text-decoration: none" to="/newscene">
+                <router-link style="text-decoration: none" to="/edit/undefined">
                   <v-btn
                     color="primary"
                     round

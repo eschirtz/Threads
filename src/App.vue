@@ -55,12 +55,29 @@
 export default {
   data () {
     return {
-      sideNav: false,
-      menuItems: [
-        {title: 'New Scene', link: '/newscene', icon: 'add_circle'},
-        {title: 'Info', link: '/Info', icon: 'info'},
-        {title: 'Account', link: '/account', icon: 'person'}
+      sideNav: false
+    }
+  },
+  computed: {
+    menuItems () {
+      let menuItems = [
+        {title: 'Create New', link: '/edit/undefined', icon: 'add_circle'},
+        {title: 'Info', link: '/Info', icon: 'info'}
       ]
+      if (this.userIsAuthenticated) {
+        menuItems.push(
+          {title: 'Account', link: '/account', icon: 'person'}
+        )
+      } else {
+        menuItems.push(
+          {title: 'Sign Up', link: '/signup', icon: 'add'},
+          {title: 'Sign In', link: '/signin', icon: 'add'}
+        )
+      }
+      return menuItems
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.userIsAuthenticated
     }
   },
   name: 'App'

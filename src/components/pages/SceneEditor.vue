@@ -26,7 +26,9 @@
 
 <script>
 import * as Threads from '@/custom_modules/threads/threads.js'
+import BlankScene from '@/custom_modules/threads/default-scene.js'
 import TsSettingsSheet from '@/components/widgets/ts-settings-sheet'
+
 export default {
   data () {
     return {
@@ -54,6 +56,13 @@ export default {
     }
   },
   mounted () {
+    if (this.$route.params.id !== undefined && this.$route.params.id !== 'undefined') {
+      this.$store.dispatch('scene/load', {
+        id: this.$route.params.id
+      })
+    } else {
+      this.$store.commit('setScene', BlankScene)
+    }
     Threads.initialize(this.$refs.canvas, this.scene)
     window.addEventListener('resize', this.setCanvasSize)
     this.frame() // kick off animation

@@ -20,6 +20,10 @@
     <v-tab-item>
       <ts-thread-settings></ts-thread-settings>
     </v-tab-item>
+    <v-tab ripple>Scene</v-tab>
+    <v-tab-item>
+      <ts-scene-settings></ts-scene-settings>
+    </v-tab-item>
     </v-tabs>
   </v-card>
 </div>
@@ -28,6 +32,8 @@
 <script>
 import TsController from '@/components/widgets/ts-controller'
 import TsThreadSettings from '@/components/widgets/ts-thread-settings'
+import TsSceneSettings from '@/components/widgets/ts-scene-settings'
+
 export default {
   data () {
     return {
@@ -36,7 +42,8 @@ export default {
   },
   components: {
     TsController,
-    TsThreadSettings
+    TsThreadSettings,
+    TsSceneSettings
   }
 }
 </script>
