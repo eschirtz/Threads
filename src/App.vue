@@ -68,8 +68,8 @@ export default {
   computed: {
     menuItems () {
       let menuItems = [
-        {title: 'Create New', link: '/edit/undefined', icon: 'add_circle'},
-        {title: 'Info', link: '/Info', icon: 'info'}
+        {title: 'Spin', link: '/edit/undefined', icon: 'add_circle'}
+        // {title: 'Info', link: '/Info', icon: 'info'}
       ]
       if (this.userIsAuthenticated) {
         menuItems.push(

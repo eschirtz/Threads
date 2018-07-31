@@ -23,6 +23,11 @@ Vue.use(Vuetify, {
 })
 Vue.component('ts-alert', Alert)
 Vue.config.productionTip = false
+// Bind the document title to page names
+router.beforeEach((to, from, next) => {
+  document.title = to.name
+  next()
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/Home'
-import Info from '@/components/pages/Info'
 import SceneEditor from '@/components/pages/SceneEditor'
 import Account from '@/components/pages/Account'
 import SignUp from '@/components/pages/SignUp'
@@ -14,33 +13,28 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'THREADS',
       component: Home
     },
     {
-      path: '/info',
-      name: 'Info',
-      component: Info
-    },
-    {
       path: '/account',
-      name: 'Account',
+      name: 'Account - THREADS',
       component: Account,
       beforeEnter: AuthGuard
     },
     {
       path: '/edit/:id',
-      name: 'Scene Editor',
+      name: 'Editor - THREADS',
       component: SceneEditor
     },
     {
       path: '/signup',
-      name: 'Sign Up',
+      name: 'Sign Up - THREADS',
       component: SignUp
     },
     {
       path: '/signin',
-      name: 'Sign In',
+      name: 'Sign In - THREADS',
       component: SignIn
     }
 
