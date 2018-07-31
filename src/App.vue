@@ -33,7 +33,14 @@
           @click.native.stop="sideNav = !sideNav"
           class="hidden-sm-and-up"></v-toolbar-side-icon>
         <v-toolbar-title>
-          <router-link to="/" tag="span" style="cursor: pointer;">THREADS</router-link>
+          <router-link to="/" tag="span" style="cursor: pointer;">
+            <v-avatar
+              size="40px"
+            >
+              <img src="@/assets/images/ICON-white.svg" alt="alt">
+            </v-avatar>
+            <span style="vertical-align: -3px;">THREADS</span>
+          </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
