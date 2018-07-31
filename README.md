@@ -1,7 +1,7 @@
 <p align="center"><img src="https://s33.postimg.cc/6rpo5rnlr/LOGO_THREADS_Readme_1.jpg"></p>
 
 ## [Visit The App!](https://thread-spinner.firebaseapp.com/#/)
->Logo courtesy of **Area55** [GitHub](https://github.com/area55git), [Instagram](www.instagram.com/area55_ib)
+>Logo courtesy of **@Area55** [GitHub](https://github.com/area55git), [Instagram](www.instagram.com/area55_ib)
 
 ## Overview
 Threads is an application that gives users a fun way of drawing in 3D. Weild a *magic thread* into infinite shapes and patterns. This oddly satisfying drawing toy will keep you mesmerized for ages. Share your creations with the world! 
