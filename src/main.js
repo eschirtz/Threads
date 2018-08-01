@@ -42,9 +42,19 @@ new Vue({
       projectId: 'thread-spinner',
       storageBucket: 'thread-spinner.appspot.com'
     })
+    // Auto sign in if session still active
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.$store.dispatch('user/autoSignIn', user)
+        // Set local user state
+        this.$store.commit('setUser', {
+          id: user.uid,
+          email: user.email
+        })
+        // fetch user's data from fb
+        this.$store.dispatch('user/fetchUserData', user.uid)
+      } else {
+        // set an empty user if not logged in
+        this.$store.commit('setUser', {})
       }
     })
   }

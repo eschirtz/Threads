@@ -40,6 +40,8 @@
                       <v-btn
                         type="submit"
                         color="primary"
+                        block
+                        depressed
                         :disabled="!canSubmit"
                         :loading="loading"
                       >Sign In
@@ -58,6 +60,7 @@
 </template>
 
 <script>
+import {mapGetters, mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -70,20 +73,18 @@ export default {
     canSubmit () {
       return !this.loading
     },
-    userID () {
-      return this.$store.state.user.uid
-    },
-    error () {
-      return this.$store.state.error
-    },
-    loading () {
-      return this.$store.state.loading
-    }
+    ...mapState([
+      'loading',
+      'error'
+    ]),
+    ...mapGetters([
+      'userIsAuthenticated'
+    ])
   },
   watch: {
-    userID (value) {
+    userIsAuthenticated (authenticated) {
       // redirect home when/if user is signed in
-      if (value !== null && value !== undefined) {
+      if (authenticated) {
         this.$router.push('/')
       }
     }

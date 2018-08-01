@@ -28,15 +28,12 @@
 import * as Threads from '@/custom_modules/threads/threads.js'
 import BlankScene from '@/custom_modules/threads/default-scene.js'
 import TsSettingsSheet from '@/components/widgets/ts-settings-sheet'
-
 export default {
   data () {
     return {
       // View data
       sheet: false,
-      dialog: false,
-      arrowControl: 'scene/updateThreadSpeed',
-      frameID: undefined // to be able to cancel animation
+      frameID: undefined // used to cancel animation
     }
   },
   computed: {
@@ -44,7 +41,7 @@ export default {
       return this.$store.state.scene
     },
     sceneID () {
-      return this.$route.paramas.id
+      return this.$route.params.id
     }
   },
   methods: {
@@ -68,7 +65,6 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted')
     this.loadNewScene(this.$route.params.id)
     Threads.initialize(this.$refs.canvas, this.scene)
     window.addEventListener('resize', this.setCanvasSize)
@@ -80,8 +76,8 @@ export default {
     window.removeEventListener('resize', this.setCanvasSize)
   },
   watch: {
-    dialog: function (guiUp) {
-      if (guiUp) {
+    sheet: function (sheetIsUp) {
+      if (sheetIsUp) {
         // Remove listeners to avoid conflict with GUI
         Threads.Controller.terminate(this.$refs.canvas)
       } else {
@@ -90,7 +86,6 @@ export default {
       }
     },
     sceneID: function (id) {
-      console.log('changed')
       this.loadNewScene(id) // if the scene id changes, load the new scene
     }
   },

@@ -1,7 +1,0 @@
-Inverse transforms:
-  Taking 2d screen coordinates and calculating their 3d equivalent
-
-Keybindings:
-  Using an object to hold all keybindings and associated actions
-  * Did not write the handler itself, or the keymap idea, but everything addEventListener
-  * https://stackoverflow.com/questions/5203407/javascript-multiple-keys-pressed-at-once

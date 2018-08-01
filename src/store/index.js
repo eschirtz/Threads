@@ -13,7 +13,7 @@ export default new Vuex.Store({
   getters: {
     userIsAuthenticated (state) {
       // If there is a unique id, there is a user
-      return user.state.uid !== undefined && user.state.uid !== null
+      return state.user.id !== undefined && state.user.id !== null
     }
   },
   mutations: {
@@ -21,6 +21,7 @@ export default new Vuex.Store({
       state.loading = isLoading // true or false
     },
     setError (state, error) {
+      console.log(error)
       state.error = error
     },
     clearError (state) {
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     },
     setScene (state, scene) {
       state.scene = scene // overwrite scene state with new scene
+    },
+    setUser (state, user) {
+      console.log(user)
+      state.user = user // overwrite the user
     }
   },
   modules: {

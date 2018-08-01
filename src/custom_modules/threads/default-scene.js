@@ -1,5 +1,6 @@
 export default function () {
   return {
+    id: '',
     name: 'Untitled Scene',
     width: 0,
     height: 0,

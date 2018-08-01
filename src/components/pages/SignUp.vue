@@ -23,6 +23,13 @@
                 <v-card-text>
                   <form @submit.prevent="onSignup">
                     <v-text-field
+                      name="userName"
+                      label="User Name"
+                      v-model="userName"
+                      type="text"
+                      required
+                    ></v-text-field>
+                    <v-text-field
                       name="email"
                       label="Email"
                       v-model="email"
@@ -47,7 +54,8 @@
                       <v-btn
                         type="submit"
                         color="primary"
-
+                        block
+                        depressed
                         :disabled="!canSubmit"
                         :loading="loading"
                       >Sign Up
@@ -66,9 +74,11 @@
 </template>
 
 <script>
+import {mapGetters, mapState} from 'vuex'
 export default {
   data () {
     return {
+      userName: '',
       email: '',
       password: '',
       confirmPassword: ''
@@ -81,20 +91,18 @@ export default {
     canSubmit () {
       return !this.loading && this.comparePasswords === true
     },
-    userID () {
-      return this.$store.state.user.uid
-    },
-    error () {
-      return this.$store.state.error
-    },
-    loading () {
-      return this.$store.state.loading
-    }
+    ...mapState([
+      'loading',
+      'error'
+    ]),
+    ...mapGetters([
+      'userIsAuthenticated'
+    ])
   },
   watch: {
-    userID (value) {
+    userIsAuthenticated (authenticated) {
       // redirect home when/if user is signed in
-      if (value !== null && value !== undefined) {
+      if (authenticated) {
         this.$router.push('/')
       }
     }
@@ -102,7 +110,11 @@ export default {
   methods: {
     onSignup () {
       if (this.comparePasswords === true) {
-        this.$store.dispatch('user/signUp', {email: this.email, password: this.password})
+        this.$store.dispatch('user/signUp', {
+          email: this.email,
+          password: this.password,
+          userName: this.userName
+        })
       }
     },
     onDismissed () {
