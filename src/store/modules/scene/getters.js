@@ -1,5 +1,7 @@
 export default {
-  sceneNames: (state) => (argss) => {
-    return 'Scene name' + argss
+  scenes (state) {
+    if (state.scenes) { return state.scenes } else {
+      return []
+    }
   }
 }

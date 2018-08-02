@@ -31,7 +31,6 @@ export default new Vuex.Store({
       state.scene = scene // overwrite scene state with new scene
     },
     setUser (state, user) {
-      console.log(user)
       state.user = user // overwrite the user
     }
   },

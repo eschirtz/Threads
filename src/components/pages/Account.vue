@@ -1,7 +1,7 @@
 <template lang="html">
   <v-container>
     <v-layout row wrap justify-space-around fill-height>
-      <v-flex xs12 sm8 md6 lg8 my-1>
+      <v-flex xs12 sm8 my-1>
         <v-card>
           <v-card-media
             height="200px"
@@ -20,7 +20,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm8 md6 lg8 my-4>
+      <v-flex xs12 sm8 my-4>
         <v-divider></v-divider>
       </v-flex>
       <v-flex
@@ -46,7 +46,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm8 md6 my-2 class="text-xs-center">
+      <v-flex xs12 my-2 class="text-xs-center">
         <v-btn
           fab
           color="primary"
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 export default {
   computed: {
     // User Fields
-    ...mapState('user', [
+    ...mapGetters('scene', [
       'scenes'
     ]),
     ...mapGetters('user', [

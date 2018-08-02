@@ -46,40 +46,34 @@
               This oddly satisfying drawing toy will keep you mesmerized for ages.
               We can't wait to see what you'll create!</p>
           </v-flex>
+          <v-flex xs12>
+            <v-divider class="my-4"></v-divider>
+          </v-flex>
+          <v-flex xs12 md8 lg6 my-0>
+              <h3 class="display-1">Get started</h3>
+              <p>Learn all the keyboard shortcuts to become a thread spinning master in no time!</p>
+              <v-dialog
+                v-model="dialog"
+                transition="fade-transition"
+                width="100%"
+              >
+                <v-btn
+                  class="mx-0"
+                  color="white"
+                  text-color="primary"
+                  large
+                  depressed
+                  slot="activator"
+                ><span class="primary--text">Controls</span></v-btn>
+                <v-card>
+                  <ts-keyboard-shortcuts></ts-keyboard-shortcuts>
+                </v-card>
+              </v-dialog>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-jumbotron>
-    <v-container mt-5>
-      <v-layout row wrap justify-space-around>
-        <v-flex xs12 sm8 md11 class="text-xs-center">
-          <h3 class="display-3">How It All Works</h3>
-          <p class="subheading mt-3">An overview of the key features and controls for this fun 3D drawing toy.</p>
-          <v-divider class="my-3"></v-divider>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap justify-space-around>
-        <v-flex xs12 sm8 md11 class="text-xs-center text-sm-left">
-          <p class="b mb-3 mt-2">While Threads is pretty easy to mess around with and make drawings,
-            if you ever want to try to make something more precise it would be to your advantage to understand a little about how the drawing engine actually works!</p>
-          <v-dialog
-            v-model="dialog"
-            width="100%"
-          >
-            <v-btn
-              class="mx-0"
-              color="primary"
-              medium
-              depressed
-              slot="activator"
-            >Controls</v-btn>
-            <v-card>
-              <ts-keyboard-shortcuts></ts-keyboard-shortcuts>
-            </v-card>
-          </v-dialog>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-jumbotron class="mt-5" height="100%" color="white">
+    <v-jumbotron height="100%" color="white">
       <v-container class="light-section pb-5" grid-list-lg>
         <v-layout row mt-5>
           <v-flex xs12 sm8 offset-sm2 class="text-xs-center">
