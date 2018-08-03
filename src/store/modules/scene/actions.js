@@ -1,20 +1,29 @@
 import * as firebase from 'firebase'
-// import * as Threads from '@/custom_modules/threads/threads.js'
 
 export default {
-  save ({commit, state, rootState}) {
+  storeNew ({commit, state, dispatch}) {
     commit('setLoading', true, {root: true})
-    commit('setCreatorID', rootState.user.uid)
-    firebase.database().ref('scenes').push(state)
+    firebase.database().ref('/scenes').push({name: 'temp-scene'})
       .then((response) => {
-        console.log(response)
         commit('setLoading', false, {root: true})
+        commit('setID', response.key)
+        // attatch scene id and name to user
         commit('user/addScene', {
           id: response.key,
           name: state.name
         },
         {root: true}
         )
+        dispatch('store', response.key)
+      })
+  },
+  store ({commit, state, rootState, dispatch}, id) {
+    commit('setLoading', true, {root: true})
+    commit('setCreatorID', rootState.user.id) // attatch the user id to scene
+    firebase.database().ref('/scenes/' + id).update(state)
+      .then((response) => {
+        commit('setLoading', false, {root: true})
+        dispatch('user/updateUserData', rootState.user, {root: true}) // update user in fb
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})

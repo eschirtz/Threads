@@ -1,6 +1,6 @@
 export default function () {
   return {
-    id: '',
+    id: undefined,
     name: 'Untitled Scene',
     width: 0,
     height: 0,

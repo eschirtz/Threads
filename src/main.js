@@ -44,6 +44,7 @@ new Vue({
     })
     // Auto sign in if session still active
     firebase.auth().onAuthStateChanged((user) => {
+      console.log(user)
       if (user) {
         // Set local user state
         this.$store.commit('setUser', {

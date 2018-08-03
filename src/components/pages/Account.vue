@@ -1,7 +1,7 @@
 <template lang="html">
-  <v-container>
+  <v-container grid-list-md>
     <v-layout row wrap justify-space-around fill-height>
-      <v-flex xs12 sm8 my-1>
+      <v-flex xs12 sm10 md8 mb-1 mt-2>
         <v-card>
           <v-card-media
             height="200px"
@@ -20,35 +20,44 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm8 my-4>
+      <v-flex xs12 sm10 md8 my-4>
         <v-divider></v-divider>
       </v-flex>
+    </v-layout>
+    <v-layout row wrap justify-center>
       <v-flex
         v-for="scene in scenes"
         :key="scene.key"
-        xs12 sm8 md6 my-1
+        xs12 sm5 md4
       >
         <v-card>
           <v-card-media
-            height="200px"
+            height="100px"
             :src="`https://unsplash.it/800/450?image=${Math.floor(Math.random() * 100) + 1}`"
           >
           </v-card-media>
-          <v-card-title primary-title>
+          <v-card-title primary-title class="pb-0 pt-2">
             <div>
               <h3 class="headline mb-0">{{ scene.name }}</h3>
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn color="primary" @click="onLoadScene(scene.id)" flat><v-icon left>edit</v-icon>Edit Scene</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" flat><v-icon left>share</v-icon>Share</v-btn>
+            <v-btn color="primary" @click="onLoadScene(scene.id)" flat fab>
+              <v-icon left>edit</v-icon>
+              <span class="hidden-sm-and-down">Edit Scene</span>
+            </v-btn>
+            <v-spacer class="hidden-sm-and-down"></v-spacer>
+            <v-btn color="accent" flat fab>
+              <v-icon left>share</v-icon>
+              <span class="hidden-sm-and-down">Share</span>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
       <v-flex xs12 my-2 class="text-xs-center">
         <v-btn
           fab
+          depressed
           color="primary"
           @click="onLoadScene()"
         >
@@ -60,15 +69,15 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapState, mapGetters, mapMutations} from 'vuex'
 export default {
   computed: {
     // User Fields
-    ...mapGetters('scene', [
-      'scenes'
+    ...mapState('user', [
+      'userName'
     ]),
     ...mapGetters('user', [
-      'userName'
+      'scenes'
     ])
   },
   methods: {

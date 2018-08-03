@@ -8,10 +8,21 @@ export default {
   setScenes (state, scenes) {
     state.scenes = scenes || []
   },
-  setUid (state, uid) {
-    state.uid = uid
+  setId (state, id) {
+    state.id = id
   },
   addScene (state, payload) {
-    state.scenes.push(payload) // id, name, img
+    if (state.scenes) {
+      state.scenes.push(payload)
+    } else {
+      state.scenes = [payload]
+    }
+  },
+  setScene (state, payload) {
+    let scene = state.scenes.find((el) => {
+      return el.id === payload.id
+    })
+    scene = payload
+    console.log(scene)
   }
 }

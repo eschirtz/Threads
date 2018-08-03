@@ -179,5 +179,8 @@ export default {
   },
   setCreatorID (state, id) {
     state.creatorID = id
+  },
+  setID (state, payload) {
+    state.id = payload
   }
 }

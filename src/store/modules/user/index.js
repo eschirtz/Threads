@@ -3,15 +3,15 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-  uid: undefined,
+  id: undefined,
   email: undefined,
   userName: undefined,
   scenes: []
 }
 
 const getters = {
-  userName (state) {
-    return state.userName
+  scenes (state) {
+    return state.scenes
   }
 }
 
