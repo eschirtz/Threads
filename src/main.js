@@ -4,7 +4,7 @@ import * as firebase from 'firebase'
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
-import Alert from '@/components/widgets/ts-alert.vue'
+import Alert from '@/components/shared/ts-alert.vue'
 // styles
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/dist/vuetify.min.css'
@@ -44,17 +44,11 @@ new Vue({
     })
     // Auto sign in if session still active
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user)
       if (user) {
-        // Set local user state
-        this.$store.commit('setUser', {
-          id: user.uid,
-          email: user.email
-        })
-        // fetch user's data from fb
+        // Fetch user's data from fb
         this.$store.dispatch('user/fetchUserData', user.uid)
       } else {
-        // set an empty user if not logged in
+        // Set an empty user if not logged in
         this.$store.commit('setUser', {})
       }
     })

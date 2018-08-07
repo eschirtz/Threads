@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import TsController from '@/components/widgets/ts-controller'
-import TsThreadSettings from '@/components/widgets/ts-thread-settings'
-import TsSceneSettings from '@/components/widgets/ts-scene-settings'
+import TsController from './ts-controller'
+import TsThreadSettings from './ts-thread-settings'
+import TsSceneSettings from './ts-scene-settings'
 
 export default {
   data () {

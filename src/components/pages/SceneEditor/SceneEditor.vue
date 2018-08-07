@@ -27,20 +27,20 @@
 <script>
 import * as Threads from '@/custom_modules/threads/threads.js'
 import BlankScene from '@/custom_modules/threads/default-scene.js'
-import TsSettingsSheet from '@/components/widgets/ts-settings-sheet'
+import TsSettingsSheet from './ts-settings-sheet'
 export default {
   data () {
     return {
       // View data
       sheet: false,
-      frameID: undefined // used to cancel animation
+      frameId: undefined // used to cancel animation
     }
   },
   computed: {
     scene () {
       return this.$store.state.scene
     },
-    sceneID () {
+    sceneId () {
       return this.$route.params.id
     }
   },
@@ -49,7 +49,7 @@ export default {
       Threads.Controller.executeTimerBasedControls()
       Threads.update()
       Threads.render(this.scene, this.$refs.canvas)
-      this.frameID = window.requestAnimationFrame(this.frame)
+      this.frameId = window.requestAnimationFrame(this.frame)
     },
     setCanvasSize () {
       Threads.setCanvasSize(this.$refs.canvas)
@@ -58,9 +58,7 @@ export default {
       this.$store.commit('setScene', BlankScene()) // draw blank scene everytime
       if (id !== undefined && id !== 'undefined') {
         // if there is a scene, load that
-        this.$store.dispatch('scene/load', {
-          id: id
-        })
+        this.$store.dispatch('scene/load', { id: id })
       }
     }
   },
@@ -72,7 +70,7 @@ export default {
   },
   beforeDestroy () {
     Threads.Controller.terminate(this.$refs.canvas)
-    window.cancelAnimationFrame(this.frameID)
+    window.cancelAnimationFrame(this.frameId)
     window.removeEventListener('resize', this.setCanvasSize)
   },
   watch: {
@@ -85,7 +83,7 @@ export default {
         Threads.Controller.initialize(this.$refs.canvas)
       }
     },
-    sceneID: function (id) {
+    sceneId: function (id) {
       this.loadNewScene(id) // if the scene id changes, load the new scene
     }
   },

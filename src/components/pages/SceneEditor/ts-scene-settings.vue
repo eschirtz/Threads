@@ -61,11 +61,6 @@ export default {
       },
       set (value) {
         this.$store.commit('scene/setName', value)
-        this.$store.commit('user/setScene', {
-          id: this.$store.state.scene.id,
-          name: value
-        })
-        this.$store.dispatch('user/updateUserData')
       }
     },
     ...mapGetters([

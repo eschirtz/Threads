@@ -22,7 +22,7 @@
           name="color"
           label="Color"
           id="id"
-          value="#FFFFFF"
+          v-model="threadColor"
         ></v-text-field>
       </v-flex>
       <v-flex xs12>
@@ -34,6 +34,20 @@
 
 <script>
 export default {
+  computed: {
+    threadColor: {
+
+      get () {
+        const thread = this.$store.getters['scene/activeThread'] || {}
+        let color = thread.color
+        return color
+      },
+      set (value) {
+        console.log(this.$store.getters['scene/activeThread'])
+        this.$store.commit('scene/setColor', value)
+      }
+    }
+  }
 }
 </script>
 

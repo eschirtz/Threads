@@ -14,7 +14,7 @@
                 src="@/assets/images/Vertical-full-color.svg" alt="Horizontal">
           </v-flex>
           <v-flex xs12 sm6 md4 mx-2>
-            <router-link to="/edit/undefined" class="clean">
+            <router-link to="/edit/undefined" class="clean-link">
               <v-btn
                 color="primary"
                 large
@@ -24,7 +24,7 @@
             </router-link>
           </v-flex>
           <v-flex xs12 sm6 md4 mx-2>
-            <router-link to="/signup" class="clean">
+            <router-link to="/signup" class="clean-link">
               <v-btn
                 color="accent lighten-2"
                 large
@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import TsKeyboardShortcuts from '@/components/ts-keyboard-shortcuts.vue'
+import TsKeyboardShortcuts from '@/components/shared/ts-keyboard-shortcuts.vue'
 export default {
   data () {
     return {
@@ -132,9 +132,6 @@ export default {
 </script>
 
 <style scoped lang="css">
-  .clean {
-    text-decoration: none;
-  }
   .png-shadow {
     -webkit-filter: drop-shadow(0px 3px 2px #222);
     filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));

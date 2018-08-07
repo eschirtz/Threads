@@ -1,7 +1,7 @@
 export default {
-  scenes (state) {
-    if (state.scenes) { return state.scenes } else {
-      return []
-    }
+  activeThread (state) {
+    if (!state.activeThread) { return undefined }
+    const activeThreadIndex = state.activeThread
+    return state.threads[activeThreadIndex]
   }
 }

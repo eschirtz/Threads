@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/Home'
-import SceneEditor from '@/components/pages/SceneEditor'
+import SceneEditor from '@/components/pages/SceneEditor/SceneEditor'
 import Account from '@/components/pages/Account'
 import SignUp from '@/components/pages/SignUp'
 import SignIn from '@/components/pages/SignIn'
+import PageNotFound from '@/components/pages/PageNotFound'
 import AuthGuard from './auth-guard'
 
 Vue.use(Router)
@@ -36,7 +37,14 @@ export default new Router({
       path: '/signin',
       name: 'Sign In - THREADS',
       component: SignIn
+    },
+    {
+      path: '/404',
+      component: PageNotFound
+    },
+    {
+      path: '*',
+      redirect: '/404'
     }
-
   ]
 })

@@ -37,16 +37,22 @@
                       required
                     ></v-text-field>
                     <v-card-actions class="px-0">
-                      <v-btn
-                        type="submit"
-                        color="primary"
-                        block
-                        depressed
-                        :disabled="!canSubmit"
-                        :loading="loading"
-                      >Sign In
-                        <span slot="loader" class="custom-loader"><v-icon>cached</v-icon></span>
-                      </v-btn>
+                      <v-layout row wrap text-xs-center>
+                        <v-btn
+                          type="submit"
+                          color="primary"
+                          block
+                          depressed
+                          :disabled="!canSubmit"
+                          :loading="loading"
+                        >Sign In
+                          <span slot="loader" class="custom-loader"><v-icon>cached</v-icon></span>
+                        </v-btn>
+                        <v-flex xs12 class="mt-4">
+                          Don't have an account?
+                          <router-link to="/signup" style="text-decoration: none"><v-btn color="primary" flat>Sign Up</v-btn></router-link>
+                        </v-flex>
+                      </v-layout>
                     </v-card-actions>
                   </form>
                 </v-card-text>

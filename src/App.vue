@@ -68,7 +68,7 @@ export default {
   computed: {
     menuItems () {
       let menuItems = [
-        {title: 'Spin', link: '/edit/undefined', icon: 'add_circle'}
+        {title: 'New Scene', link: '/edit/undefined', icon: 'add_circle'}
         // {title: 'Info', link: '/Info', icon: 'info'}
       ]
       if (this.userIsAuthenticated) {
@@ -77,8 +77,8 @@ export default {
         )
       } else {
         menuItems.push(
-          {title: 'Sign Up', link: '/signup', icon: 'add'},
-          {title: 'Sign In', link: '/signin', icon: 'add'}
+          {title: 'Sign Up', link: '/signup', icon: 'person_outline'}
+          // {title: 'Sign In', link: '/signin', icon: 'add'}
         )
       }
       return menuItems

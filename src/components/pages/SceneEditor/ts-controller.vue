@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import TsArrows from '@/components/widgets/ts-arrows'
+import TsArrows from './ts-arrows'
 import {mapMutations} from 'vuex'
 export default {
   data () {

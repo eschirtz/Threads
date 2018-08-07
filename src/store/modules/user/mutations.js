@@ -22,7 +22,7 @@ export default {
     let scene = state.scenes.find((el) => {
       return el.id === payload.id
     })
-    scene = payload
-    console.log(scene)
+    scene.name = payload.name
+    scene.id = payload.id
   }
 }

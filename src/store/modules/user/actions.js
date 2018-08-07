@@ -5,13 +5,8 @@ export default {
    * Firebase Auth to create user,
    * then create new user in fb database with same key
    */
-  signUp ({commit, dispatch, state}, payload) {
+  signUp ({commit, dispatch}, payload) {
     commit('setLoading', true, {root: true})
-    commit('setUser', {
-      userName: payload.userName,
-      email: payload.email,
-      scenes: []
-    }, {root: true})
     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
       .then(
         response => {
@@ -19,10 +14,10 @@ export default {
           const user = {
             id: response.user.uid,
             email: response.user.email,
-            userName: payload.userName
+            userName: payload.userName,
+            scenes: []
           }
-          console.log(response.user.uid)
-          commit('setId', response.user.uid) // set id locally
+          commit('setUser', user, {root: true}) // set user locally
           dispatch('updateUserData', user) // save to fb
         })
       .catch(
@@ -56,10 +51,9 @@ export default {
    * payload should have the fields wanted to update
    * Must have an id
    */
-  updateUserData ({commit, state}, payload) {
-    payload = state
+  updateUserData ({commit, state}) {
     commit('setLoading', true, {root: true})
-    firebase.database().ref('/users/' + payload.id).update(payload)
+    firebase.database().ref('/users/' + state.id).update(state)
       .then((response) => {
         commit('setLoading', false, {root: true})
       })
@@ -78,7 +72,6 @@ export default {
     firebase.database().ref('/users/' + id).once('value')
       .then((response) => {
         commit('setLoading', false, {root: true})
-        console.log(response.val())
         commit('setUser', response.val(), {root: true})
       })
       .catch((error) => {

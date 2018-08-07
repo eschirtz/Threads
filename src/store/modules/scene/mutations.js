@@ -177,10 +177,13 @@ export default {
   setName (state, payload) {
     state.name = payload
   },
-  setCreatorID (state, id) {
-    state.creatorID = id
+  setCreatorId (state, id) {
+    state.creatorId = id
   },
-  setID (state, payload) {
+  setId (state, payload) {
     state.id = payload
+  },
+  setThreadColor (state, payload) {
+    console.log(payload)
   }
 }

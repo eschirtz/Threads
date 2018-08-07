@@ -51,16 +51,22 @@
                       :rules="[comparePasswords]"
                     ></v-text-field>
                     <v-card-actions class="px-0">
-                      <v-btn
-                        type="submit"
-                        color="primary"
-                        block
-                        depressed
-                        :disabled="!canSubmit"
-                        :loading="loading"
-                      >Sign Up
-                        <span slot="loader" class="custom-loader"><v-icon>cached</v-icon></span>
-                      </v-btn>
+                      <v-layout row wrap text-xs-center>
+                          <v-btn
+                            type="submit"
+                            color="primary"
+                            block
+                            depressed
+                            :disabled="!canSubmit"
+                            :loading="loading"
+                          >Sign Up
+                            <span slot="loader" class="custom-loader"><v-icon>cached</v-icon></span>
+                          </v-btn>
+                        <v-flex xs12 class="mt-4">
+                          Already have an account?
+                          <router-link to="/signin" style="text-decoration: none"><v-btn color="primary" flat>Sign In</v-btn></router-link>
+                        </v-flex>
+                      </v-layout>
                     </v-card-actions>
                   </form>
                 </v-card-text>
