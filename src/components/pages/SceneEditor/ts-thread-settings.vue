@@ -36,15 +36,16 @@
 export default {
   computed: {
     threadColor: {
-
       get () {
         const thread = this.$store.getters['scene/activeThread'] || {}
         let color = thread.color
         return color
       },
       set (value) {
-        console.log(this.$store.getters['scene/activeThread'])
-        this.$store.commit('scene/setColor', value)
+        this.$store.commit('scene/setThreadColor', {
+          threadIndex: this.$store.state.scene.activeThread,
+          color: value
+        })
       }
     }
   }

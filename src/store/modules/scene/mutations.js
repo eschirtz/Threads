@@ -184,6 +184,6 @@ export default {
     state.id = payload
   },
   setThreadColor (state, payload) {
-    console.log(payload)
+    state.threads[payload.threadIndex].color = payload.color
   }
 }

@@ -23,7 +23,7 @@ export default {
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
-        console.log(error)
+        console.error(error)
       })
   },
   /**
@@ -44,7 +44,7 @@ export default {
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
-        console.log(error)
+        console.error(error)
       })
   },
   load ({commit, state}, payload) {
@@ -57,7 +57,7 @@ export default {
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
-        console.log(error)
+        console.error(error)
       }
       )
   }
