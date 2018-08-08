@@ -33,7 +33,8 @@ export default {
     return {
       // View data
       sheet: false,
-      frameId: undefined // used to cancel animation
+      frameId: undefined, // used to cancel animation
+      lastTime: undefined // used to calculated dt
     }
   },
   computed: {
@@ -45,9 +46,14 @@ export default {
     }
   },
   methods: {
-    frame () {
+    frame (time) {
+      if (!this.lastTime) { this.lastTime = time }
+      // calculated difference in time from last frame in seconds, or in error default to assuming
+      // animation is running at 60fps
+      let dt = (time - this.lastTime) / 1000 || 1 / 60
+      this.lastTime = time
       Threads.Controller.executeTimerBasedControls()
-      Threads.update()
+      Threads.update(dt)
       Threads.render(this.scene, this.$refs.canvas)
       this.frameId = window.requestAnimationFrame(this.frame)
     },

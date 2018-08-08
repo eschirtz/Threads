@@ -8,7 +8,7 @@ export default {
    * @param {[type]} state   a.k.a. "scene"
    * @return {[type]} [description]
    */
-  update (state) {
+  update (state, dt) {
     // update spindle position to match active thread
     state.spindle.tx = state.threads[state.activeThread].tx
     state.spindle.position = state.threads[state.activeThread].position
@@ -24,8 +24,7 @@ export default {
     camera.target = state.spindle.position
     // Update each thread
     state.threads.forEach(function (thread) {
-      let timeSinceLastCall = 1 / 60 // difference in time since last call TODO
-      let dt = state.paused ? 0 : timeSinceLastCall // pause all motion
+      dt = state.paused ? 0 : dt // pause all motion
       thread.rotation[0] += thread.rotationSpeed[0] * dt
       thread.rotation[1] += thread.rotationSpeed[1] * dt
       thread.rotation[2] += thread.rotationSpeed[2] * dt

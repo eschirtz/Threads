@@ -18,7 +18,6 @@ export {
   Controller
 }
 const m4 = twgl.m4
-// let ctx
 
 /**
  * Render generates transforms,
@@ -77,8 +76,8 @@ function initialize (canvas, scene) {
  * Wrapper to keep everything contained in Threads
  * @return {[type]} [description]
  */
-function update () {
-  store.commit('scene/update')
+function update (dt) {
+  store.commit('scene/update', dt)
 }
 /**
  * configure drawing elements

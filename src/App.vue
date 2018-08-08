@@ -77,7 +77,7 @@ export default {
         )
       } else {
         menuItems.push(
-          {title: 'Sign Up', link: '/signup', icon: 'person_outline'}
+          {title: 'Sign In', link: '/signin', icon: 'person_outline'}
           // {title: 'Sign In', link: '/signin', icon: 'add'}
         )
       }

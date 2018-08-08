@@ -6,7 +6,7 @@
           color="grey darken-3"
           fab
           small
-          @click="add()"
+          @click="undo(5)"
         >
           <v-icon>undo</v-icon>
         </v-btn>
@@ -50,7 +50,20 @@ export default {
   },
   computed: {
     arrowsColor () {
-      let color = 'primary'
+      let color
+      switch (this.controlType) {
+        case 'scene/updateThreadSpeed':
+          color = 'primary'
+          break
+        case 'scene/updateThreadPosition':
+          color = 'accent'
+          break
+        case 'scene/moveCamera':
+          color = 'primary darken-2'
+          break
+        default:
+          color = 'black'
+      }
       return color
     }
   },
