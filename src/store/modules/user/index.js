@@ -1,4 +1,4 @@
-// import getters from './getters'
+import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
@@ -7,12 +7,6 @@ const state = {
   email: undefined,
   userName: undefined,
   scenes: []
-}
-
-const getters = {
-  scenes (state) {
-    return state.scenes
-  }
 }
 
 export default {

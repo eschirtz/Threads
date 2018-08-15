@@ -17,8 +17,8 @@ export default {
             userName: payload.userName,
             scenes: []
           }
-          commit('setUser', user, {root: true}) // set user locally
-          dispatch('updateUserData', user) // save to fb
+          commit('updateUser', user, {root: true}) // set user locally
+          dispatch('saveUser', user) // save to fb
         })
       .catch(
         error => {
@@ -37,7 +37,8 @@ export default {
       .then(
         response => {
           commit('setLoading', false, {root: true})
-          dispatch('fetchUserData', response.key) // retrieve data from fb
+          // auth state has changed, so listener will be fired from main.js,
+          // to fetch user data
         })
       .catch(
         error => {
@@ -51,7 +52,7 @@ export default {
    * payload should have the fields wanted to update
    * Must have an id
    */
-  updateUserData ({commit, state}) {
+  saveUser ({commit, state}) {
     commit('setLoading', true, {root: true})
     firebase.database().ref('/users/' + state.id).update(state)
       .then((response) => {
@@ -67,12 +68,12 @@ export default {
    * completely overwriting the local user state
    * takes one argument, the user id
    */
-  fetchUserData ({commit, state}, id) {
+  fetchUser ({commit, state}, id) {
     commit('setLoading', true, {root: true})
     firebase.database().ref('/users/' + id).once('value')
       .then((response) => {
         commit('setLoading', false, {root: true})
-        commit('setUser', response.val(), {root: true})
+        commit('updateUser', response.val(), {root: true})
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
@@ -84,7 +85,7 @@ export default {
    * user state to an empty object
    */
   logout ({commit, dispatch}) {
-    commit('setUser', {}, {root: true}) // null user info
+    commit('unsetUser', {}, {root: true}) // null user info
     firebase.auth().signOut()
   }
 }

@@ -48,7 +48,7 @@ export default {
   methods: {
     frame (time) {
       if (!this.lastTime) { this.lastTime = time }
-      // calculated difference in time from last frame in seconds, or in error default to assuming
+      // calculated difference in time from last frame in seconds, in error default to assuming
       // animation is running at 60fps
       let dt = (time - this.lastTime) / 1000 || 1 / 60
       this.lastTime = time

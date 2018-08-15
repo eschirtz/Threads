@@ -3,14 +3,7 @@
     <v-container grid-list-md text-xs-center pa-5 >
       <v-layout row wrap justify-center align-center py-5>
         <v-flex xs12 mb-5>
-            <img
-              class="hidden-sm-and-down"
-              height="200px"
-              src="@/assets/images/Horizontal-full-color.svg" alt="Horizontal">
-            <img
-              class="hidden-md-and-up"
-              height="300px"
-              src="@/assets/images/Vertical-full-color.svg" alt="Horizontal">
+              <lottie :options="animationOptions" :height="200" :width="200" style="position: relative"/>
         </v-flex>
         <v-flex xs12 style="color: black">
           <h4 class="display-1"><span>Page not found :(</span></h4>
@@ -32,10 +25,16 @@
 </template>
 
 <script>
+import Lottie from 'vue-lottie'
+import loaderAnimation from '@/assets/animations/loader.json'
 export default {
+  components: {
+    'lottie': Lottie
+  },
   data () {
     return {
-      timer: 5
+      timer: 5,
+      animationOptions: {animationData: loaderAnimation}
     }
   },
   methods: {

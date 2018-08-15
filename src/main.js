@@ -46,10 +46,10 @@ new Vue({
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // Fetch user's data from fb
-        this.$store.dispatch('user/fetchUserData', user.uid)
+        this.$store.dispatch('user/fetchUser', user.uid)
       } else {
         // Set an empty user if not logged in
-        this.$store.commit('setUser', {})
+        this.$store.commit('unsetUser')
       }
     })
   }

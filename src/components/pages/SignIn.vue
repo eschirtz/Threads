@@ -83,15 +83,14 @@ export default {
       'loading',
       'error'
     ]),
-    ...mapGetters([
-      'userIsAuthenticated'
+    ...mapGetters('user', [
+      'isAuthenticated'
     ])
   },
   watch: {
-    userIsAuthenticated (authenticated) {
-      // redirect home when/if user is signed in
+    isAuthenticated (authenticated) {
       if (authenticated) {
-        this.$router.push('/')
+        this.$router.push('/') // redirect home when user is signed in
       }
     }
   },

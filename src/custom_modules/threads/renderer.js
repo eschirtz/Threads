@@ -26,7 +26,7 @@ const m4 = twgl.m4
 function renderThread (Tmvp, thread, context) {
   context.beginPath()
   context.strokeStyle = thread.color
-  let points = thread.points
+  let points = thread.points || {}
   if (points.length > 0) {
     moveToTx(points[0], Tmvp, context)
   }

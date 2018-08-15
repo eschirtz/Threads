@@ -10,7 +10,7 @@
                 src="@/assets/images/Horizontal-full-color.svg" alt="Horizontal">
               <img
                 class="hidden-md-and-up"
-                height="300px"
+                height="250px"
                 src="@/assets/images/Vertical-full-color.svg" alt="Horizontal">
           </v-flex>
           <v-flex xs12 sm6 md4 mx-2>
@@ -23,7 +23,7 @@
               >Quick Start</v-btn>
             </router-link>
           </v-flex>
-          <v-flex xs12 sm6 md4 mx-2>
+          <v-flex xs12 sm6 md4 mx-2 v-if="!isAuthenticated">
             <router-link to="/signup" class="clean-link">
               <v-btn
                 color="accent lighten-2"
@@ -119,11 +119,17 @@
 
 <script>
 import TsKeyboardShortcuts from '@/components/shared/ts-keyboard-shortcuts.vue'
+import {mapGetters} from 'vuex'
 export default {
   data () {
     return {
       dialog: false
     }
+  },
+  computed: {
+    ...mapGetters('user', [
+      'isAuthenticated'
+    ])
   },
   components: {
     TsKeyboardShortcuts

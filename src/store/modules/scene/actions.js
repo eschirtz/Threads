@@ -40,7 +40,7 @@ export default {
     firebase.database().ref('/scenes/' + id).update(state)
       .then((response) => {
         commit('setLoading', false, {root: true})
-        dispatch('user/updateUserData', undefined, {root: true}) // update user in fb
+        dispatch('user/saveUser', undefined, {root: true}) // update user in fb
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
