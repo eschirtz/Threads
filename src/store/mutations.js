@@ -17,7 +17,10 @@ export default {
    * and leaves existing fields as is
    */
   updateUser (state, payload) {
-    Object.assign(state.user, payload)
+    state.user = {
+      ...state.user,
+      ...payload
+    }
   },
   /**
    * Completely overwrite the user state, set
@@ -36,10 +39,6 @@ export default {
    * kill some reactive getters
    */
   unsetUser (state) {
-    Object.assign(state.user, {
-      id: undefined,
-      userName: undefined,
-      email: undefined
-    })
+    state.user = {}
   }
 }
