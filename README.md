@@ -1,6 +1,6 @@
-[<p align="center"><img src="https://s33.postimg.cc/6rpo5rnlr/LOGO_THREADS_Readme_1.jpg"></p>](https://thread-spinner.firebaseapp.com/#/)
+[<p align="center"><img src="https://s33.postimg.cc/6rpo5rnlr/LOGO_THREADS_Readme_1.jpg"></p>](https://threads.eschirtz.com)
 
-## [Visit The App!](https://thread-spinner.firebaseapp.com/#/)
+## [Visit The App!](https://threads.eschirtz.com)
 >Logo courtesy of **@Area55** [GitHub](https://github.com/area55git), [Instagram](www.instagram.com/area55_ib)
 
 ## Overview
