@@ -4,6 +4,7 @@ import * as firebase from 'firebase'
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
+import Lottie from 'vue-lottie'
 import Alert from '@/components/shared/ts-alert.vue'
 // styles
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -22,6 +23,7 @@ Vue.use(Vuetify, {
   }
 })
 Vue.component('ts-alert', Alert)
+Vue.component('lottie', Lottie)
 Vue.config.productionTip = false
 // Bind the document title to page names
 router.beforeEach((to, from, next) => {
@@ -40,13 +42,13 @@ new Vue({
       authDomain: 'thread-spinner.firebaseapp.com',
       databaseURL: 'https://thread-spinner.firebaseio.com',
       projectId: 'thread-spinner',
-      storageBucket: 'thread-spinner.appspot.com'
+      storageBucket: 'gs://thread-spinner.appspot.com'
     })
     // Auto sign in if session still active
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // Fetch user's data from fb
-        this.$store.dispatch('user/fetchUser', user.uid)
+        this.$store.dispatch('user/fetchState', user.uid)
       } else {
         // Set an empty user if not logged in
         this.$store.commit('unsetUser')

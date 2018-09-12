@@ -19,7 +19,7 @@ export default {
           name: state.name
         }, {root: true})
         // Update firebase state
-        dispatch('store')
+        dispatch('saveState')
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
@@ -29,7 +29,7 @@ export default {
   /**
    * Stores current state in firebase database
    */
-  store ({state, commit, rootState, dispatch}) {
+  saveState ({state, commit, rootState, dispatch}) {
     const id = state.id
     commit('setLoading', true, {root: true})
     commit('setCreatorId', rootState.user.id) // attatch the user id to scene
@@ -40,25 +40,49 @@ export default {
     firebase.database().ref('/scenes/' + id).update(state)
       .then((response) => {
         commit('setLoading', false, {root: true})
-        dispatch('user/saveUser', undefined, {root: true}) // update user in fb
+        dispatch('user/saveState', undefined, {root: true}) // update user in fb
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
         console.error(error)
       })
   },
-  load ({commit, state}, payload) {
+  fetchState ({commit, state}, payload) {
+    return new Promise((resolve, reject) => {
+      // overwrite scene state with loaded scene
+      firebase.database().ref('scenes/' + payload.id).once('value')
+        .then((data) => {
+          commit('setScene', data.val(), {root: true})
+          resolve() // resolve the promise
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  /**
+   * Deletes the scene specified by id
+   * @param  {[type]} commit  [description]
+   * @param  {[type]} id [description]
+   * @return {[type]}         [description]
+   */
+  deleteSceneByID ({rootState, commit}, id) {
     commit('setLoading', true, {root: true})
-    // overwrite scene state with loaded scene
-    firebase.database().ref('scenes/' + payload.id).once('value')
-      .then((data) => {
+    firebase.database().ref('/scenes/' + id).remove()
+      .then((response) => {
+        // TODO use fb funcitons to auto remove references
+        return firebase.database().ref('/users/' + rootState.user.id + '/scenes/').orderByChild('id').equalTo(id).once('value')
+      })
+      .then((snapshot) => {
+        snapshot.forEach(function (child) {
+          child.ref.remove()
+          commit('user/deleteSceneByID', id, {root: true})
+        })
         commit('setLoading', false, {root: true})
-        commit('setScene', data.val(), {root: true})
       })
       .catch((error) => {
         commit('setLoading', false, {root: true})
-        console.error(error)
-      }
-      )
+        commit('setError', error, {root: true})
+      })
   }
 }

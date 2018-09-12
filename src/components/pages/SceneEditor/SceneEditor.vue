@@ -21,6 +21,13 @@
       </v-btn>
       <ts-settings-sheet></ts-settings-sheet>
     </v-bottom-sheet>
+    <!-- Loader -->
+    <lottie
+      v-if="loading"
+      :options="loaderAnimationOptions"
+      :height="100" :width="100"
+      style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    />
   </v-container>
 </template>
 
@@ -28,13 +35,16 @@
 import * as Threads from '@/custom_modules/threads/threads.js'
 import BlankScene from '@/custom_modules/threads/default-scene.js'
 import TsSettingsSheet from './ts-settings-sheet'
+import loaderAnimation from '@/assets/animations/general-loader.json'
 export default {
   data () {
     return {
       // View data
       sheet: false,
       frameId: undefined, // used to cancel animation
-      lastTime: undefined // used to calculated dt
+      lastTime: undefined, // used to calculated dt
+      loaderAnimationOptions: {animationData: loaderAnimation},
+      loading: true
     }
   },
   computed: {
@@ -60,23 +70,39 @@ export default {
     setCanvasSize () {
       Threads.setCanvasSize(this.$refs.canvas)
     },
-    loadNewScene (id) {
-      this.$store.commit('setScene', BlankScene()) // draw blank scene everytime
+    initialize () {
+      Threads.initialize(this.$refs.canvas, this.scene)
+      window.addEventListener('resize', this.setCanvasSize)
+      this.frame() // kick off animation
+    },
+    onNewId (id) {
+      this.loading = true
+      // Tear down old scene
+      window.cancelAnimationFrame(this.frameId)
+      Threads.Controller.terminate(this.$refs.canvas)
+      // Build up new
       if (id !== undefined && id !== 'undefined') {
         // if there is a scene, load that
-        this.$store.dispatch('scene/load', { id: id })
+        this.$store.dispatch('scene/fetchState', { id: id })
+          .then(() => {
+            this.initialize()
+            this.loading = false
+          })
+          .catch(error => console.error(error))
+      } else {
+        this.$store.commit('setScene', BlankScene())
+        this.initialize()
+        this.loading = false
       }
     }
   },
   mounted () {
-    this.loadNewScene(this.$route.params.id)
-    Threads.initialize(this.$refs.canvas, this.scene)
-    window.addEventListener('resize', this.setCanvasSize)
-    this.frame() // kick off animation
+    let id = this.$route.params.id
+    this.onNewId(id)
   },
   beforeDestroy () {
-    Threads.Controller.terminate(this.$refs.canvas)
     window.cancelAnimationFrame(this.frameId)
+    Threads.Controller.terminate(this.$refs.canvas)
     window.removeEventListener('resize', this.setCanvasSize)
   },
   watch: {
@@ -90,7 +116,7 @@ export default {
       }
     },
     sceneId: function (id) {
-      this.loadNewScene(id) // if the scene id changes, load the new scene
+      this.onNewId(id) // if the scene id changes, load the new scene
     }
   },
   components: {
@@ -101,7 +127,7 @@ export default {
 
 <style scoped lang="css">
   canvas {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     display: block;

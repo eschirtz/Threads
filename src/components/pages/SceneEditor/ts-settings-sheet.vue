@@ -22,7 +22,8 @@
     </v-tab-item>
     <v-tab ripple>Scene</v-tab>
     <v-tab-item>
-      <ts-scene-settings></ts-scene-settings>
+      <ts-scene-settings
+      ></ts-scene-settings>
     </v-tab-item>
     </v-tabs>
   </v-card>
@@ -44,6 +45,8 @@ export default {
     TsController,
     TsThreadSettings,
     TsSceneSettings
+  },
+  methods: {
   }
 }
 </script>

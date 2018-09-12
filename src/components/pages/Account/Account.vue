@@ -5,19 +5,16 @@
         <v-card>
           <v-container grid-list-xl text-xs-center>
             <v-layout row wrap>
-              <v-flex xs12>
-                <v-avatar
-                  size="200px"
-                  class="elevation-4"
-                >
-                  <img :src="profilePicture" alt="alt">
-                </v-avatar>
-              </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 class="pb-0">
+                <v-card-title primary-title class="pl-0 pt-2">
+                  <span class="headline">User Information</span><v-spacer></v-spacer>
+                  <span class="grey--text" v-if="unsavedData">Saving...</span>
+                  <span class="grey--text" v-else>Data saved</span>
+                </v-card-title>
                 <v-form>
                   <v-text-field
                     label="User Name"
-                    :value="userName"
+                    v-model="userName"
                   ></v-text-field>
                   <v-text-field
                     disabled
@@ -33,10 +30,10 @@
                 </v-form>
               </v-flex>
               <v-flex xs12>
-                <v-btn class="mb-3" :disabled="!unsavedData" block color="accent">Save</v-btn>
                 <v-btn
                   block
-                  color="error"
+                  color="primary"
+                  outline
                   @click="onLogout()">Logout</v-btn>
               </v-flex>
             </v-layout>
@@ -48,31 +45,48 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 export default {
   data () {
     return {
-      unsavedData: false,
-      profilePicture: 'https://static1.squarespace.com/static/562c4295e4b057e30c6abc89/t/5a2c8a52652deadcd278c51c/1512875683024/IMG_20170627_180831_097.jpg?format=750w'
+      timeoutId: undefined,
+      unsavedData: false
     }
   },
   computed: {
-    // User Fields
+    userName: {
+      get () {
+        return this.$store.state.user.userName
+      },
+      set (value) {
+        this.$store.commit('user/setUsername', value)
+        this.unsavedData = true
+        if (this.timeoutId) clearTimeout(this.timeoutId)
+        this.timeoutId = setTimeout(() => {
+          this.saveState()
+          this.unsavedData = false
+        }, 750)
+      }
+    },
     ...mapState('user', [
-      'userName',
       'email'
     ])
   },
   methods: {
     ...mapMutations('user', [
-      'setUsername'
+      'setUsername',
+      'setUnsavedData'
     ]),
-    onLoadScene (id) {
-      this.$router.push('/edit/' + id)
-    },
+    ...mapActions('user', [
+      'saveState'
+    ]),
     onLogout () {
       this.$store.dispatch('user/logout')
       this.$router.push('/') // redirect home
+    },
+    onSave () {
+      this.saveState()
+      this.setUnsavedData(false)
     }
   }
 }

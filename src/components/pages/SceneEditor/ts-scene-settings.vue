@@ -40,12 +40,12 @@ export default {
   methods: {
     ...mapActions('scene', {
       storeNewScene: 'storeNew',
-      storeScene: 'store'
+      saveScene: 'saveState'
     }),
     save () {
       const id = this.$store.state.scene.id
       if (id) {
-        this.storeScene(id) // store/update the scene
+        this.saveScene(id) // store/update the scene
       } else {
         this.storeNewScene() // store a new scene
       }

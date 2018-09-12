@@ -5,6 +5,7 @@ export default function () {
     width: 0,
     height: 0,
     activeThread: 0,
+    imageRequested: false,
     paused: false,
     settings: {
       rotationStepSize: 0.5,

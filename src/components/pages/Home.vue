@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="ma-0 pa-0">
-    <v-jumbotron color="white" height="100%">
+    <v-responsive class="white" height="100%">
       <v-container grid-list-md text-xs-center pa-5 >
         <v-layout row wrap justify-center align-center py-5>
           <v-flex xs12 mb-5>
@@ -35,8 +35,8 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-jumbotron>
-    <v-jumbotron color="primary" height="100%">
+    </v-responsive>
+    <v-responsive class="primary" height="100%">
       <v-container grid-list-md my-5 pa-5>
         <v-layout row wrap>
           <v-flex xs12>
@@ -72,9 +72,9 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-jumbotron>
-    <v-jumbotron height="100%" color="white">
-      <v-container class="light-section pb-5" grid-list-lg>
+    </v-responsive>
+    <v-responsive height="100%" class="white black--text">
+      <v-container class=" pb-5" grid-list-lg>
         <v-layout row mt-5>
           <v-flex xs12 sm8 offset-sm2 class="text-xs-center">
             <h3 class="display-2">Drawing Mechanics</h3>
@@ -113,7 +113,7 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </v-jumbotron>
+    </v-responsive>
   </div>
 </template>
 
@@ -147,13 +147,5 @@ export default {
   }
   .hero-text {
     z-index: 1;
-  }
-  .light-section{
-    color: #303030;
-  }
-  .light-section hr {
-    background-color: #666666;
-    border: none;
-    height: 1px;
   }
 </style>

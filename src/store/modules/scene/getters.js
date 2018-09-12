@@ -5,5 +5,8 @@ export default {
     }
     const activeThreadIndex = state.activeThread
     return state.threads[activeThreadIndex]
+  },
+  imageRequested (state) {
+    return state.imageRequested
   }
 }

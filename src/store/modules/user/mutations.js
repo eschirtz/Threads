@@ -1,16 +1,4 @@
 export default {
-  setUsername (state, userName) {
-    state.userName = userName
-  },
-  setEmail (state, email) {
-    state.email = email
-  },
-  setScenes (state, scenes) {
-    state.scenes = scenes || []
-  },
-  setId (state, id) {
-    state.id = id
-  },
   addScene (state, payload) {
     if (state.scenes) {
       state.scenes.push(payload)
@@ -24,5 +12,16 @@ export default {
     })
     scene.name = payload.name
     scene.id = payload.id
+  },
+  deleteSceneByID (state, id) {
+    const scenes = state.scenes
+    const sceneToDelete = scenes.find((scene) => {
+      return scene.id === id
+    })
+    const i = scenes.indexOf(sceneToDelete)
+    scenes.splice(i, 1)
+  },
+  setUsername (state, payload) {
+    state.userName = payload
   }
 }

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/pages/Home'
 import SceneEditor from '@/components/pages/SceneEditor/SceneEditor'
 import Account from '@/components/pages/Account/Account'
+import Scenes from '@/components/pages/Scenes/Scenes'
 import SignUp from '@/components/pages/SignUp'
 import SignIn from '@/components/pages/SignIn'
 import PageNotFound from '@/components/pages/PageNotFound'
@@ -21,6 +22,12 @@ export default new Router({
       path: '/account',
       name: 'Account - THREADS',
       component: Account,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/scenes',
+      name: 'My Scenes - THREADS',
+      component: Scenes,
       beforeEnter: AuthGuard
     },
     {

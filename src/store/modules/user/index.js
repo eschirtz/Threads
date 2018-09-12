@@ -3,7 +3,7 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-  id: undefined,
+  id: 1234, // temp id to have default state logged in
   email: undefined,
   userName: undefined,
   scenes: []

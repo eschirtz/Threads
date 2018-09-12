@@ -18,7 +18,7 @@ export default {
             scenes: []
           }
           commit('updateUser', user, {root: true}) // set user locally
-          dispatch('saveUser', user) // save to fb
+          dispatch('saveState', user) // save to fb
         })
       .catch(
         error => {
@@ -52,8 +52,12 @@ export default {
    * payload should have the fields wanted to update
    * Must have an id
    */
-  saveUser ({commit, state}) {
+  saveState ({commit, state}) {
     commit('setLoading', true, {root: true})
+    if (state.id === undefined || state.id === null) {
+      console.error('id is required to save to Firebase')
+      return false
+    }
     firebase.database().ref('/users/' + state.id).update(state)
       .then((response) => {
         commit('setLoading', false, {root: true})
@@ -68,7 +72,7 @@ export default {
    * completely overwriting the local user state
    * takes one argument, the user id
    */
-  fetchUser ({commit, state}, id) {
+  fetchState ({commit, state}, id) {
     commit('setLoading', true, {root: true})
     firebase.database().ref('/users/' + id).once('value')
       .then((response) => {

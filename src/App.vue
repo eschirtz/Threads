@@ -62,23 +62,23 @@
 export default {
   data () {
     return {
-      sideNav: false
+      sideNav: false,
+      toolbar: false
     }
   },
   computed: {
     menuItems () {
       let menuItems = [
         {title: 'New Scene', link: '/edit/undefined', icon: 'add_circle'}
-        // {title: 'Info', link: '/Info', icon: 'info'}
       ]
       if (this.userIsAuthenticated) {
         menuItems.push(
-          {title: 'Account', link: '/account', icon: 'person'}
+          {title: 'Scenes', link: '/scenes', icon: 'list'},
+          {title: 'Profile', link: '/account', icon: 'person'}
         )
       } else {
         menuItems.push(
           {title: 'Sign In', link: '/signin', icon: 'person_outline'}
-          // {title: 'Sign In', link: '/signin', icon: 'add'}
         )
       }
       return menuItems
