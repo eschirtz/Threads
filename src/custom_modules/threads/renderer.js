@@ -31,7 +31,7 @@ function renderThread (Tmvp, thread, context) {
     moveToTx(points[0], Tmvp, context)
   }
   for (let i = 1; i < points.length; i++) {
-    if (points[i] !== null && points[i] !== undefined) {
+    if (points[i]) {
       lineToTx(points[i], Tmvp, context)
     } else {
       context.stroke()
@@ -50,6 +50,9 @@ function renderThread (Tmvp, thread, context) {
  */
 function moveToTx (loc, Tx, context) {
   var locTx = m4.transformPoint(Tx, loc)
+  // Round to integer value
+  locTx[0] = Math.round(locTx[0])
+  locTx[1] = Math.round(locTx[1])
   context.moveTo(locTx[0], locTx[1])
 }
 
@@ -64,6 +67,13 @@ function moveToTx (loc, Tx, context) {
  */
 function lineToTx (loc, Tx, context) {
   var locTx = m4.transformPoint(Tx, loc)
+  // Round to integer value
+  locTx[0] = (0.5 + locTx[0]) | 0
+  locTx[0] = ~~(0.5 + locTx[0])
+  locTx[0] = (0.5 + locTx[0]) << 0
+  locTx[1] = (0.5 + locTx[1]) | 0
+  locTx[1] = ~~(0.5 + locTx[1])
+  locTx[1] = (0.5 + locTx[1]) << 0
   context.lineTo(locTx[0], locTx[1])
   if (locTx[2] > 1 || locTx[2] < 0) {
     // console.warn('Clipping occuring')

@@ -9,6 +9,7 @@ import * as Transform from './transforms.js'
 import * as Controller from './controller.js'
 import * as twgl from 'twgl.js/dist/4.x/twgl-full'
 import store from '@/store'
+const canvasDpiScaler = require('canvas-dpi-scaler')
 
 export {
   render,
@@ -88,5 +89,6 @@ function setCanvasSize (canvas) {
   store.commit('scene/setSize', {
     width: window.innerWidth, height: window.innerHeight
   })
+  canvasDpiScaler(canvas, canvas.getContext('2d'))
   render(store.state.scene, canvas) // re-render
 }

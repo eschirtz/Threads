@@ -18,6 +18,7 @@
                 <v-img
                   height="100px"
                   :src="placeholderThumbnails[scene.name.length % 4]"
+                  :lazy-src="placeholderThumbnails[scene.name.length % 4 + 4]"
                 >
                 </v-img>
                 <v-card-actions>
@@ -82,7 +83,11 @@ export default {
         'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-1.png?alt=media&token=52a40fe9-108e-46d3-b74c-2e564c0174b5',
         'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-2.png?alt=media&token=3951ae81-b66f-4613-8200-95a0bc7ec41d',
         'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-3.png?alt=media&token=8b5e65fc-fa12-4b0d-95ac-02a22bee7974',
-        'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-4.png?alt=media&token=14699486-05ee-41a2-9c99-f8c33d8abbb6'
+        'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-4.png?alt=media&token=14699486-05ee-41a2-9c99-f8c33d8abbb6',
+        'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-1-lazy.jpg?alt=media&token=d2037068-d9ff-4e91-8b23-6cfef849b0b1',
+        'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-2-lazy.jpg?alt=media&token=e8c94b43-a7d0-43e1-92c9-a8e0e80efd25',
+        'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-3-lazy.jpg?alt=media&token=9347bc64-915c-40aa-a11c-639c9daeb412',
+        'https://firebasestorage.googleapis.com/v0/b/thread-spinner.appspot.com/o/placeholders%2Fscene-thumbnails%2Fscene-thumb-4-lazy.jpg?alt=media&token=fe1fa711-d1bf-4c60-a5f7-8b3eca77c2d1'
       ]
     }
   },

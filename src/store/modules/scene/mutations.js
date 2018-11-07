@@ -70,7 +70,7 @@ export default {
     payload = payload || {}
     let index = payload.threadIndex || state.activeThread
     let currentThread = state.threads[index]
-    currentThread.points.push(null) // mark with null terminator
+    currentThread.points.push(false) // mark with null terminator
   },
 
   /**
@@ -141,7 +141,7 @@ export default {
       'rotation': [0, 0, 0],
       'rotationSpeed': [0, 0, 0],
       'color': color,
-      'points': [],
+      'points': [false],
       'tx': [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     }
     state.threads.push(newThread)
@@ -166,11 +166,13 @@ export default {
     state.paused = options.paused || !state.paused
   },
   undo (state, options) {
-    options = options || {}
-    let numPoints = options.numberOfPoints || 1
-    let threadIndex = options.threadIndex || state.activeThread
-    for (let i = 0; i < numPoints; i++) {
-      state.threads[threadIndex].points.pop()
+    // options = options || {}
+    // let numPoints = options.numberOfPoints || 1
+    const threadIndex = options.threadIndex || state.activeThread
+    const points = state.threads[threadIndex].points
+    points.pop() // remove the ending terminator
+    while (points[points.length - 1]) {
+      points.pop()
     }
   },
   setName (state, payload) {

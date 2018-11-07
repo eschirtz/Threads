@@ -45,7 +45,7 @@ export default function () {
         rotation: [0, 0, 0],
         rotationSpeed: [0, 0, 0],
         color: 'white',
-        points: [],
+        points: [false], // falsey values are stored in fb, null or undefined are not
         tx: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       }
     ]

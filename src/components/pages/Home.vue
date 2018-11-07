@@ -42,7 +42,7 @@
           <v-flex xs12>
             <h3 class="display-3">Welcome...</h3>
             <p>Threads is an application that gives users a fun way of drawing in 3D.
-              Weild a magic thread into infinite shapes and patterns.
+              Wield a magic thread into infinite shapes and patterns.
               This oddly satisfying drawing toy will keep you mesmerized for ages.
               We can't wait to see what you'll create!</p>
           </v-flex>
