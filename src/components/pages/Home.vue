@@ -13,7 +13,7 @@
                 height="250px"
                 src="@/assets/images/Vertical-full-color.svg" alt="Horizontal">
           </v-flex>
-          <v-flex xs12 sm6 md4 mx-2>
+          <v-flex xs12 sm6 md4 mx-2 v-if="!isAuthenticated">
             <router-link to="/edit/undefined" class="clean-link">
               <v-btn
                 color="primary"

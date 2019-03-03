@@ -50,9 +50,13 @@ function renderThread (Tmvp, thread, context) {
  */
 function moveToTx (loc, Tx, context) {
   var locTx = m4.transformPoint(Tx, loc)
-  // Round to integer value
-  locTx[0] = Math.round(locTx[0])
-  locTx[1] = Math.round(locTx[1])
+  // Round to integer value if you want no anti-aliasing
+  // locTx[0] = (0.5 + locTx[0]) | 0
+  // locTx[0] = ~~(0.5 + locTx[0])
+  // locTx[0] = (0.5 + locTx[0]) << 0
+  // locTx[1] = (0.5 + locTx[1]) | 0
+  // locTx[1] = ~~(0.5 + locTx[1])
+  // locTx[1] = (0.5 + locTx[1]) << 0
   context.moveTo(locTx[0], locTx[1])
 }
 
@@ -67,17 +71,14 @@ function moveToTx (loc, Tx, context) {
  */
 function lineToTx (loc, Tx, context) {
   var locTx = m4.transformPoint(Tx, loc)
-  // Round to integer value
-  locTx[0] = (0.5 + locTx[0]) | 0
-  locTx[0] = ~~(0.5 + locTx[0])
-  locTx[0] = (0.5 + locTx[0]) << 0
-  locTx[1] = (0.5 + locTx[1]) | 0
-  locTx[1] = ~~(0.5 + locTx[1])
-  locTx[1] = (0.5 + locTx[1]) << 0
+  // Round to integer value if you want no anti-aliasing
+  // locTx[0] = (0.5 + locTx[0]) | 0
+  // locTx[0] = ~~(0.5 + locTx[0])
+  // locTx[0] = (0.5 + locTx[0]) << 0
+  // locTx[1] = (0.5 + locTx[1]) | 0
+  // locTx[1] = ~~(0.5 + locTx[1])
+  // locTx[1] = (0.5 + locTx[1]) << 0
   context.lineTo(locTx[0], locTx[1])
-  if (locTx[2] > 1 || locTx[2] < 0) {
-    // console.warn('Clipping occuring')
-  } // TODO z-buffer
 }
 
 /**

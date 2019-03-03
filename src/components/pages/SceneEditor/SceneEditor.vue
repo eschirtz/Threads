@@ -44,13 +44,11 @@ export default {
       frameId: undefined, // used to cancel animation
       lastTime: undefined, // used to calculated dt
       loaderAnimationOptions: {animationData: loaderAnimation},
-      loading: true
+      loading: true,
+      scene: undefined
     }
   },
   computed: {
-    scene () {
-      return this.$store.state.scene
-    },
     sceneId () {
       return this.$route.params.id
     }
@@ -58,12 +56,11 @@ export default {
   methods: {
     frame (time) {
       if (!this.lastTime) { this.lastTime = time }
-      // calculated difference in time from last frame in seconds, in error default to assuming
-      // animation is running at 60fps
-      let dt = (time - this.lastTim) / 1000 || 1 / 60
+      // Time delta from last frame in seconds
+      let dt = (time - this.lastTime) / 1000 || 1 / 60 // in error, assume 60fps
       this.lastTime = time
       Threads.Controller.executeTimerBasedControls()
-      Threads.update(dt)
+      Threads.update(this.scene, dt)
       Threads.render(this.scene, this.$refs.canvas)
       this.frameId = window.requestAnimationFrame(this.frame)
     },
@@ -71,6 +68,7 @@ export default {
       Threads.setCanvasSize(this.$refs.canvas)
     },
     initialize () {
+      this.scene = this.$store.state.scene // pull scene in
       Threads.initialize(this.$refs.canvas, this.scene)
       window.addEventListener('resize', this.setCanvasSize)
       this.frame() // kick off animation

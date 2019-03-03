@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app dark ref="app">
     <v-content>
       <v-navigation-drawer
         v-model="sideNav"
@@ -22,12 +22,13 @@
         </v-list>
       </v-navigation-drawer>
       <v-toolbar
+        v-show="toolbar"
         app
         fixed
         :scroll-threshold='100'
         scroll-off-screen
         flat
-        color='primary'
+        color="primary"
       >
         <v-toolbar-side-icon
           @click.native.stop="sideNav = !sideNav"
@@ -59,11 +60,13 @@
 </template>
 
 <script>
+import FullScreen from './custom_modules/fullscreen.js'
 export default {
   data () {
     return {
       sideNav: false,
-      toolbar: false
+      toolbar: true,
+      fullscreen: false
     }
   },
   computed: {
@@ -85,6 +88,12 @@ export default {
     },
     userIsAuthenticated () {
       return this.$store.getters.userIsAuthenticated
+    }
+  },
+  watch: {
+    fullscreen: function (fullscreen) {
+      this.toolbar = !fullscreen
+      FullScreen.toggleFullScreen(fullscreen, this.$refs.app.$el)
     }
   },
   name: 'App'

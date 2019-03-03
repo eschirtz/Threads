@@ -77,8 +77,35 @@ function initialize (canvas, scene) {
  * Wrapper to keep everything contained in Threads
  * @return {[type]} [description]
  */
-function update (dt) {
-  store.commit('scene/update', dt)
+function update (scene, dt) {
+  // update spindle position to match active thread
+  scene.spindle.tx = scene.threads[scene.activeThread].tx
+  scene.spindle.position = scene.threads[scene.activeThread].position
+  // Update camera
+  let camera = scene.camera
+  let orbitalCamera = scene.settings.orbitalCamera
+  // spherical to cartesian conversion
+  if (orbitalCamera) {
+    camera.position[0] = camera.radius * Math.sin(camera.phi) * Math.cos(camera.theta)
+    camera.position[2] = camera.radius * Math.sin(camera.phi) * Math.sin(camera.theta)
+    camera.position[1] = camera.radius * Math.cos(camera.phi)
+  }
+  camera.target = scene.spindle.position
+  // Update each thread
+  scene.threads.forEach(function (thread) {
+    dt = scene.paused ? 0 : dt // pause all motion
+    thread.rotation[0] += thread.rotationSpeed[0] * dt
+    thread.rotation[1] += thread.rotationSpeed[1] * dt
+    thread.rotation[2] += thread.rotationSpeed[2] * dt
+    // update each model transform
+    let Trotation = Transform.combine([
+      m4.rotationX(thread.rotation[0]),
+      m4.rotationY(thread.rotation[1]),
+      m4.rotationZ(thread.rotation[2])
+    ])
+    let Tposition = m4.translation(thread.position)
+    thread.tx = Transform.combine([Tposition, Trotation])
+  })
 }
 /**
  * configure drawing elements
